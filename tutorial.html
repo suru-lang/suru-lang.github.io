@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutorial — する (suru)</title>
+<meta name="description" content="Learn the する (suru) programming language step by step: particles, lists, functions, pattern matching, actions, types and native binaries.">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/tutorial.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/tutorial.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/tutorial.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="brand-mark">為</span>する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html" aria-current="page">Tutorial</a>
+      <a href="./#install">Install</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span><a href="ja/tutorial.html" hreflang="ja" lang="ja">日本語</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#values">Values and names</a></li>
+    <li><a href="#functions">Functions and particles</a></li>
+    <li><a href="#lists">Lists</a></li>
+    <li><a href="#pipelines">Pipelines</a></li>
+    <li><a href="#higher">Functions as values</a></li>
+    <li><a href="#conditions">Conditions</a></li>
+    <li><a href="#cases">Recursion and cases</a></li>
+    <li><a href="#data">Your own data types</a></li>
+    <li><a href="#actions">Actions and procedures</a></li>
+    <li><a href="#punctuation">Writing without spaces</a></li>
+    <li><a href="#types">Types</a></li>
+    <li><a href="#modules">Modules and the library</a></li>
+    <li><a href="#binaries">Native binaries</a></li>
+    <li><a href="#next">Where to go next</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">Tutorial</span>
+  <h1>Learn <span class="glow">する</span> in one sitting</h1>
+  <p class="lead">This tour takes you from “hello” to a compiled program. You don’t need to speak Japanese: each step explains the few words it uses. Every example on this page was run with する, and the output shown is what it printed.</p>
+
+  <h2 id="setup"><span class="n">01</span>Setup</h2>
+  <p>Install the interpreter from the repository (a package on PyPI is coming soon). It needs Python 3.10 or newer and nothing else.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>pip install git+https://github.com/suru-lang/suru
+<span class="p">$ </span>suru --version</pre>
+<pre class="out">する 0.1.0</pre></div>
+  <p>Save this line as <code>hello.suru</code> and run it with <code>suru hello.suru</code>.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>hello.suru</span></div>
+<pre class="suru">「こんにちは、世界」 を 表示する</pre>
+<pre class="out">こんにちは、世界</pre></div>
+  <p>Read it right to left like an English sentence: <em>display</em> (<code>表示する</code>) the string “Hello, world” (<code>「こんにちは、世界」</code>). Strings go in Japanese quotation marks <code>「」</code>, and <code>を</code> marks the object of the verb. Lines that start with <code>#</code> are comments.</p>
+  <div class="note"><b>Tip:</b> run <code>suru</code> with no file to open the interactive shell. Type an expression and it answers with the value and its type, such as <code>9 は 数</code> (“9 is a number”).</div>
+
+  <h2 id="values"><span class="n">02</span>Values and names</h2>
+  <p><code>とは</code> means “is defined as.” A name made of kanji, katakana or Latin letters can hold any value. A line that is just an expression prints its value.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>values.suru</span></div>
+<pre class="suru">税率 とは 0.1           # tax rate
+値段 とは 1200          # price
+値段 * （1 + 税率）
+「する」 + 「言語」</pre>
+<pre class="out">1320
+する言語</pre></div>
+  <p>Arithmetic uses the usual <code>+ - * / % ^</code> (full-width <code>＋ × ÷</code> work too), and <code>+</code> joins strings. Parentheses may be ASCII or full-width.</p>
+
+  <h2 id="functions"><span class="n">03</span>Functions and particles</h2>
+  <p>A function name is a verb that ends in <code>する</code> (“to do”). You define it by writing an example call with parameter names, then <code>とは</code> and the body.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>square.suru</span></div>
+<pre class="suru">x を 二乗する とは x * x      # “to square x is x * x”
+5 を 二乗する</pre>
+<pre class="out">25</pre></div>
+  <p>Each parameter is tagged with a <strong>particle</strong>. When you call the function, the particles match the arguments to the parameters, so the order doesn’t matter:</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>divide.suru</span></div>
+<pre class="suru">a を b で 割る数にする とは a / b
+10 を 2 で 割る数にする
+2 で 10 を 割る数にする</pre>
+<pre class="out">5
+5</pre></div>
+  <div class="table-scroll"><table>
+    <tr><th>Particle</th><th>Rough meaning</th><th>Example</th></tr>
+    <tr><td>を</td><td>the main object</td><td><code>x を 二乗する</code></td></tr>
+    <tr><td>に</td><td>to, onto</td><td><code>3 を 5 に 加算する</code></td></tr>
+    <tr><td>で</td><td>by, with</td><td><code>10 を 2 で 除算する</code></td></tr>
+    <tr><td>から</td><td>from</td><td><code>10 から 3 を 減算する</code></td></tr>
+    <tr><td>へ</td><td>toward</td><td><code>s を 「a」 から 「b」 へ 置換する</code></td></tr>
+    <tr><td>より</td><td>than</td><td>(free for your own functions)</td></tr>
+  </table></div>
+  <p>A function can use each particle only once. Calling it with a missing argument, or with a particle it doesn’t take, is an error that is reported before the program runs.</p>
+
+  <h2 id="lists"><span class="n">04</span>Lists</h2>
+  <p><code>と</code> means “and,” and it builds a list. <code>の</code> (“of”) reads a property of a list: <code>先頭</code> (head), <code>残り</code> (rest), <code>最後</code> (last) and <code>長さ</code> (length).</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>lists.suru</span></div>
+<pre class="suru">数列 とは 1 と 2 と 3 と 4
+数列 の 先頭
+数列 の 長さ
+数列 を 加算する
+5 を 数列 に 追加する</pre>
+<pre class="out">1
+4
+10
+（1 と 2 と 3 と 4 と 5）</pre></div>
+  <p>The built-in <code>加算する</code> (“add”) sums a whole list. <code>追加する</code> (“append”) returns a new list, because every value in する is immutable. The empty list is <code>空</code>.</p>
+
+  <h2 id="pipelines"><span class="n">05</span>Pipelines</h2>
+  <p>Change the ending <code>する</code> to <code>して</code> (“and then”) and the result flows into the <code>を</code> of the next verb. Long chains read like a sentence.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>pipeline.suru</span></div>
+<pre class="suru">x を 二乗する とは x * x
+3 を 二乗して 1 に 加算する      # square 3, then add 1
+1 と 2 を 加算して 二乗する      # add 1 and 2, then square</pre>
+<pre class="out">10
+9</pre></div>
+
+  <h2 id="higher"><span class="n">06</span>Functions as values</h2>
+  <p>Ending a verb in <code>すること</code> (“the act of doing”) turns it into a value you can pass around. If you give it some arguments first, it is partially applied. An anonymous function is written <code>x を 受け取って … を 返すこと</code> (“take x and return …”).</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>higher.suru</span></div>
+<pre class="suru">x を 三倍する とは x * 3
+数列 とは 1 と 2 と 3 と 4
+数列 の それぞれ を 三倍する
+数列 から （x を 受け取って x > 2 を 返すこと） で 選別する
+数列 を 0 から 加算すること で 畳み込みする
+数列 を （10 を 加算すること） で 写像する</pre>
+<pre class="out">（3 と 6 と 9 と 12）
+（3 と 4）
+10
+（11 と 12 と 13 と 14）</pre></div>
+  <p><code>それぞれ</code> means “each”: <code>数列 の それぞれ を 三倍する</code> triples each element (map). <code>選別する</code> is filter, <code>畳み込みする</code> is fold, and <code>写像する</code> is map with a function value.</p>
+
+  <h2 id="conditions"><span class="n">07</span>Conditions</h2>
+  <p><code>もし … ならば … そうでなければ …</code> is “if … then … otherwise ….” It is an expression, so both branches are required. <code>が</code> compares for equality.</p>
+  <p>A name ending in <code>である</code> (“is …”) defines a <strong>predicate</strong>, a function that returns true (<code>真</code>) or false (<code>偽</code>). Its subject takes <code>が</code>, you negate it with <code>でない</code> (“is not”), and <code>であること</code> makes it a value.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>even.suru</span></div>
+<pre class="suru">n が 偶数である とは n % 2 が 0
+n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」
+7 を 判定する
+4 が 偶数である
+3 が 偶数でない
+（1 と 2 と 3 と 4） から 偶数であること で 選別する</pre>
+<pre class="out">奇数
+真
+真
+（2 と 4）</pre></div>
+  <p>Combine conditions with <code>かつ</code> (and) and <code>または</code> (or).</p>
+
+  <h2 id="cases"><span class="n">08</span>Recursion and definitions by cases</h2>
+  <p>Write a value or a pattern in place of a parameter name to define a function case by case. The first case that matches is used.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>factorial.suru</span></div>
+<pre class="suru">0 を 階乗する とは 1
+n を 階乗する とは n * （n - 1 を 階乗する）
+10 を 階乗する</pre>
+<pre class="out">3628800</pre></div>
+  <p>Wrap a call in parentheses when you use its result inside arithmetic, as in <code>n * （n - 1 を 階乗する）</code>. Lists split into head and rest with <code>先頭 は x で 残り は 他</code> (“the head is x and the rest is 他”), and <code>空</code> matches the empty list.</p>
+
+  <h2 id="data"><span class="n">09</span>Your own data types</h2>
+  <p><code>か</code> (“or”) lists the shapes a type can take. <code>もし 値 が</code> followed by indented cases is pattern matching. Indentation decides the structure, as in Python.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>shapes.suru</span></div>
+<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形
+
+形 を 面積にする とは
+  もし 形 が
+    半径 の 円 ならば 3 * 半径 ^ 2
+    幅 と 高 の 長方形 ならば 幅 * 高
+
+5 の 円 を 面積にする
+幅 は 2 で 高 は 3 の 長方形 を 面積にする</pre>
+<pre class="out">75
+6</pre></div>
+  <p>Here a 図形 (shape) is either a 円 (circle) with a 半径 (radius) or a 長方形 (rectangle) with a 幅 (width) and 高 (height). Build values in order (<code>5 の 円</code>) or by field name (<code>幅 は 2 で 高 は 3 の 長方形</code>). If you leave a shape out of the match, the program is rejected before it runs. Records are written <code>点 とは 横 と 縦 の 組</code>, and type classes are called 性質 (“traits”).</p>
+
+  <h2 id="actions"><span class="n">10</span>Actions and procedures</h2>
+  <p>Side effects such as <code>表示する</code> (display) and <code>入力する</code> (read a line) don’t happen when they are evaluated. They produce an <strong>action</strong> (<code>動作</code>), and actions at the top level are performed. To run several in order, put them in a <code>手順</code> (“procedure”) block. <code>… した 結果</code> (“the result of having done …”) gives a name to an action’s result.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>greet.suru</span></div>
+<pre class="suru">挨拶する とは 手順
+  名前 とは 「お名前は? 」 を 入力した 結果
+  「こんにちは、」 + 名前 + 「さん」 を 表示する
+
+挨拶する</pre>
+<pre class="out">お名前は? 太郎
+こんにちは、太郎さん</pre></div>
+  <p><code>してから</code> (“after doing”) passes an action’s result on to the next verb, as in <code>入力してから 表示する</code>. This keeps pure code and effects apart, the same idea as monads in Haskell.</p>
+
+  <h2 id="punctuation"><span class="n">11</span>Writing without spaces</h2>
+  <p>Real Japanese has no spaces between words. Once a line contains <code>。</code> or <code>、</code>, する splits words where the script changes (kanji, kana, numbers). <code>。</code> ends a sentence and <code>、</code> is just a pause for readability. You can also use the polite form: <code>します</code> means the same as <code>する</code>.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>punct.suru</span></div>
+<pre class="suru">aとbを平均するとは、合計/2。ただし、合計とは、a+b。
+3と5を平均します。
+「できました」を表示します。</pre>
+<pre class="out">4
+できました</pre></div>
+  <p><code>ただし</code> (“provided that”) adds a local definition to the definition just before it. Because hiragana is used for particles, a name that contains hiragana goes in <code>『』</code> brackets, for example <code>『おやつの数』</code>.</p>
+
+  <h2 id="types"><span class="n">12</span>Types</h2>
+  <p>Before running anything, する infers the type of every expression and stops if something doesn’t fit. Errors are in Japanese, with a line, a column and a marker.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>oops.suru</span></div>
+<pre class="suru">x を 二乗する とは x * x
+「三」 を 二乗する</pre>
+<pre class="out err">エラー: 2行目 7文字目: 「二乗する」の「を」には数が必要ですが、文字列が渡されています
+  「三」 を 二乗する
+            ^</pre></div>
+  <p>The message says: “line 2, column 7: the を of 二乗する needs a number, but a string was given.” Types are optional to write, but you can declare one with <code>は</code>:</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>declared.suru</span></div>
+<pre class="suru">数 を 二乗する は 数      # takes a number (数), returns a number
+x を 二乗する とは x * x
+4 を 二乗する</pre>
+<pre class="out">16</pre></div>
+  <p>Type names include <code>数</code> (number), <code>文字列</code> (string), <code>真偽</code> (boolean), <code>数 の リスト</code> (list of numbers) and <code>文字列 の 動作</code> (an action that yields a string). Run <code>suru --検査 file.suru</code> to check without running.</p>
+
+  <h2 id="modules"><span class="n">13</span>Modules and the standard library</h2>
+  <p><code>「数学」 を 読み込む</code> (“load 数学”) loads <code>数学.suru</code> from the same folder, and its names are used as <code>数学内の二乗する</code> (“二乗する in 数学”). Write <code>「数学」 を 読み込んで 使う</code> (“load and use”) instead to use the names without a prefix. The standard library loads the same way:</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>stdlib.suru</span></div>
+<pre class="suru">「標準」 を 読み込んで 使う
+3 と 1 と 2 を 整列する
+「a,b,c」 を 「,」 で 分割する
+1 から 5 を 範囲にする</pre>
+<pre class="out">（1 と 2 と 3）
+（「a」 と 「b」 と 「c」）
+（1 と 2 と 3 と 4 と 5）</pre></div>
+  <p>Other modules include <code>ファイル</code> (files), <code>時間</code> (time and calendar), <code>JSON</code>, <code>HTTP</code>, <code>スレッド</code> (threads and channels) and <code>プロセス</code> (processes). A module can end with <code>X と Y は 非公開とする。</code> to keep names private.</p>
+
+  <h2 id="binaries"><span class="n">14</span>Native binaries</h2>
+  <p>The same programs compile to a single native executable through LLVM. You need clang on your machine. <code>suru --翻訳</code> uses the reference compiler; <code>suruc</code>, written in Go, does the same job much faster.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>go install github.com/suru-lang/suru/cmd/suruc@latest
+<span class="p">$ </span>suruc factorial.suru
+<span class="p">$ </span>./factorial</pre>
+<pre class="out">3628800</pre></div>
+  <p>For a whole project, use <code>kumu</code> (組む, “to assemble”). Its project file <code>組.suru</code> is itself a する program.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>go install github.com/suru-lang/suru/cmd/kumu@latest
+<span class="p">$ </span>kumu 新規 挨拶      # new project “挨拶” (kumu new also works)
+<span class="p">$ </span>cd 挨拶
+<span class="p">$ </span>kumu 実行           # build and run (kumu run)</pre>
+<pre class="out">「挨拶」0.1.0 を組みました(出力/挨拶)
+こんにちは</pre></div>
+
+  <h2 id="next"><span class="n">15</span>Where to go next</h2>
+  <p>You have seen the core of the language. The repository has much more: threads and channels, the HTTP server, calling C and Go, JSON, the Japanese calendar, and the full list of design decisions.</p>
+  <div class="next">
+    <a href="https://github.com/suru-lang/suru">Repository and full reference<span>README with every rule of the grammar</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/examples">Example programs<span>HTTP server, threads, FFI, JSON and more</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/lib">Standard library source<span>Written in する itself</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/editors/vscode">VS Code extension<span>Highlighting, live errors and hover types</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/tutorial.html" lang="ja">日本語</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
