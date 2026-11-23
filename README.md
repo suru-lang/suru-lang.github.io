@@ -8,7 +8,8 @@ Plain HTML and CSS, no build step. GitHub Pages serves the `main` branch as it i
 |---|---|
 | `index.html` | Landing page (English, the source of truth) |
 | `tutorial.html` | Tutorial (English) |
-| `ja/index.html`, `ja/tutorial.html` | Japanese translations |
+| `examples.html` | Example programs (English) |
+| `ja/index.html`, `ja/tutorial.html`, `ja/examples.html` | Japanese translations |
 | `assets/style.css` | Styles for every page |
 | `assets/site.js` | Syntax highlighting for `<pre class="suru">` and the tutorial’s table of contents |
 
@@ -27,6 +28,8 @@ Every `<pre class="suru">` block followed by `<pre class="out">` should be the r
 ```sh
 python3 tools/check_examples.py --suru ../suru/suru.py
 ```
+
+A block written as `<pre class="suru" data-check="no">` is skipped, for programs that need a library or a server that the check cannot provide (the chat example needs suru-lang/http and Ollama). Check those by hand.
 
 ## 日本語
 

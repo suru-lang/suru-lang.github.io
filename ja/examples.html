@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>例 — する</title>
+<meta name="description" content="プログラミング言語「する」で書いた実際のプログラム。ローカル LLM と、答えを流しながらチャットする約50行。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/examples.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/examples.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/examples.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="brand-mark">為</span>する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="examples.html" aria-current="page">例</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../examples.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>ローカル LLM とチャット</p>
+  <ol>
+    <li><a href="#llm-setup">準備</a></li>
+    <li><a href="#llm-code">プログラム</a></li>
+    <li><a href="#llm-run">動かす</a></li>
+    <li><a href="#llm-how">しくみ</a></li>
+    <li><a href="#llm-more">もっと先へ</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">例</span>
+  <h1><span class="glow">ローカル LLM</span> とチャットする</h1>
+  <p class="lead">自分のマシンで <a href="https://ollama.com">Ollama</a> が動かしているモデルと、端末でチャットします。会話の履歴を覚えていて、モデルが書いたそばから答えを表示します。プログラムは する で約50行で、インタプリタでもネイティブのバイナリでも同じに動きます。</p>
+
+  <h2 id="llm-setup"><span class="n">01</span>準備</h2>
+  <p>Ollama を入れてモデルを取ってきます。それから <code>kumu</code> のプロジェクトを作り、標準ライブラリの外にある HTTP のライブラリ <a href="https://github.com/suru-lang/http">suru-lang/http</a> を足します。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>ollama pull llama3.2
+<span class="p">$ </span>go install github.com/suru-lang/suru/cmd/kumu@latest
+<span class="p">$ </span>kumu 新規 チャット
+<span class="p">$ </span>cd チャット
+<span class="p">$ </span>kumu 追加 github.com/suru-lang/http</pre>
+<pre class="out">「チャット」を作りました(cd チャット してから kumu 実行)
+依存に「github.com/suru-lang/http@0.1.0」を足しました
+「github.com/suru-lang/http@0.1.0」を取ってきました</pre></div>
+
+  <h2 id="llm-code"><span class="n">02</span>プログラム</h2>
+  <p><code>本体.suru</code> を次のように書きかえます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>本体.suru</span></div>
+<pre class="suru" data-check="no"># ローカル LLM(Ollama)とチャットする。答えは届いたところから表示する
+「標準」 を 読み込んで 使う
+「JSON」 を 読み込んで 使う
+「HTTP/クライアント」 を 読み込む
+
+発言 とは 役 と 内容 の 組
+
+# Ollama に送る JSON: {"model":…, "messages":[{"role":…, "content":…}, …]}
+発言 を 発言JSONにする は JSON
+m を 発言JSONにする とは （（「role」 と （m の 役 の JSON文字列） の JSON項目） と （「content」 と （m の 内容 の JSON文字列） の JSON項目）） の JSON物
+
+発言 の リスト を 要求本文にする は 文字列
+履歴 を 要求本文にする とは
+  （（「model」 と （「llama3.2」 の JSON文字列） の JSON項目） と （「messages」 と （（履歴 の それぞれ を 発言JSONにする） の JSON配列） の JSON項目）） の JSON物 を JSON文字列にする
+
+# 届く1行は {"message":{"content":"…"}, …}。中の文字列が答えの断片
+JSON を 文字値取得する は 文字列
+（s の JSON文字列） を 文字値取得する とは s
+v を 文字値取得する とは 「」
+
+（JSON と 文字列） の 成否 を 断片にする は 文字列
+（v の 成功） を 断片にする とは （（v から 「message」 を JSON取得する） から 「content」 を JSON取得する） を 文字値取得する
+（e の 失敗） を 断片にする とは 「」
+
+# 1行届くたびに、断片を改行なしで表示して、それまでの答えに足す
+文字列 を 文字列 に 断片表示する は 文字列 の 動作
+答え を 行 に 断片表示する とは 手順
+  断片 とは 行 を JSON解析して 断片にする
+  断片 を 続表示する
+  答え + 断片 を 結果にする
+
+文字列 の 有無 を 入力文にする は 文字列
+（s の 有） を 入力文にする とは s
+無 を 入力文にする とは 「」
+
+発言 の リスト を 会話する は 数 の 動作
+履歴 を 会話する とは 手順
+  質問 とは 「あなた&gt; 」 を 入力確認した 結果 を 入力文にする
+  もし 質問 が 「」 ならば 改行 を 続表示する
+  そうでなければ 履歴 + （（役 は 「user」 で 内容 は 質問 の 発言） を 空 に 挿入する） を 回答する
+
+発言 の リスト を 回答する は 数 の 動作
+履歴 を 回答する とは 手順
+  「AI&gt; 」 を 続表示する
+  答え とは 「http://localhost:11434/api/chat」 に （履歴 を 要求本文にする） を 「」 から 断片表示すること で クライアント内の逐次投稿した 結果
+  「」 を 表示する
+  履歴 + （（役 は 「assistant」 で 内容 は 答え の 発言） を 空 に 挿入する） を 会話する
+
+空 を 会話する</pre></div>
+
+  <h2 id="llm-run"><span class="n">03</span>動かす</h2>
+  <p><code>kumu 実行</code> で、プロジェクトをネイティブのバイナリにして動かします。<code>あなた&gt;</code> の後に質問を打ちます。何も打たずに Enter を押すか、Ctrl+D で終わります。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 実行</pre>
+<pre class="out">「チャット」0.1.0 を組みました(出力/チャット)
+あなた&gt; 3つの言葉で挨拶して
+AI&gt; Hello! Bonjour! こんにちは!
+あなた&gt; 日本語はどれ?
+AI&gt; 「こんにちは」が日本語です。
+あなた&gt; </pre></div>
+  <div class="note"><b>メモ:</b> 上のモデルの答えは見本で、実際の答えは変わります。<code>続表示する</code> と <code>入力確認する</code> を使うので、0.1.0 より新しい する が要ります。</div>
+
+  <h2 id="llm-how"><span class="n">04</span>しくみ</h2>
+  <h3>発言を組にする</h3>
+  <p><code>発言 とは 役 と 内容 の 組</code> で、役 と 内容 の2つを持つ型 発言 を作ります。<code>役 は 「user」 で 内容 は 質問 の 発言</code> で1つ作れて、履歴はそのリストです。</p>
+  <h3>JSON を組み立てる</h3>
+  <p>標準の JSON ライブラリの <code>JSON文字列</code>・<code>JSON項目</code>・<code>JSON物</code>・<code>JSON配列</code> で、値を JSON にします。<code>それぞれ</code> で、履歴の全部に 発言JSONにする をかけます。</p>
+  <h3>場合ごとの定義</h3>
+  <p><code>文字値取得する</code> は、JSON の文字列のときと、それ以外のときの2つに分けて定義しています。読めない行も同じ書き方で扱います。<code>JSON解析する</code> は 成否 を返すので、<code>断片にする</code> を成功と失敗に分けて書きます。<code>入力確認する</code> は1行読んで 有無 を返すので、入力の終わりを例外なしで扱えます。</p>
+  <h3>関数を渡して、流れてくる答えを受け取る</h3>
+  <p><code>URL に 本文 を 初期 から 処理 で 逐次投稿する</code> は、本文を POST して、返ってくる行が届くたびに 処理 を呼びます。<code>断片表示すること</code> と書くと、自分の関数そのものを値として渡せます。空の答え <code>「」</code> から始めて、断片を <code>続表示する</code>(改行なしで表示)で出し、最後の答えが <code>答え</code> の値になります。</p>
+  <h3>手順の中の動作</h3>
+  <p>表示・入力・要求の送信は 動作 です。<code>手順</code> の中で順に動かし、<code>…した 結果</code> で動作が作った値を受け取ります。会話する と 回答する が互いを呼ぶので、繰り返しの文がなくても会話が続きます。</p>
+
+  <h2 id="llm-more"><span class="n">05</span>もっと先へ</h2>
+  <p>HTTP ライブラリにある長い版は、モデルと URL を引数で受け取り、llama.cpp の <code>llama-server</code> や LM Studio などの OpenAI 互換のサーバーとも話せて、要求に失敗しても会話を続けます。</p>
+  <div class="next">
+    <a href="https://github.com/suru-lang/http/blob/main/%E4%BE%8B/%E3%83%81%E3%83%A3%E3%83%83%E3%83%88.suru">チャットの例の全体<span>Ollama と OpenAI 互換のサーバー</span></a>
+    <a href="https://github.com/suru-lang/http">HTTP のライブラリ<span>クライアント・サーバー・静的ファイル</span></a>
+    <a href="tutorial.html">入門<span>言語をひと通り</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/examples">ほかの例のプログラム<span>スレッド、外部の関数、JSON など</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="tutorial.html">入門</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../examples.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
