@@ -11,6 +11,8 @@ Plain HTML and CSS, no build step. GitHub Pages serves the `main` branch as it i
 | `examples.html` | Example programs (English) |
 | `ja/index.html`, `ja/tutorial.html`, `ja/examples.html` | Japanese translations |
 | `assets/style.css` | Styles for every page |
+| `assets/icon.svg`, `assets/apple-touch-icon.png` | Favicon and home-screen icon: the mascot するぞう (Suruzou) |
+| `assets/suruzou.svg` | The mascot in the header |
 | `assets/site.js` | Syntax highlighting for `<pre class="suru">` and the tutorial’s table of contents |
 
 English pages are the source of truth. When you change one, change its Japanese page in `ja/` the same way. The language switch in the top right links each page to its counterpart.
