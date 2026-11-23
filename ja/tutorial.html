@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門 — する</title>
+<meta name="description" content="プログラミング言語「する」の入門。助詞、リスト、関数、パターンマッチ、動作、型、ネイティブのバイナリまでを順に学びます。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/tutorial.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/tutorial.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/tutorial.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="brand-mark">為</span>する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html" aria-current="page">入門</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../tutorial.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>目次</p>
+  <ol>
+    <li><a href="#setup">準備</a></li>
+    <li><a href="#values">値と名前</a></li>
+    <li><a href="#functions">関数と助詞</a></li>
+    <li><a href="#lists">リスト</a></li>
+    <li><a href="#pipelines">「して」でつなぐ</a></li>
+    <li><a href="#higher">関数を値として使う</a></li>
+    <li><a href="#conditions">条件と述語</a></li>
+    <li><a href="#cases">再帰と場合ごとの定義</a></li>
+    <li><a href="#data">自分の型</a></li>
+    <li><a href="#actions">動作と手順</a></li>
+    <li><a href="#punctuation">句読点の書き方</a></li>
+    <li><a href="#types">型</a></li>
+    <li><a href="#modules">読み込みと標準ライブラリ</a></li>
+    <li><a href="#binaries">ネイティブのバイナリ</a></li>
+    <li><a href="#next">次に読むもの</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">入門</span>
+  <h1><span class="glow">する</span> を、ひと息で</h1>
+  <p class="lead">「こんにちは」から、コンパイルしたプログラムまでを順にたどります。このページの例はどれも する で実際に動かしたもので、出力はそのとき表示されたとおりです。</p>
+
+  <h2 id="setup"><span class="n">01</span>準備</h2>
+  <p>リポジトリからインタプリタを入れます(PyPI のパッケージは準備中です)。Python 3.10 以降があれば、ほかには何も要りません。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>pip install git+https://github.com/suru-lang/suru
+<span class="p">$ </span>suru --version</pre>
+<pre class="out">する 0.1.0</pre></div>
+  <p>次の1行を <code>挨拶.suru</code> に保存して、<code>suru 挨拶.suru</code> で動かします。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
+<pre class="suru">「こんにちは、世界」 を 表示する</pre>
+<pre class="out">こんにちは、世界</pre></div>
+  <p>文字列は <code>「」</code> で囲みます。<code>#</code> から行の終わりまでは注釈です。</p>
+  <div class="note"><b>ヒント:</b> ファイルを付けずに <code>suru</code> を起動すると対話モードになります。式を入力すると、値と型を <code>9 は 数</code> のように並べて答えます。</div>
+
+  <h2 id="values"><span class="n">02</span>値と名前</h2>
+  <p><code>とは</code> で名前に値を付けます。名前は漢字・カタカナ・英字で書きます。式だけの行は、その値を表示します。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>値.suru</span></div>
+<pre class="suru">税率 とは 0.1
+値段 とは 1200
+値段 * （1 + 税率）
+「する」 + 「言語」</pre>
+<pre class="out">1320
+する言語</pre></div>
+  <p>算術は <code>+ - * / % ^</code> です(全角の <code>＋ × ÷</code> も使えます)。<code>+</code> は文字列もつなぎます。括弧は半角でも全角でもかまいません。</p>
+
+  <h2 id="functions"><span class="n">03</span>関数と助詞</h2>
+  <p>関数の名前は「する」で終わる動詞です。引数に名前を付けた呼び出しの形を書き、<code>とは</code> の後に本体を書けば定義になります。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>二乗.suru</span></div>
+<pre class="suru">x を 二乗する とは x * x
+5 を 二乗する</pre>
+<pre class="out">25</pre></div>
+  <p>引数には<strong>格助詞</strong>を付けます。呼び出すときは助詞で引数が決まるので、順番は自由です。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>割り算.suru</span></div>
+<pre class="suru">a を b で 割る数にする とは a / b
+10 を 2 で 割る数にする
+2 で 10 を 割る数にする</pre>
+<pre class="out">5
+5</pre></div>
+  <div class="table-scroll"><table>
+    <tr><th>助詞</th><th>おおよその役</th><th>例</th></tr>
+    <tr><td>を</td><td>主な対象</td><td><code>x を 二乗する</code></td></tr>
+    <tr><td>に</td><td>相手・行き先</td><td><code>3 を 5 に 加算する</code></td></tr>
+    <tr><td>で</td><td>手段・道具</td><td><code>10 を 2 で 除算する</code></td></tr>
+    <tr><td>から</td><td>起点</td><td><code>10 から 3 を 減算する</code></td></tr>
+    <tr><td>へ</td><td>方向</td><td><code>s を 「a」 から 「b」 へ 置換する</code></td></tr>
+    <tr><td>より</td><td>比べる相手</td><td>(自分の関数で自由に使えます)</td></tr>
+  </table></div>
+  <p>1つの関数で同じ助詞は1回だけです。引数が足りない呼び出しや、受け取らない助詞を渡す呼び出しは、実行する前にエラーになります。</p>
+
+  <h2 id="lists"><span class="n">04</span>リスト</h2>
+  <p><code>と</code> で並べるとリストになります。<code>の</code> の後に <code>先頭</code>・<code>残り</code>・<code>最後</code>・<code>長さ</code> を書くと、リストの性質を取り出せます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>リスト.suru</span></div>
+<pre class="suru">数列 とは 1 と 2 と 3 と 4
+数列 の 先頭
+数列 の 長さ
+数列 を 加算する
+5 を 数列 に 追加する</pre>
+<pre class="out">1
+4
+10
+（1 と 2 と 3 と 4 と 5）</pre></div>
+  <p>組み込みの <code>加算する</code> は、リストを渡すと全部を足します。値はどれも変更できないので、<code>追加する</code> は新しいリストを返します。空のリストは <code>空</code> です。</p>
+
+  <h2 id="pipelines"><span class="n">05</span>「して」でつなぐ</h2>
+  <p>「する」を「して」にすると、その結果が次の関数の「を」に入ります。長い処理も文のように読めます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>パイプ.suru</span></div>
+<pre class="suru">x を 二乗する とは x * x
+3 を 二乗して 1 に 加算する
+1 と 2 を 加算して 二乗する</pre>
+<pre class="out">10
+9</pre></div>
+
+  <h2 id="higher"><span class="n">06</span>関数を値として使う</h2>
+  <p>「すること」で終わらせると、関数そのものを値として渡せます。前に引数を書けば部分適用です。名前のない関数は <code>x を 受け取って … を 返すこと</code> と書きます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>高階関数.suru</span></div>
+<pre class="suru">x を 三倍する とは x * 3
+数列 とは 1 と 2 と 3 と 4
+数列 の それぞれ を 三倍する
+数列 から （x を 受け取って x > 2 を 返すこと） で 選別する
+数列 を 0 から 加算すること で 畳み込みする
+数列 を （10 を 加算すること） で 写像する</pre>
+<pre class="out">（3 と 6 と 9 と 12）
+（3 と 4）
+10
+（11 と 12 と 13 と 14）</pre></div>
+  <p><code>それぞれ</code> は要素ごとの呼び出し(map)、<code>選別する</code> は filter、<code>畳み込みする</code> は fold、<code>写像する</code> は関数の値を使う map です。</p>
+
+  <h2 id="conditions"><span class="n">07</span>条件と述語</h2>
+  <p><code>もし … ならば … そうでなければ …</code> は式なので、両方の枝が必要です。<code>が</code> は等しいかどうかを調べます。</p>
+  <p>「である」で終わる名前は<strong>述語</strong>(真か偽を返す関数)です。主語は「が」で受け、「でない」で否定し、「であること」で値になります。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>偶数.suru</span></div>
+<pre class="suru">n が 偶数である とは n % 2 が 0
+n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」
+7 を 判定する
+4 が 偶数である
+3 が 偶数でない
+（1 と 2 と 3 と 4） から 偶数であること で 選別する</pre>
+<pre class="out">奇数
+真
+真
+（2 と 4）</pre></div>
+  <p>条件は <code>かつ</code>・<code>または</code> でつなげます。</p>
+
+  <h2 id="cases"><span class="n">08</span>再帰と場合ごとの定義</h2>
+  <p>引数名の代わりに値や形を書くと、場合ごとに関数を定義できます。上から順に、当てはまった最初の定義を使います。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>階乗.suru</span></div>
+<pre class="suru">0 を 階乗する とは 1
+n を 階乗する とは n * （n - 1 を 階乗する）
+10 を 階乗する</pre>
+<pre class="out">3628800</pre></div>
+  <p>呼び出しの結果を計算に使うときは <code>n * （n - 1 を 階乗する）</code> のように括弧で囲みます。リストは <code>先頭 は x で 残り は 他</code> で先頭と残りに分けられ、<code>空</code> は空のリストに当てはまります。</p>
+
+  <h2 id="data"><span class="n">09</span>自分の型</h2>
+  <p><code>か</code> で、型がとりうる形を並べます。<code>もし 値 が</code> の後に字下げした行を並べるとパターンマッチです。構造は Python のように字下げで決まります。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>図形.suru</span></div>
+<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形
+
+形 を 面積にする とは
+  もし 形 が
+    半径 の 円 ならば 3 * 半径 ^ 2
+    幅 と 高 の 長方形 ならば 幅 * 高
+
+5 の 円 を 面積にする
+幅 は 2 で 高 は 3 の 長方形 を 面積にする</pre>
+<pre class="out">75
+6</pre></div>
+  <p>値は順番どおり(<code>5 の 円</code>)にも、名前付き(<code>幅 は 2 で 高 は 3 の 長方形</code>)にも作れます。場合分けで形が足りなければ、実行する前にエラーになります。組は <code>点 とは 横 と 縦 の 組</code>、型クラスは「性質」と書きます。</p>
+
+  <h2 id="actions"><span class="n">10</span>動作と手順</h2>
+  <p><code>表示する</code> や <code>入力する</code> のような副作用は、その場では何もせず「動作」という値を作ります。一番外に書いた動作が行われます。いくつかの動作を順に行うときは <code>手順</code> の中に並べ、<code>… した 結果</code> で動作の結果に名前を付けます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶する.suru</span></div>
+<pre class="suru">挨拶する とは 手順
+  名前 とは 「お名前は? 」 を 入力した 結果
+  「こんにちは、」 + 名前 + 「さん」 を 表示する
+
+挨拶する</pre>
+<pre class="out">お名前は? 太郎
+こんにちは、太郎さん</pre></div>
+  <p><code>入力してから 表示する</code> のように「してから」で、動作の結果を次の関数に渡せます。純粋な計算と副作用が分かれるので、どこで何が起きるかが読み取りやすくなります。</p>
+
+  <h2 id="punctuation"><span class="n">11</span>句読点の書き方</h2>
+  <p>「。」か「、」のある行は、文字の種類(漢字・かな・数字)の境目で単語を切ります。「。」で文が終わり、「、」は読みやすさのための区切りです。丁寧語の「します」は「する」と同じ意味です。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>句読点.suru</span></div>
+<pre class="suru">aとbを平均するとは、合計/2。ただし、合計とは、a+b。
+3と5を平均します。
+「できました」を表示します。</pre>
+<pre class="out">4
+できました</pre></div>
+  <p><code>ただし</code> は、直前の定義に局所定義を付け足します。ひらがなは助詞に使うので、ひらがなを含む名前は <code>『おやつの数』</code> のように <code>『』</code> で囲みます。</p>
+
+  <h2 id="types"><span class="n">12</span>型</h2>
+  <p>実行する前に、すべての式の型を推論して調べ、合わないところがあれば止めます。エラーは行と文字の位置と印つきで、日本語で出ます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>間違い.suru</span></div>
+<pre class="suru">x を 二乗する とは x * x
+「三」 を 二乗する</pre>
+<pre class="out err">エラー: 2行目 7文字目: 「二乗する」の「を」には数が必要ですが、文字列が渡されています
+  「三」 を 二乗する
+            ^</pre></div>
+  <p>型は書かなくてもかまいませんが、<code>は</code> で宣言することもできます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>宣言.suru</span></div>
+<pre class="suru">数 を 二乗する は 数
+x を 二乗する とは x * x
+4 を 二乗する</pre>
+<pre class="out">16</pre></div>
+  <p>型の名前には <code>数</code>・<code>文字列</code>・<code>真偽</code>・<code>数 の リスト</code>・<code>文字列 の 動作</code> などがあります。<code>suru --検査 ファイル.suru</code> で、実行せずに調べるだけにもできます。</p>
+
+  <h2 id="modules"><span class="n">13</span>読み込みと標準ライブラリ</h2>
+  <p><code>「数学」 を 読み込む</code> で同じフォルダの <code>数学.suru</code> を読み込み、中の名前は <code>数学内の二乗する</code> のように使います。<code>「数学」 を 読み込んで 使う</code> なら前置きなしで使えます。標準ライブラリも同じように読み込みます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>標準.suru</span></div>
+<pre class="suru">「標準」 を 読み込んで 使う
+3 と 1 と 2 を 整列する
+「a,b,c」 を 「,」 で 分割する
+1 から 5 を 範囲にする</pre>
+<pre class="out">（1 と 2 と 3）
+（「a」 と 「b」 と 「c」）
+（1 と 2 と 3 と 4 と 5）</pre></div>
+  <p>ほかに <code>ファイル</code>・<code>時間</code>・<code>JSON</code>・<code>HTTP</code>・<code>スレッド</code>・<code>プロセス</code> などがあります。ファイルの終わりに <code>X と Y は 非公開とする。</code> と書くと、その名前を外から見えなくできます。</p>
+
+  <h2 id="binaries"><span class="n">14</span>ネイティブのバイナリ</h2>
+  <p>同じプログラムを、LLVM を通して1つの実行ファイルにできます。手元に clang が必要です。<code>suru --翻訳</code> は元の版のコンパイラ、Go で書いた <code>suruc</code> は同じことをずっと速く行います。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>go install github.com/suru-lang/suru/cmd/suruc@latest
+<span class="p">$ </span>suruc 階乗.suru
+<span class="p">$ </span>./階乗</pre>
+<pre class="out">3628800</pre></div>
+  <p>プロジェクトには <code>kumu</code>(組む)を使います。設定ファイル <code>組.suru</code> も する の文です。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>go install github.com/suru-lang/suru/cmd/kumu@latest
+<span class="p">$ </span>kumu 新規 挨拶      # 新しいプロジェクト「挨拶」(kumu new も可)
+<span class="p">$ </span>cd 挨拶
+<span class="p">$ </span>kumu 実行           # 組んで動かす(kumu run も可)</pre>
+<pre class="out">「挨拶」0.1.0 を組みました(出力/挨拶)
+こんにちは</pre></div>
+
+  <h2 id="next"><span class="n">15</span>次に読むもの</h2>
+  <p>ここまでで言語の中心は一通り見ました。リポジトリには、スレッドと通路、HTTP サーバー、C や Go の呼び出し、JSON、和暦、そして文法の決まりの全部があります。</p>
+  <div class="next">
+    <a href="https://github.com/suru-lang/suru">リポジトリと詳しい説明<span>文法の決まりをすべて書いた README</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/examples">例のプログラム<span>HTTP サーバー、スレッド、外部の関数、JSON など</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/lib">標準ライブラリのソース<span>する で書いてあります</span></a>
+    <a href="https://github.com/suru-lang/suru/tree/main/editors/vscode">VS Code 拡張<span>色分け、書きながらの検査、型のホバー</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../tutorial.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
