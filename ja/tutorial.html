@@ -62,11 +62,11 @@
   <p class="lead">「こんにちは」から、コンパイルしたプログラムまでを順にたどります。このページの例はどれも する で実際に動かしたもので、出力はそのとき表示されたとおりです。</p>
 
   <h2 id="setup"><span class="n">01</span>準備</h2>
-  <p>リポジトリからインタプリタを入れます(PyPI のパッケージは準備中です)。Python 3.10 以降があれば、ほかには何も要りません。</p>
+  <p>PyPI からインタプリタを入れます(Homebrew なら <code>brew install suru-lang/suru/suru</code>)。Python 3.10 以降があれば、ほかには何も要りません。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
-<pre class="sh"><span class="p">$ </span>pip install git+https://github.com/suru-lang/suru
+<pre class="sh"><span class="p">$ </span>pip install suru-lang
 <span class="p">$ </span>suru --version</pre>
-<pre class="out">する 0.1.0</pre></div>
+<pre class="out">する 0.2.0</pre></div>
   <p>次の1行を <code>挨拶.suru</code> に保存して、<code>suru 挨拶.suru</code> で動かします。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
 <pre class="suru">「こんにちは、世界」 を 表示する</pre>

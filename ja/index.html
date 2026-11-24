@@ -213,16 +213,16 @@ n を 階乗する とは
     <div class="section-head">
       <span class="num">06 / 入れ方</span>
       <h2><span class="jp">導入</span>はじめる</h2>
-      <p>パッケージは準備中です。最初のリリースまでは、リポジトリから直接入れてください。インタプリタには Python 3.10 以降、速い道具には Go 1.23 以降、バイナリを作るには clang が要ります(macOS なら <code>xcode-select --install</code>)。</p>
+      <p>好きな方法で入れてください。pip で入れるインタプリタには Python 3.10 以降、速い道具には Go 1.23 以降、バイナリを作るには clang が要ります(macOS なら <code>xcode-select --install</code>)。</p>
     </div>
     <div class="install">
-      <div class="card"><h3>pip <span class="pill soon">準備中</span></h3><p><code>pip install suru-lang</code></p></div>
-      <div class="card"><h3>Homebrew <span class="pill soon">準備中</span></h3><p>macOS と Linux。道具が全部入ります。</p></div>
-      <div class="card"><h3>バイナリ <span class="pill soon">準備中</span></h3><p>OS ごとに GitHub Releases から。</p></div>
-      <div class="card"><h3>VS Code <span class="pill soon">準備中</span></h3><p>Marketplace で「する」を検索。</p></div>
+      <div class="card"><h3>pip</h3><p><code>pip install suru-lang</code></p></div>
+      <div class="card"><h3>Homebrew</h3><p><code>brew install suru-lang/suru/suru</code><br>macOS と Linux。道具が全部入ります。</p></div>
+      <div class="card"><h3>バイナリ</h3><p>OS ごとに <a href="https://github.com/suru-lang/suru/releases">GitHub Releases</a> から。</p></div>
+      <div class="card"><h3>VS Code</h3><p><a href="https://marketplace.visualstudio.com/items?itemName=suru-lang.suru">Marketplace</a> で「する」を検索。</p></div>
     </div>
     <div class="window">
-      <div class="window-bar"><i></i><i></i><i></i><span>今すぐソースから</span></div>
+      <div class="window-bar"><i></i><i></i><i></i><span>最新のソースから</span></div>
 <pre class="sh"><span class="p">$ </span>pip install git+https://github.com/suru-lang/suru      # インタプリタ suru
 <span class="p">$ </span>go install github.com/suru-lang/suru/cmd/suruc@latest  # 速いコンパイラ
 <span class="p">$ </span>go install github.com/suru-lang/suru/cmd/kumu@latest   # ビルドツール
