@@ -244,6 +244,9 @@ h2 .jp { font-family: var(--font-jp); color: var(--cyan); font-weight: 900; marg
 }
 .closing p { color: #b9c2df; font-size: 18px; }
 .closing .cta { justify-content: center; }
+.mascot { margin: 0 auto 28px; }
+.mascot img { width: 240px; height: auto; filter: drop-shadow(0 0 6px rgba(94,234,255,.65)); }
+.mascot figcaption { color: var(--muted); font-size: 15px; margin-top: 6px; }
 
 /* footer */
 .site-footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 14px; position: relative; z-index: 1; }
