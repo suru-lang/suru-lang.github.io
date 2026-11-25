@@ -16,6 +16,7 @@
     copyFailed: "アドレス欄のリンクをコピーしてください",
     truncated: "\n…(出力が長いので、ここから先は省きました)\n",
     noOutput: "(出力はありません)",
+    replace: "編集したプログラムを、選んだ例に入れ替えますか? 編集した内容は消えます。",
     cHint: "プロセス・スレッド・シグナル・通信や、C の標準ライブラリ以外の C のライブラリは、ブラウザでは動きません。コンピューターに入れた する で試してください。",
   } : {
     loading: "Loading する… (the first time takes a few seconds)",
@@ -30,6 +31,7 @@
     copyFailed: "Copy the link from the address bar",
     truncated: "\n… (output too long, the rest is not shown)\n",
     noOutput: "(no output)",
+    replace: "Replace your edited program with the example you chose? Your changes will be lost.",
     cHint: "Processes, threads, signals, sockets and C libraries other than the C standard library do not work in the browser. Try them with する installed on your computer.",
   };
 
@@ -111,7 +113,7 @@
   }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function syncScroll() { hl.scrollTop = editor.scrollTop; hl.scrollLeft = editor.scrollLeft; }
-  editor.addEventListener("input", function () { paint(); dirty(); });
+  editor.addEventListener("input", paint);
   editor.addEventListener("scroll", syncScroll);
   editor.addEventListener("keydown", function (e) {
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
@@ -130,18 +132,26 @@
     o.textContent = ja ? s.ja : s.en;
     select.appendChild(o);
   });
+  // What was loaded last (a sample or a shared link). If the editor still holds it, a new sample
+  // replaces it at once; if the visitor has changed it, ask first so their program is not lost.
+  var loaded = "", current = "";
   select.addEventListener("change", function () {
     var s = SAMPLES[+select.value];
-    if (!s) return;
+    if (!s) { select.value = current; return; }
+    if (editor.value !== loaded && editor.value.trim() !== "" && !window.confirm(T.replace)) {
+      select.value = current;
+      return;
+    }
+    current = select.value;
     load(s.code, s.input || "");
     history.replaceState(null, "", location.pathname);
+    editor.focus();
   });
-  function dirty() {
-    select.value = "";
-  }
   function load(code, inp) {
     editor.value = code;
     input.value = inp;
+    loaded = code;
+    output.textContent = "";
     paint();
   }
   function fromHash() {
@@ -149,14 +159,14 @@
     if (!m) return false;
     try {
       load(window.suru.decodeCode(m[1]), m[2] ? window.suru.decodeCode(m[2]) : "");
-      select.value = "";
+      select.value = current = "";
       return true;
     } catch (e) {
       return false;
     }
   }
   if (!fromHash()) {
-    select.value = "1";
+    select.value = current = "1";
     load(SAMPLES[1].code, "");
   }
   window.addEventListener("hashchange", fromHash);
