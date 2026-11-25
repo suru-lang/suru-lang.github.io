@@ -29,6 +29,7 @@
       <a href="tutorial.html">入門</a>
       <a href="examples.html">例</a>
       <a href="playground.html">試す</a>
+      <a href="#ros2">ROS 2</a>
       <a href="#install">入れ方</a>
       <a href="https://github.com/suru-lang/suru">GitHub</a>
     </nav>
@@ -192,10 +193,43 @@ n を 階乗する とは
 
 <div class="divider"></div>
 
+<section id="ros2">
+  <div class="wrap split">
+    <div class="section-head">
+      <span class="num">05 / ROS 2</span>
+      <h2><span class="jp">ロボット</span>ROS 2 のノードも する で</h2>
+      <p><a href="https://github.com/suru-lang/rclsuru">rclsuru</a> は、する で ROS 2 のノードを書くためのライブラリです。トピック・サービス・アクション・パラメータ・ログ・ROS の時刻が使え、rclcpp・rclpy のノードや <code>ros2</code> の道具とそのまま話せます。ROS 2 Jazzy で確かめています。最初の版 0.1.0 を出しました。<code>kumu 追加 github.com/suru-lang/rclsuru@0.1.0</code> でプロジェクトに足します。</p>
+      <div class="libs">
+        <code>トピックと QoS</code><code>サービス</code><code>アクション</code><code>パラメータ</code><code>/rosout へのログ</code><code>use_sim_time</code><code>ros2 launch</code>
+      </div>
+      <p style="margin-top:16px">std_msgs・geometry_msgs・sensor_msgs・nav_msgs などの型を約 200 個同梱しています。自分の <code>.msg</code>・<code>.srv</code> からも、する で書いた生成器で型を作れます。メッセージの CDR への直列化も する で書いています。作ったノードは普通の実行ファイルなので、<code>ros2 run</code> や <code>ros2 launch</code> から起動できます。</p>
+    </div>
+    <div class="window">
+      <div class="window-bar"><i></i><i></i><i></i><span>本体.suru — 1秒ごとに発行するノード</span></div>
+<pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
+
+始めする とは 手順
+  n とは 「hello」 を ノード作成した 結果
+  p とは 文字列型 を 「chatter」 へ n で 発行者作成した 結果
+  （「こんにちは」 を p へ 発行する） を 1.0 で n に 周期登録する
+  「始めました」 を n で 情報記録する
+  n を スピンする
+
+始めする</pre>
+<pre class="sh"><span class="p">$ </span>kumu 追加 github.com/suru-lang/rclsuru@0.1.0
+<span class="p">$ </span>kumu 実行 &amp;
+<span class="p">$ </span>ros2 topic echo chatter std_msgs/msg/String
+data: こんにちは</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="tools">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">05 / 道具</span>
+      <span class="num">06 / 道具</span>
       <h2><span class="jp">道具</span>道具も日本語で</h2>
       <p>エラーの文も、コマンドも、道具も日本語です(必要なところには英語の別名もあります)。</p>
     </div>
@@ -213,7 +247,7 @@ n を 階乗する とは
 <section id="install">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">06 / 入れ方</span>
+      <span class="num">07 / 入れ方</span>
       <h2><span class="jp">導入</span>はじめる</h2>
       <p>好きな方法で入れてください。pip で入れるインタプリタには Python 3.10 以降、速い道具には Go 1.23 以降、バイナリを作るには clang が要ります(macOS なら <code>xcode-select --install</code>)。</p>
     </div>
