@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ohanashi — する (suru)</title>
+<meta name="description" content="How to use Ohanashi (ohanashi-ollama), a web app written in する (suru): chat with the LLMs of your local Ollama in the browser, with threads, rules, images and PDFs, a sandbox and GitHub.">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/ohanashi.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/ohanashi.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/ohanashi.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="examples.html">Examples</a>
+      <a href="ohanashi.html" aria-current="page">Ohanashi</a>
+      <a href="playground.html">Playground</a>
+      <a href="./#ros2">ROS 2</a>
+      <a href="./#install">Install</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span><a href="ja/ohanashi.html" hreflang="ja" lang="ja">日本語</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>Using Ohanashi</p>
+  <ol>
+    <li><a href="#start">Install and run</a></li>
+    <li><a href="#threads">Conversations and threads</a></li>
+    <li><a href="#mode">Modes and the model book</a></li>
+    <li><a href="#rules">Rules</a></li>
+    <li><a href="#attach">Images and PDFs</a></li>
+    <li><a href="#web">Web search</a></li>
+    <li><a href="#sandbox">Sandbox and documents</a></li>
+    <li><a href="#github">GitHub</a></li>
+    <li><a href="#remote">Phones and notifications</a></li>
+    <li><a href="#more">Going further</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">App</span>
+  <h1>Using <span class="glow">Ohanashi</span></h1>
+  <p class="lead">Ohanashi (おはなし, “a chat”; <a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama</a>) is a web app for chatting in the browser with the LLMs that <a href="https://ollama.com/">Ollama</a> runs on your own machine. The server is written in する and builds into a single executable. Conversations are kept in a local SQLite file, so they never leave your machine. The app’s screens are in Japanese.</p>
+  <div class="libs">
+    <code>💬 Conversations and threads</code><code>📒 Memo</code><code>🛠 Coding mode</code><code>🧠 Model book</code><code>📜 Rules</code><code>📎 Images and PDFs</code><code>🌐 Web</code><code>💻 Sandbox</code><code>📄 Word and PDF</code><code>🐙 GitHub</code><code>🔔 Notifications</code>
+  </div>
+
+  <h2 id="start"><span class="n">01</span>Install and run</h2>
+  <p>You need:</p>
+  <ul>
+    <li><a href="https://ollama.com/download">Ollama</a> and at least one model (<code>ollama pull qwen3</code>, for example)</li>
+    <li>する 0.4.0 or later (<code>kumu</code> and clang). See <a href="./#install">Install</a> on the home page</li>
+    <li>libsqlite3 and OpenSSL: <code>brew install sqlite openssl@3</code> on macOS, <code>sudo apt install libsqlite3-dev libssl-dev</code> on Debian and Ubuntu</li>
+  </ul>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"># on macOS with Homebrew’s sqlite and OpenSSL, first:
+<span class="p">$ </span>export PKG_CONFIG_PATH="$(brew --prefix sqlite)/lib/pkgconfig:$(brew --prefix openssl@3)/lib/pkgconfig"
+
+<span class="p">$ </span>git clone https://github.com/suru-lang/ohanashi-ollama
+<span class="p">$ </span>cd ohanashi-ollama
+<span class="p">$ </span>kumu 実行</pre></div>
+  <p>Then open <code>http://localhost:8080/</code> in your browser. The app reads its screen files from <code>画面/</code> in the current folder, so start it in this folder.</p>
+  <p>The options you will use most. The <a href="https://github.com/suru-lang/ohanashi-ollama#引数">README</a> lists the rest.</p>
+  <div class="table-scroll"><table>
+    <tr><th>Option</th><th>Meaning</th><th>Default</th></tr>
+    <tr><td><code>--ollama URL</code></td><td>Where Ollama is</td><td><code>OLLAMA_HOST</code>, else <code>http://localhost:11434</code></td></tr>
+    <tr><td><code>--port PORT</code></td><td>Port of the web page</td><td>8080</td></tr>
+    <tr><td><code>--listen ADDRESS</code></td><td>Address to listen on</td><td><code>127.0.0.1</code> (this machine only)</td></tr>
+    <tr><td><code>--db FILE</code></td><td>SQLite file for conversations</td><td><code>ohanashi.db</code></td></tr>
+    <tr><td><code>--searxng URL</code></td><td>SearXNG for web search</td><td><code>SEARXNG_URL</code>, else none</td></tr>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 実行 -- --port 9000 --db ~/ohanashi.db
+<span class="p">$ </span>./起動.sh --watch 60      # rebuild and restart when new commits arrive</pre></div>
+  <p>When you run it with <code>起動.sh</code>, the ⚙ panel gets a “🔄 update and restart” button. With <code>--watch SECONDS</code>, it checks for new commits that often and, if there are any, runs <code>git pull</code>, <code>kumu 作る</code> and restarts the app. If the rebuild fails, the old app keeps running.</p>
+
+  <h2 id="threads"><span class="n">02</span>Conversations and threads</h2>
+  <p>Start a conversation or open an earlier one from the list on the left. Answers stream in as they are written, and “止める” (stop) ends one early. Code and tables in the Markdown are formatted, and “写す” copies a code block.</p>
+  <ul>
+    <li><b>A conversation holds the settings.</b> The model, the instructions (system prompt), the temperature, GitHub repositories and so on are set per conversation (⚙)</li>
+    <li><b>Make a thread for each topic</b> with “＋ スレッド” in the heading. Only that thread’s messages go to the model, so it stays fast as the conversation grows and is not misled by earlier topics. Every thread uses the conversation’s settings</li>
+    <li><b>Carry decisions over with the “📒 memo”.</b> What you write in the conversation’s memo (a branch name, how to run the tests) goes to the model in every thread. “メモに足す” on an answer adds it to the memo</li>
+    <li><b>Summarize and move on.</b> When a thread gets long, a button offers to summarize it into a new thread</li>
+    <li><b>Search</b> titles and messages with the search box on the left</li>
+  </ul>
+
+  <h2 id="mode"><span class="n">03</span>Modes and the model book</h2>
+  <p>Press “💬 会話” (conversation) in the heading to switch to “🛠 コーディング” (coding). Coding mode attaches the rules for coding and turns on the “💻 sandbox”. A new conversation starts in the mode you chose last.</p>
+  <p>The “🧠 model book” in ⚙ lists the size, quantization, context length and capabilities (🔧 tools, 👁 images) of each model in Ollama. When web search is available, the app has a model look up the other models and records their traits and scores (code, conversation, Japanese, reasoning; 0 to 5). A new conversation picks a model that scores well for its mode. You can edit what was found with “直す”.</p>
+
+  <h2 id="rules"><span class="n">04</span>Rules</h2>
+  <p>Save what you want the model to follow, such as “rules for writing code”, as a named “📜 rule”, and attach it to conversations in ⚙. It is like <code>CLAUDE.md</code> for Claude Code. Rules are read for every answer, so editing one changes every conversation it is attached to. A rule can be attached always, only in coding mode, or only in conversation mode.</p>
+  <p>A repository can carry its own rules in a file. When the “💻 sandbox” or “🐙 GitHub” is on, the app looks in the repositories in the work folder for <code>OHANASHI.md</code>, then <code>AGENTS.md</code>, then <code>CLAUDE.md</code>, and gives the first one it finds to the model.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>OHANASHI.md</span></div>
+<pre>- Run the tests with `kumu 試験` and push only when they pass
+- Write comments and commit messages in Japanese</pre></div>
+
+  <h2 id="attach"><span class="n">05</span>Images and PDFs</h2>
+  <p>Drop files on the page, paste them into the input (Ctrl+V, ⌘V), or pick them with 📎 to attach them to a question.</p>
+  <ul>
+    <li><b>Images</b> are read by models that can see (<code>qwen2.5vl</code>, <code>gemma3</code> and others, marked 👁 in the list). Up to 8 per question</li>
+    <li><b>PDFs</b> are turned into text page by page in the browser, so every model can read them. Pages without text, as in a scanned PDF, can be sent as images</li>
+    <li><b>Text files</b> (<code>.txt</code>, <code>.md</code>, <code>.csv</code>, code) are sent as they are</li>
+  </ul>
+
+  <h2 id="web"><span class="n">06</span>Web search</h2>
+  <p>With “🌐 ウェブ” on, the model searches the web before it answers and lists its sources at the end. You need your own <a href="https://docs.searxng.org/">SearXNG</a> (<code>SEARXNG_URL</code>) or Ollama’s web search API (<code>OLLAMA_API_KEY</code>). The search words leave your machine, so leave the button off for questions that should stay local.</p>
+
+  <h2 id="sandbox"><span class="n">07</span>Sandbox and documents</h2>
+  <p>With <a href="https://www.docker.com/products/docker-desktop/">Docker</a> running, you can turn on the “💻 sandbox”. The model writes and runs code in a Docker container for the conversation and checks the results before it answers (it needs a model that can use tools). <code>/work</code> in the container is <code>作業/NUMBER</code> on your machine, so you can open what it makes. The container starts with no network; tick “💻 砂場からインターネットにつなぐ” in ⚙ for conversations that need pip and the like.</p>
+  <p>Build the document image and you can ask for “a Word report of what we discussed” or “make it a PDF”. The model writes the content in Markdown and turns it into Word or PDF in the sandbox. Files made during an answer appear as links like “📄 報告.docx (24KB)” at its end; earlier files are under “📁 作業フォルダ” in ⚙.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>docker build -t ohanashi-sandbox 砂場    # includes Japanese fonts; restart the app afterwards</pre></div>
+  <div class="note"><b>Note:</b> The commands the model runs are not confirmed first. Do not keep important files in the work folder.</div>
+
+  <h2 id="github"><span class="n">08</span>GitHub</h2>
+  <p>Put a GitHub key (a fine-grained personal access token) in the environment variable <code>GITHUB_TOKEN</code> and start the app.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>GITHUB_TOKEN=github_pat_… kumu 実行</pre></div>
+  <p>Add repositories to a conversation under “GitHub のリポジトリ” in ⚙, each as read-only (読むだけ) or read-write (読み書き). With “🐙 GitHub” on, the model reads the repository’s settings, files, issues and pull requests before it answers.</p>
+  <ul>
+    <li>In <b>read-write</b> repositories, the model can create, edit, comment on and close issues when you ask. It does so without asking you first and leaves a link to what it wrote in the answer</li>
+    <li>It never writes to <b>read-only</b> repositories</li>
+    <li>With both “🐙 GitHub” and “💻 sandbox” on, the model can clone a repository, fix it, push a new branch and open a pull request. git runs on your machine, so the container never gets the key</li>
+  </ul>
+  <div class="note"><b>Tip:</b> Small models tend to write “I pushed it” without calling the tool. Name the tool and the branch (“push to the branch ohanashi/fix-typo with the github_push tool”), ask for clone, fix, push and pull request one at a time, and start a new thread for each task.</div>
+  <p>Give the key access only to the repositories you use: Contents, Issues and Pull requests as read-only for reading, or read and write for writing.</p>
+
+  <h2 id="remote"><span class="n">09</span>Phones and notifications</h2>
+  <p>To open it from another device, put <a href="https://tailscale.com/kb/1312/serve">Tailscale Serve</a> in front. It is then at <code>https://MACHINE.TAILNET.ts.net/</code>, only for machines on your tailnet, with a certificate from Tailscale. Turn on MagicDNS and HTTPS Certificates under DNS in the Tailscale admin console first.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 実行                     # keep the default --listen 127.0.0.1
+<span class="p">$ </span>tailscale serve --bg 8080     # stop with: tailscale serve --https=443 off</pre></div>
+  <p>If an answer finishes while you are in another tab, the tab title gets “✅” (or “⚠️” on failure). Tick “🔔 見ていない間に答えが終わったら通知する” in ⚙ to get a browser notification too; clicking it takes you back to the thread. Browser notifications work only on localhost or https.</p>
+  <div class="note"><b>Note:</b> With <code>--listen 0.0.0.0</code>, anyone on the same network can read your conversations. If you use Tailscale, Tailscale Serve is the safer way.</div>
+
+  <h2 id="more"><span class="n">10</span>Going further</h2>
+  <p>The Ohanashi server is about 4,000 lines of する. HTTP, WebSocket, SQLite, GitHub and Ollama each live in their own する library, so you can use them in your own apps.</p>
+  <div class="next">
+    <a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama<span>The source and the full README</span></a>
+    <a href="https://github.com/suru-lang/ollama">Ollama library<span>Chat, tool calls, the model list</span></a>
+    <a href="https://github.com/suru-lang/github">GitHub library<span>Repositories, issues, pull requests</span></a>
+    <a href="https://github.com/suru-lang/http">HTTP library<span>Client, server, WebSocket</span></a>
+    <a href="https://github.com/suru-lang/sqlite">SQLite library<span>A local database</span></a>
+    <a href="examples.html">Example: chat with a local LLM<span>A terminal chat in about 50 lines</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="tutorial.html">Tutorial</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/ohanashi.html" lang="ja">日本語</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

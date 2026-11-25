@@ -9,8 +9,9 @@ Plain HTML and CSS, no build step. GitHub Pages serves the `main` branch as it i
 | `index.html` | Landing page (English, the source of truth) |
 | `tutorial.html` | Tutorial (English) |
 | `examples.html` | Example programs (English) |
+| `ohanashi.html` | How to use Ohanashi (ohanashi-ollama), the chat web app written in する (English) |
 | `playground.html` | Playground: write and run する in the browser (English) |
-| `ja/index.html`, `ja/tutorial.html`, `ja/examples.html`, `ja/playground.html` | Japanese translations |
+| `ja/index.html`, `ja/tutorial.html`, `ja/examples.html`, `ja/ohanashi.html`, `ja/playground.html` | Japanese translations |
 | `assets/style.css` | Styles for every page |
 | `assets/icon.svg`, `assets/apple-touch-icon.png` | Favicon and home-screen icon: the mascot するぞう (Suruzou) |
 | `assets/suruzou.svg` | The mascot in the header |
