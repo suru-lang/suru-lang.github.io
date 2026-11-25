@@ -227,10 +227,34 @@ data: こんにちは</pre>
 
 <div class="divider"></div>
 
+<section id="ohanashi">
+  <div class="wrap split">
+    <div class="section-head">
+      <span class="num">06 / おはなし</span>
+      <h2><span class="jp">アプリ</span>手元の LLM と、ブラウザで話す</h2>
+      <p><a href="ohanashi.html">おはなし</a>(<a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama</a>)は、手元の <a href="https://ollama.com/">Ollama</a> の LLM とブラウザでおしゃべりする Web アプリです。サーバーは する で約 4000 行で、1つの実行ファイルになります。会話は手元の SQLite にしまうので、外には出ません。</p>
+      <div class="libs">
+        <code>会話とスレッド</code><code>決まり(OHANASHI.md)</code><code>コーディングモード</code><code>画像・PDF</code><code>ウェブ検索</code><code>Docker の砂場</code><code>Word・PDF を作る</code><code>GitHub で PR</code><code>通知</code>
+      </div>
+      <p style="margin-top:16px">モデルが Docker の砂場でコードを動かして確かめたり、GitHub のリポジトリを読んで issue や PR を作ったりできます。HTTP・WebSocket・SQLite・GitHub・Ollama は、それぞれ する のライブラリにしてあるので、自分のアプリにも使えます。<a href="ohanashi.html">使い方 →</a></p>
+    </div>
+    <div class="window">
+      <div class="window-bar"><i></i><i></i><i></i><span>端末 — おはなしを動かす</span></div>
+<pre class="sh"><span class="p">$ </span>ollama pull qwen3
+<span class="p">$ </span>git clone https://github.com/suru-lang/ohanashi-ollama
+<span class="p">$ </span>cd ohanashi-ollama
+<span class="p">$ </span>kumu 実行 &amp;
+<span class="p">$ </span>open http://localhost:8080/   # ブラウザで開く</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="tools">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">06 / 道具</span>
+      <span class="num">07 / 道具</span>
       <h2><span class="jp">道具</span>道具も日本語で</h2>
       <p>エラーの文も、コマンドも、道具も日本語です(必要なところには英語の別名もあります)。</p>
     </div>
@@ -248,7 +272,7 @@ data: こんにちは</pre>
 <section id="install">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">07 / 入れ方</span>
+      <span class="num">08 / 入れ方</span>
       <h2><span class="jp">導入</span>はじめる</h2>
       <p>好きな方法で入れてください。pip で入れるインタプリタには Python 3.10 以降、速い道具には Go 1.23 以降、バイナリを作るには clang が要ります(macOS なら <code>xcode-select --install</code>)。</p>
     </div>
