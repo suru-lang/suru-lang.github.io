@@ -1,3 +1,5 @@
+English | [日本語](README_jp.md)
+
 # suru-lang.github.io
 
 The website of the する (suru) programming language: https://suru-lang.github.io/
@@ -42,7 +44,3 @@ python3 tools/check_examples.py --suru ../suru/suru.py
 ```
 
 A block written as `<pre class="suru" data-check="no">` is skipped, for programs that need a library or a server that the check cannot provide (the chat example needs suru-lang/http and Ollama). Check those by hand.
-
-## 日本語
-
-する の公式サイトです。英語のページが正で、`ja/` に日本語のページがあります。英語のページを変えたら、日本語のページも同じように変えてください。`playground.html` はブラウザの中で する を動かすプレイグラウンドです(Pyodide で PyPI の suru-lang を動かします)。コード例の出力は `tools/check_examples.py` で、実際に動かした結果と同じかを確かめられます。
