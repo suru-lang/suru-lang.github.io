@@ -227,10 +227,34 @@ data: こんにちは</pre>
 
 <div class="divider"></div>
 
+<section id="ohanashi">
+  <div class="wrap split">
+    <div class="section-head">
+      <span class="num">06 / OHANASHI</span>
+      <h2><span class="jp">アプリ</span>Chat with your local LLMs in the browser</h2>
+      <p><a href="ohanashi.html">Ohanashi</a> (<a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama</a>) is a web app for chatting in the browser with the LLMs your local <a href="https://ollama.com/">Ollama</a> runs. Its server is about 4,000 lines of する and builds into a single executable. Conversations stay in a local SQLite file and never leave your machine.</p>
+      <div class="libs">
+        <code>conversations + threads</code><code>rules (OHANASHI.md)</code><code>coding mode</code><code>images + PDFs</code><code>web search</code><code>Docker sandbox</code><code>Word + PDF output</code><code>GitHub pull requests</code><code>notifications</code>
+      </div>
+      <p style="margin-top:16px">The model can run and check code in a Docker sandbox, read GitHub repositories, and open issues and pull requests. HTTP, WebSocket, SQLite, GitHub and Ollama each live in their own する library, so you can use them in your own apps too. <a href="ohanashi.html">How to use it →</a></p>
+    </div>
+    <div class="window">
+      <div class="window-bar"><i></i><i></i><i></i><span>terminal — run Ohanashi</span></div>
+<pre class="sh"><span class="p">$ </span>ollama pull qwen3
+<span class="p">$ </span>git clone https://github.com/suru-lang/ohanashi-ollama
+<span class="p">$ </span>cd ohanashi-ollama
+<span class="p">$ </span>kumu 実行 &amp;
+<span class="p">$ </span>open http://localhost:8080/   # open it in your browser</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="tools">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">06 / TOOLS</span>
+      <span class="num">07 / TOOLS</span>
       <h2><span class="jp">道具</span>Tooling that speaks Japanese too</h2>
       <p>Error messages, commands and tools all use Japanese, with English aliases where it helps.</p>
     </div>
@@ -248,7 +272,7 @@ data: こんにちは</pre>
 <section id="install">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">07 / INSTALL</span>
+      <span class="num">08 / INSTALL</span>
       <h2><span class="jp">導入</span>Get started</h2>
       <p>Pick whichever way you like. You need Python 3.10+ for the interpreter, Go 1.23+ for the fast tools, and clang to build binaries (on macOS, <code>xcode-select --install</code>).</p>
     </div>
