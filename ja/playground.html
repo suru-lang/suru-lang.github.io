@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>試す — する</title>
+<meta name="description" content="する のプログラムをブラウザで書いて動かせます。インストールは要りません。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/playground.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/playground.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/playground.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="../assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="examples.html">例</a>
+      <a href="playground.html" aria-current="page">試す</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../playground.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap playground">
+  <div class="pg-head">
+    <div>
+      <span class="eyebrow">プレイグラウンド</span>
+      <h1>する を<span class="glow">ブラウザで</span>試す</h1>
+      <p class="lead">プログラムを書いて「実行」を押してください。<code>pip install suru-lang</code> で入るのと同じインタプリタが、このページの中、あなたのコンピューターの上で動きます。インストールは要らず、サーバーには何も送りません。</p>
+    </div>
+  </div>
+
+  <div class="pg-toolbar">
+    <button type="button" class="btn primary" id="pg-run" disabled>実行 <kbd>Ctrl+Enter</kbd></button>
+    <button type="button" class="btn ghost" id="pg-stop" disabled>止める</button>
+    <label class="pg-select"><span>例</span>
+      <select id="pg-samples"><option value="">(自分のプログラム)</option></select>
+    </label>
+    <button type="button" class="btn ghost" id="pg-share">リンクをコピー</button>
+    <span class="pg-status busy" id="pg-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <div class="pg-grid">
+    <div class="window pg-editor">
+      <div class="window-bar"><i></i><i></i><i></i><span>playground.suru</span></div>
+      <div class="pg-code">
+        <pre class="pg-hl" id="pg-hl" aria-hidden="true"></pre>
+        <textarea id="pg-code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="プログラム"></textarea>
+      </div>
+    </div>
+    <div class="pg-side">
+      <div class="window">
+        <div class="window-bar"><i></i><i></i><i></i><span>入力</span></div>
+        <textarea id="pg-input" class="pg-input" spellcheck="false" placeholder="入力する で読む行を、1行ずつ書きます" aria-label="入力"></textarea>
+      </div>
+      <div class="window">
+        <div class="window-bar"><i></i><i></i><i></i><span>出力</span><span class="pg-version" id="pg-version"></span></div>
+        <pre class="pg-output" id="pg-output" aria-live="polite"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="note"><b>ここで使えるもの。</b>言語そのもの、型の検査、標準ライブラリは、コンピューターで動かすのと同じように使えます。<code>「算術」</code>・<code>「乱数」</code>・<code>「時間」</code>・JSON も使えます。ファイルはページの中の一時的な場所に書かれ、ページを閉じると消えます。OS の機能がもっと要るもの、つまりプロセス・スレッド・シグナル・ソケットと HTTP・C の標準ライブラリ以外の C のライブラリは使えません。最初に開いたときに、ブラウザ用の Python(<a href="https://pyodide.org/">Pyodide</a>、約 10 MB)を読み込みます。2回目からはブラウザに残っています。すべての機能を使うには、<a href="./#install">する を入れてください</a>。</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="tutorial.html">入門</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../playground.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/playground.js"></script>
+</body>
+</html>

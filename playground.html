@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playground — する</title>
+<meta name="description" content="Write and run する (suru) programs in your browser. Nothing to install.">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/playground.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/playground.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/playground.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="examples.html">Examples</a>
+      <a href="playground.html" aria-current="page">Playground</a>
+      <a href="./#install">Install</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span><a href="ja/playground.html" hreflang="ja" lang="ja">日本語</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap playground">
+  <div class="pg-head">
+    <div>
+      <span class="eyebrow">Playground</span>
+      <h1>Try する <span class="glow">in your browser</span></h1>
+      <p class="lead">Write a program and press Run. It runs on your own machine, inside this page, with the same interpreter you get from <code>pip install suru-lang</code>. Nothing to install, nothing sent to a server.</p>
+    </div>
+  </div>
+
+  <div class="pg-toolbar">
+    <button type="button" class="btn primary" id="pg-run" disabled>Run <kbd>Ctrl+Enter</kbd></button>
+    <button type="button" class="btn ghost" id="pg-stop" disabled>Stop</button>
+    <label class="pg-select"><span>Examples</span>
+      <select id="pg-samples"><option value="">(your program)</option></select>
+    </label>
+    <button type="button" class="btn ghost" id="pg-share">Copy link</button>
+    <span class="pg-status busy" id="pg-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <div class="pg-grid">
+    <div class="window pg-editor">
+      <div class="window-bar"><i></i><i></i><i></i><span>playground.suru</span></div>
+      <div class="pg-code">
+        <pre class="pg-hl" id="pg-hl" aria-hidden="true"></pre>
+        <textarea id="pg-code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Program"></textarea>
+      </div>
+    </div>
+    <div class="pg-side">
+      <div class="window">
+        <div class="window-bar"><i></i><i></i><i></i><span>input</span></div>
+        <textarea id="pg-input" class="pg-input" spellcheck="false" placeholder="Lines for 入力する (read input), one per line" aria-label="input"></textarea>
+      </div>
+      <div class="window">
+        <div class="window-bar"><i></i><i></i><i></i><span>output</span><span class="pg-version" id="pg-version"></span></div>
+        <pre class="pg-output" id="pg-output" aria-live="polite"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="note"><b>What works here.</b> The language, type checking and the standard library work as they do on your computer, including <code>「算術」</code> (math), <code>「乱数」</code> (random numbers), <code>「時間」</code> (time) and JSON. Files go to a temporary file system inside the page, which is gone when you leave. Things that need more of the operating system do not work: processes, threads, signals, sockets and HTTP, and C libraries other than the C standard library. The first visit downloads Python for the browser (<a href="https://pyodide.org/">Pyodide</a>, about 10 MB), then your browser keeps it. To use everything, <a href="./#install">install する</a>.</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="tutorial.html">Tutorial</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/playground.html" lang="ja">日本語</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/playground.js"></script>
+</body>
+</html>

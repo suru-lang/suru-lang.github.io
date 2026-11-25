@@ -50,6 +50,32 @@
     el.innerHTML = text.split("\n").map(highlightLine).join("\n");
   }
 
+  // Programs travel to the playground in the URL: #code= and the UTF-8 text in base64url.
+  function encodeCode(text) {
+    var bytes = new TextEncoder().encode(text), bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function decodeCode(s) {
+    var bin = atob(s.replace(/-/g, "+").replace(/_/g, "/"));
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+  window.suru = { highlightLine: highlightLine, encodeCode: encodeCode, decodeCode: decodeCode };
+
+  // A “Try it” link on every code window, except programs that need a library or a server.
+  var ja = document.documentElement.lang === "ja";
+  document.querySelectorAll(".window pre.suru").forEach(function (pre) {
+    var bar = pre.parentNode.querySelector(".window-bar");
+    if (!bar || pre.getAttribute("data-check") === "no" || pre.closest(".playground")) return;
+    var a = document.createElement("a");
+    a.className = "try";
+    a.href = "playground.html#code=" + encodeCode(pre.textContent.replace(/\s+$/, ""));
+    a.textContent = ja ? "試す ▶" : "Try it ▶";
+    bar.appendChild(a);
+  });
+
   try {
     document.querySelectorAll("pre.suru").forEach(highlight);
   } catch (e) {
