@@ -194,9 +194,10 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="actions"><span class="n">10</span>動作と手順</h2>
   <p><code>表示する</code> や <code>入力する</code> のような副作用は、その場では何もせず「動作」という値を作ります。一番外に書いた動作が行われます。いくつかの動作を順に行うときは <code>手順</code> の中に並べ、<code>… した 結果</code> で動作の結果に名前を付けます。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶する.suru</span></div>
-<pre class="suru">挨拶する とは 手順
+<pre class="suru">挨拶する とは 以下の手順です
   名前 とは 「お名前は? 」 を 入力した 結果
   「こんにちは、」 + 名前 + 「さん」 を 表示する
+  以上です
 
 挨拶する</pre>
 <pre class="out">お名前は? 太郎

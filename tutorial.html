@@ -194,9 +194,10 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="actions"><span class="n">10</span>Actions and procedures</h2>
   <p>Side effects such as <code>表示する</code> (display) and <code>入力する</code> (read a line) don’t happen when they are evaluated. They produce an <strong>action</strong> (<code>動作</code>), and actions at the top level are performed. To run several in order, put them in a <code>手順</code> (“procedure”) block. <code>… した 結果</code> (“the result of having done …”) gives a name to an action’s result.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>greet.suru</span></div>
-<pre class="suru">挨拶する とは 手順
+<pre class="suru">挨拶する とは 以下の手順です
   名前 とは 「お名前は? 」 を 入力した 結果
   「こんにちは、」 + 名前 + 「さん」 を 表示する
+  以上です
 
 挨拶する</pre>
 <pre class="out">お名前は? 太郎
