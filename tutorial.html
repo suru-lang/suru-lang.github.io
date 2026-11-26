@@ -54,6 +54,7 @@
     <li><a href="#punctuation">Writing without spaces</a></li>
     <li><a href="#types">Types</a></li>
     <li><a href="#modules">Modules and the library</a></li>
+    <li><a href="#ffi">Calling C functions</a></li>
     <li><a href="#binaries">Native binaries</a></li>
     <li><a href="#next">Where to go next</a></li>
   </ol>
@@ -69,7 +70,7 @@
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
 <pre class="sh"><span class="p">$ </span>pip install suru-lang
 <span class="p">$ </span>suru --version</pre>
-<pre class="out">する 0.2.0</pre></div>
+<pre class="out">する 0.9.1</pre></div>
   <p>Save this line as <code>hello.suru</code> and run it with <code>suru hello.suru</code>.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>hello.suru</span></div>
 <pre class="suru">「こんにちは、世界」 を 表示する</pre>
@@ -228,7 +229,7 @@ n を 階乗する とは n * （n - 1 を 階乗する）
 x を 二乗する とは x * x
 4 を 二乗する</pre>
 <pre class="out">16</pre></div>
-  <p>Type names include <code>数</code> (number), <code>文字列</code> (string), <code>真偽</code> (boolean), <code>数 の リスト</code> (list of numbers) and <code>文字列 の 動作</code> (an action that yields a string). Run <code>suru --検査 file.suru</code> to check without running.</p>
+  <p>Type names include <code>数</code> (number), <code>文字列</code> (string), <code>真偽</code> (boolean), <code>数 の リスト</code> (list of numbers) and <code>文字列 を 返す 入出力動作</code> (an action that yields a string; <code>文字列 の 動作</code> is the short form). Run <code>suru --検査 file.suru</code> to check without running.</p>
 
   <h2 id="modules"><span class="n">13</span>Modules and the standard library</h2>
   <p><code>「数学」 を 読み込む</code> (“load 数学”) loads <code>数学.suru</code> from the same folder, and its names are used as <code>数学内の二乗する</code> (“二乗する in 数学”). Write <code>「数学」 を 読み込んで 使う</code> (“load and use”) instead to use the names without a prefix. The standard library loads the same way:</p>
@@ -242,7 +243,34 @@ x を 二乗する とは x * x
 （1 と 2 と 3 と 4 と 5）</pre></div>
   <p>Other modules include <code>ファイル</code> (files), <code>時間</code> (time and calendar), <code>JSON</code>, <code>スレッド</code> (threads and channels) and <code>プロセス</code> (processes). A module can end with <code>X と Y は 非公開とする。</code> to keep names private.</p>
 
-  <h2 id="binaries"><span class="n">14</span>Native binaries</h2>
+  <h2 id="ffi"><span class="n">14</span>Calling C functions</h2>
+  <p>する can call any function with a C calling convention (FFI). <code>外部の「m」 を 読み込む</code> (“load the external m”) links the C library <code>libm</code>; libc needs no loading. Each function is given its する name and the C name in 「」, with the types of its arguments and result.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>ffi.suru</span></div>
+<pre class="suru">外部の「m」 を 読み込む
+
+x を y で 累乗する とは 外部の「pow」 で 小数 を 小数 で 受け取って 小数 を 返します
+
+以下は外部の関数です
+  小数 を 平方根にする は 「sqrt」 で 小数 を 返します
+  小数 を 床にする は 「floor」 で 小数 を 返します
+以上です
+
+以下は外部の入出力動作です
+  文字列 を 一行出力する は 「puts」 で 整数 を 返します
+以上です
+
+2 を 10 で 累乗する
+2.0 を 平方根にする
+2.7 を 床にする
+「こんにちは」 を 一行出力する</pre>
+<pre class="out">1024
+1.4142135623730951
+2
+こんにちは</pre></div>
+  <p>For one function, write it on one line: <code>… とは 外部の「C name」 で</code>, then the argument types with the same particles as the definition, <code>受け取って</code> (“takes”), and the result type. For several, list them one per line between <code>以下は外部の関数です</code> (“the following are external functions”) and <code>以上です</code>. Use <code>以下は外部の入出力動作です</code> for functions with side effects: they become actions, run only when performed, just like <code>表示する</code>.</p>
+  <p>The C types are <code>数</code> (int64), <code>小数</code> (double), <code>整数</code> (int), <code>単精度</code> (float), <code>真偽</code>, <code>文字列</code> (char*), <code>番地</code> (a pointer), <code>バイト列</code> (bytes) and <code>無</code> (void). To pass arguments to C in another order or add constants, name them: <code>r を 読取する とは 「f」（r と 0） で 番地 を 受け取って 番地 を 返します</code>. Libraries such as SQLite, PCRE2, OpenSSL and SDL3 are wrapped this way in pure する; see the <code>suru-lang</code> repositories on GitHub.</p>
+
+  <h2 id="binaries"><span class="n">15</span>Native binaries</h2>
   <p>The same programs compile to a single native executable through LLVM. You need clang on your machine. <code>suru --翻訳</code> uses the reference compiler; <code>suruc</code>, written in Go, does the same job much faster.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
 <pre class="sh"><span class="p">$ </span>go install github.com/suru-lang/suru/cmd/suruc@latest
@@ -258,7 +286,7 @@ x を 二乗する とは x * x
 <pre class="out">「挨拶」0.1.0 を組みました(出力/挨拶)
 こんにちは</pre></div>
 
-  <h2 id="next"><span class="n">15</span>Where to go next</h2>
+  <h2 id="next"><span class="n">16</span>Where to go next</h2>
   <p>You have seen the core of the language. The repository has much more: threads and channels, calling C and Go, JSON, the Japanese calendar, and the full list of design decisions.</p>
   <div class="next">
     <a href="https://github.com/suru-lang/suru">Repository and full reference<span>README with every rule of the grammar</span></a>
