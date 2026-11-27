@@ -63,11 +63,11 @@
 <pre class="suru"># “a を b で 割る” — divide a by b
 a を b で 割った数にする とは a / b です
 
-10 を 2 で 割った数にする
+10 を 2 で 割った数にする    # 割った数にする = make it into “the divided number”
 2 で 10 を 割った数にする    # same: particles decide
 
-n を 階乗する とは
-  もし n が 0 ならば 1
+n を 階乗する とは          # 階乗する = take the factorial of
+  もし n が 0 ならば 1      # もし = if
   そうでなければ n * （n - 1 を 階乗する） です
 
 10 を 階乗する</pre>
@@ -100,12 +100,12 @@ n を 階乗する とは
       </div>
       <div class="window" style="margin-top:18px">
         <div class="window-bar"><i></i><i></i><i></i><span>lists.suru</span></div>
-<pre class="suru">x を 三倍する とは x * 3 です
-数列 とは 1 と 2 と 3 と 4 です
+<pre class="suru">x を 三倍する とは x * 3 です    # 三倍する = triple
+数列 とは 1 と 2 と 3 と 4 です  # 数列 = sequence
 
-数列 の それぞれ を 三倍する
-数列 を 加算して 三倍する
-数列 から （x を 受け取って x > 2 を 返すこと） で 選別する</pre>
+数列 の それぞれ を 三倍する     # の = of
+数列 を 加算して 三倍する        # 加算して = add up, and then
+数列 から （x を 受け取って x > 2 を 返すこと） で 選別する  # 選別する = filter</pre>
 <pre class="out">（3 と 6 と 9 と 12）
 30
 （3 と 4）</pre>
@@ -146,8 +146,8 @@ n を 階乗する とは
     <div class="split">
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>spaced style</span></div>
-<pre class="suru">a と b を 平均する とは 合計 / 2 です
-ただし 合計 とは a + b です
+<pre class="suru">a と b を 平均する とは 合計 / 2 です  # 平均する = average, 合計 = sum
+ただし 合計 とは a + b です            # ただし = where
 
 3 と 5 を 平均する</pre>
 <pre class="out">4</pre>
@@ -156,7 +156,7 @@ n を 階乗する とは
         <div class="window-bar"><i></i><i></i><i></i><span>punctuation style</span></div>
 <pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。
 3と5を平均します。
-「できました」を表示します。</pre>
+「できました」を表示します。  # 表示します = display (polite form)</pre>
 <pre class="out">4
 できました</pre>
       </div>
@@ -178,15 +178,16 @@ n を 階乗する とは
     </div>
     <div class="window">
       <div class="window-bar"><i></i><i></i><i></i><span>server.suru — a web server in 7 lines (suru-lang/http)</span></div>
-<pre class="suru" data-check="no">「HTTP」 を 読み込む
+<pre class="suru" data-check="no">「HTTP」 を 読み込む  # 読み込む = load
 
+# 要求 = request, 応答 = response (from HTTP), 返す = return
 HTTP内の要求 を 案内する は HTTP内の応答 を 返す
-要求 を 案内する とは
-  もし 要求 の 道 が
+要求 を 案内する とは  # 案内する = guide (route)
+  もし 要求 の 道 が   # 道 = path
     「/」 ならば 「こんにちは」 を HTTP内の本文応答する
     そうでなければ 404 で 「見つかりません: 」 + 要求 の 道 を HTTP内の状態応答する
 
-8080 を 案内すること で HTTP内の待受する</pre>
+8080 を 案内すること で HTTP内の待受する  # 待受する = listen</pre>
 <pre class="sh"><span class="p">$ </span>curl localhost:8080/
 こんにちは
 <span class="p">$ </span>curl localhost:8080/x
@@ -212,14 +213,15 @@ HTTP内の要求 を 案内する は HTTP内の応答 を 返す
 <pre class="suru" data-check="no">「屋台」 を 読み込んで 使う
 「標準」 を 読み込んで 使う
 
+# 品表示する = show an item, 文脈 = context
 文脈 を 品表示する は HTTP内の応答 を 返す 入出力動作
 c を 品表示する とは 「品 」 + （c から 「番号」 を 道引数取得する） + 「 です」 を 文字返答する
 
-道群 とは 以下の【道】です
+道群 とは 以下の【道】です    # 道群 = routes, 以下の = the following
   GET  /品/:番号    品表示する
 以上です
 
-8080 を 道群 で 屋台開店する</pre>
+8080 を 道群 で 屋台開店する  # 屋台開店する = open the stall (start the app)</pre>
 <pre class="sh"><span class="p">$ </span>curl localhost:8080/品/3
 品 3 です</pre>
     </div>
@@ -243,11 +245,13 @@ c を 品表示する とは 「品 」 + （c から 「番号」 を 道引数
       <div class="window-bar"><i></i><i></i><i></i><span>hello.suru — a talker that publishes every second</span></div>
 <pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
 
-始めする とは 以下の手順です
+始めする とは 以下の手順です  # 始めする = start
+  # 作成する = create, 結果 = result, 発行者 = publisher
   n とは 「hello」 を ノード作成した 結果
   p とは 文字列型 を 「chatter」 へ n で 発行者作成した 結果
+  # 発行する = publish, 周期登録する = run on a timer
   （「こんにちは」 を p へ 発行する） を 1.0 で n に 周期登録する
-  「始めました」 を n で 情報記録する
+  「始めました」 を n で 情報記録する  # 情報記録する = log info
   n を スピンする
   以上です
 

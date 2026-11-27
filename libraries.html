@@ -67,10 +67,10 @@
 <pre class="suru" data-check="no">「蔵」 を 読み込んで 使う
 「SQLite」 を 読み込んで 使う
 
-主処理する とは 以下の手順です
-  db とは 「店.db」 を SQLite駆動 で DB開封した 結果
-  db に 「CREATE TABLE IF NOT EXISTS 品 (名前 TEXT, 値段 REAL)」 を DB実行する
-  db を DB閉鎖する
+主処理する とは 以下の手順です  # 主処理する = main procedure
+  db とは 「店.db」 を SQLite駆動 で DB開封した 結果  # DB開封する = open a database, 駆動 = driver
+  db に 「CREATE TABLE IF NOT EXISTS 品 (名前 TEXT, 値段 REAL)」 を DB実行する  # DB実行する = run SQL
+  db を DB閉鎖する              # DB閉鎖する = close
   「以上です」 を 表示する
   以上です
 

@@ -99,7 +99,7 @@
 <pre class="out">25</pre></div>
   <p>Each parameter is tagged with a <strong>particle</strong>. When you call the function, the particles match the arguments to the parameters, so the order doesn’t matter:</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>divide.suru</span></div>
-<pre class="suru">a を b で 割った数にする とは a / b です
+<pre class="suru">a を b で 割った数にする とは a / b です  # 割った数にする = make it into “the divided number”
 10 を 2 で 割った数にする
 2 で 10 を 割った数にする</pre>
 <pre class="out">5
@@ -157,7 +157,8 @@
   <p><code>もし … ならば … そうでなければ …</code> is “if … then … otherwise ….” It is an expression, so both branches are required. <code>が</code> compares for equality.</p>
   <p>A name ending in <code>である</code> (“is …”) defines a <strong>predicate</strong>, a function that returns true (<code>真</code>) or false (<code>偽</code>). Its subject takes <code>が</code>, you negate it with <code>でない</code> (“is not”), and <code>であること</code> makes it a value.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>even.suru</span></div>
-<pre class="suru">n が 偶数である とは n % 2 が 0 です
+<pre class="suru">n が 偶数である とは n % 2 が 0 です  # 偶数である = is even
+# 判定する = judge; 偶数 = even, 奇数 = odd
 n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」 です
 7 を 判定する
 4 が 偶数である
@@ -172,7 +173,7 @@ n を 判定する とは もし n が 偶数である ならば 「偶数」 �
   <h2 id="cases"><span class="n">08</span>Recursion and definitions by cases</h2>
   <p>Write a value or a pattern in place of a parameter name to define a function case by case. The first case that matches is used.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>factorial.suru</span></div>
-<pre class="suru">0 を 階乗する とは 1 です
+<pre class="suru">0 を 階乗する とは 1 です  # 階乗する = take the factorial of
 n を 階乗する とは n * （n - 1 を 階乗する） です
 10 を 階乗する</pre>
 <pre class="out">3628800</pre></div>
@@ -183,7 +184,7 @@ n を 階乗する とは n * （n - 1 を 階乗する） です
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>shapes.suru</span></div>
 <pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形 です
 
-形 を 面積にする とは
+形 を 面積にする とは  # 面積にする = make it into its area (形 = shape)
   もし 形 が
     半径 の 円 ならば 3 * 半径 ^ 2 です
     幅 と 高 の 長方形 ならば 幅 * 高 です
@@ -197,9 +198,9 @@ n を 階乗する とは n * （n - 1 を 階乗する） です
   <h2 id="actions"><span class="n">10</span>Actions and procedures</h2>
   <p>Side effects such as <code>表示する</code> (display) and <code>入力する</code> (read a line) don’t happen when they are evaluated. They produce an <strong>action</strong> (<code>入出力動作</code>, “input/output action”), and actions at the top level are performed. To run several in order, list them one per line between <code>以下の手順です</code> (“the procedure is as follows”) and <code>以上です</code> (“that is all”). <code>… した 結果</code> (“the result of having done …”) gives a name to an action’s result. The type declaration on the first line says “an action that returns nothing” (<code>無</code>).</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>greet.suru</span></div>
-<pre class="suru">挨拶する は 無 を 返す 入出力動作
+<pre class="suru">挨拶する は 無 を 返す 入出力動作            # 挨拶する = greet
 挨拶する とは 以下の手順です
-  名前 とは 「お名前は? 」 を 入力した 結果
+  名前 とは 「お名前は? 」 を 入力した 結果  # 名前 = name
   「こんにちは、」 + 名前 + 「さん」 を 表示する
   以上です
 
@@ -211,7 +212,7 @@ n を 階乗する とは n * （n - 1 を 階乗する） です
   <h2 id="punctuation"><span class="n">11</span>Writing without spaces</h2>
   <p>Real Japanese has no spaces between words. Once a line contains <code>。</code> or <code>、</code>, する splits words where the script changes (kanji, kana, numbers). <code>。</code> ends a sentence and <code>、</code> is just a pause for readability. You can also use the polite form: <code>します</code> means the same as <code>する</code>.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>punct.suru</span></div>
-<pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。
+<pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。  # 平均する = average, 合計 = sum
 3と5を平均します。
 「できました」を表示します。</pre>
 <pre class="out">4
@@ -238,9 +239,9 @@ x を 二乗する とは x * x です
   <p><code>「数学」 を 読み込む</code> (“load 数学”) loads <code>数学.suru</code> from the same folder, and its names are used as <code>数学内の二乗する</code> (“二乗する in 数学”). Write <code>「数学」 を 読み込んで 使う</code> (“load and use”) instead to use the names without a prefix. The standard library loads the same way:</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>stdlib.suru</span></div>
 <pre class="suru">「標準」 を 読み込んで 使う
-3 と 1 と 2 を 整列する
-「a,b,c」 を 「,」 で 分割する
-1 から 5 を 範囲にする</pre>
+3 と 1 と 2 を 整列する         # 整列する = sort
+「a,b,c」 を 「,」 で 分割する  # 分割する = split
+1 から 5 を 範囲にする          # 範囲にする = make a range</pre>
 <pre class="out">（1 と 2 と 3）
 （「a」 と 「b」 と 「c」）
 （1 と 2 と 3 と 4 と 5）</pre></div>
@@ -251,15 +252,16 @@ x を 二乗する とは x * x です
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>ffi.suru</span></div>
 <pre class="suru">外部の「m」 を 読み込む
 
+# 累乗する = raise to a power
 x を y で 累乗する とは 外部の「pow」 で 小数 を 小数 で 受け取って 小数 を 返します
 
 以下は外部の関数です
-  小数 を 平方根にする は 「sqrt」 で 小数 を 返します
-  小数 を 床にする は 「floor」 で 小数 を 返します
+  小数 を 平方根にする は 「sqrt」 で 小数 を 返します  # 平方根 = square root
+  小数 を 床にする は 「floor」 で 小数 を 返します      # 床 = floor
 以上です
 
 以下は外部の入出力動作です
-  文字列 を 一行出力する は 「puts」 で 整数 を 返します
+  文字列 を 一行出力する は 「puts」 で 整数 を 返します  # 一行出力する = output a line
 以上です
 
 2 を 10 で 累乗する

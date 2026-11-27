@@ -35,6 +35,13 @@
     cHint: "Processes, threads, signals, sockets and C libraries other than the C standard library do not work in the browser. Try them with する installed on your computer.",
   };
 
+  // On the English page, note(line, text, col) adds “# text” after the line at column col, so the
+  // Japanese words in a sample are explained where they first appear. The Japanese page shows the line alone.
+  function width(s) { var n = 0; for (var i = 0; i < s.length; i++) n += s.charCodeAt(i) > 0x2e7f ? 2 : 1; return n; }
+  function note(line, text, col) {
+    return ja ? line : line + new Array(Math.max(2, col - width(line)) + 1).join(" ") + "# " + text;
+  }
+
   // Sample programs. Each one is a program from the tutorial.
   var SAMPLES = [
     { en: "Hello, world", ja: "こんにちは、世界", code:
@@ -42,42 +49,43 @@
     { en: "Particles mark the arguments", ja: "助詞で引数を区別する", code:
       "# “a を b で 割る” — divide a by b\n" +
       "a を b で 割った数にする とは a / b です\n\n" +
-      "10 を 2 で 割った数にする\n" +
+      note("10 を 2 で 割った数にする", "割った数にする = make it into “the divided number”", 29) + "\n" +
       "2 で 10 を 割った数にする    # same: particles decide" },
     { en: "Recursion: factorial", ja: "再帰: 階乗", code:
-      "n を 階乗する とは\n" +
-      "  もし n が 0 ならば 1\n" +
+      note("n を 階乗する とは", "階乗する = take the factorial of", 24) + "\n" +
+      note("  もし n が 0 ならば 1", "もし = if", 24) + "\n" +
       "  そうでなければ n * （n - 1 を 階乗する） です\n\n" +
       "10 を 階乗する\n" +
       "20 を 階乗する" },
     { en: "Lists and functions as values", ja: "リストと関数の値", code:
-      "x を 三倍する とは x * 3 です\n" +
-      "数列 とは 1 と 2 と 3 と 4 です\n\n" +
+      note("x を 三倍する とは x * 3 です", "三倍する = triple", 33) + "\n" +
+      note("数列 とは 1 と 2 と 3 と 4 です", "数列 = sequence", 33) + "\n\n" +
       "数列 の それぞれ を 三倍する\n" +
       "数列 を 加算して 三倍する\n" +
-      "数列 から （x を 受け取って x > 2 を 返すこと） で 選別する\n" +
-      "数列 を 0 から 加算すること で 畳み込みする\n" +
-      "数列 を （10 を 加算すること） で 写像する" },
+      note("数列 から （x を 受け取って x > 2 を 返すこと） で 選別する", "選別する = filter", 0) + "\n" +
+      note("数列 を 0 から 加算すること で 畳み込みする", "畳み込みする = fold", 0) + "\n" +
+      note("数列 を （10 を 加算すること） で 写像する", "写像する = map", 0) },
     { en: "Predicates", ja: "述語", code:
-      "n が 偶数である とは n % 2 が 0 です\n" +
+      note("n が 偶数である とは n % 2 が 0 です", "偶数である = is even", 0) + "\n" +
+      (ja ? "" : "# 判定する = judge; 偶数 = even, 奇数 = odd\n") +
       "n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」 です\n\n" +
       "7 を 判定する\n" +
       "4 が 偶数である\n" +
       "（1 と 2 と 3 と 4） から 偶数であること で 選別する" },
     { en: "Data types and cases", ja: "データ型と場合分け", code:
       "図形 とは 半径 の 円 か 幅 と 高 の 長方形 です\n\n" +
-      "形 を 面積にする とは\n" +
+      note("形 を 面積にする とは", "面積にする = make it into its area (形 = shape)", 0) + "\n" +
       "  もし 形 が\n" +
       "    半径 の 円 ならば 3 * 半径 ^ 2 です\n" +
       "    幅 と 高 の 長方形 ならば 幅 * 高 です\n\n" +
       "5 の 円 を 面積にする\n" +
       "幅 は 2 で 高 は 3 の 長方形 を 面積にする" },
     { en: "Punctuation style", ja: "句読点の書き方", code:
-      "aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。\n" +
+      note("aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。", "平均する = average, 合計 = sum", 0) + "\n" +
       "3と5を平均します。\n" +
       "「できました」を表示します。" },
     { en: "Reading input", ja: "入力を読む", input: "太郎", code:
-      "挨拶する は 無 を 返す 入出力動作\n" +
+      note("挨拶する は 無 を 返す 入出力動作", "挨拶する = greet", 0) + "\n" +
       "挨拶する とは 以下の手順です\n" +
       "  名前 とは 「お名前は? 」 を 入力した 結果\n" +
       "  「こんにちは、」 + 名前 + 「さん」 を 表示する\n" +
@@ -85,18 +93,18 @@
       "挨拶する" },
     { en: "The standard library", ja: "標準ライブラリ", code:
       "「標準」 を 読み込んで 使う\n\n" +
-      "3 と 1 と 2 を 整列する\n" +
-      "「a,b,c」 を 「,」 で 分割する\n" +
-      "1 から 5 を 範囲にする" },
+      note("3 と 1 と 2 を 整列する", "整列する = sort", 32) + "\n" +
+      note("「a,b,c」 を 「,」 で 分割する", "分割する = split", 32) + "\n" +
+      note("1 から 5 を 範囲にする", "範囲にする = make a range", 32) },
     { en: "Math and random numbers", ja: "算術と乱数", code:
       "「算術」 を 読み込んで 使う\n" +
       "「乱数」 を 読み込んで 使う\n\n" +
-      "1 を 正弦にする\n" +
-      "2 を 10 で 累乗する\n" +
+      note("1 を 正弦にする", "正弦 = sine", 21) + "\n" +
+      note("2 を 10 で 累乗する", "累乗する = raise to a power", 21) + "\n" +
       "（1 と 2 と 3 と 4 と 5） を 42 で 混合する      # shuffle with the seed 42" },
     { en: "A type error", ja: "型のエラー", code:
-      "x を 二乗する とは x * x です\n" +
-      "「三」 を 二乗する" },
+      note("x を 二乗する とは x * x です", "二乗する = square", 0) + "\n" +
+      note("「三」 を 二乗する", "「三」 = the string “three”, not a number", 30) },
   ];
 
   var $ = function (id) { return document.getElementById(id); };
