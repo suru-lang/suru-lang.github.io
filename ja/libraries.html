@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公式ライブラリ — する (suru)</title>
+<meta name="description" content="する (suru) の標準ライブラリの外にある公式ライブラリ: HTTP・テンプレート・データベース・O/R マッパー・正規表現・GUI・Python、ウェブフレームワーク 屋台、ROS 2。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/libraries.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/libraries.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/libraries.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="../assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="examples.html">例</a>
+      <a href="ohanashi.html">おはなし</a>
+      <a href="playground.html">試す</a>
+      <a href="libraries.html" aria-current="page">ライブラリ</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../libraries.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>公式ライブラリ</p>
+  <ol>
+    <li><a href="#use">ライブラリを使う</a></li>
+    <li><a href="#list">ライブラリ</a></li>
+    <li><a href="#web">ウェブフレームワーク 屋台</a></li>
+    <li><a href="#ros2">ROS 2</a></li>
+    <li><a href="#tools">する で書いた道具</a></li>
+    <li><a href="#own">自分で作る</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">ライブラリ</span>
+  <h1>公式<span class="glow">ライブラリ</span></h1>
+  <p class="lead">標準ライブラリのほかに、suru-lang の organization には、それぞれのリポジトリに置いた小さなライブラリがあります。<code>kumu</code> のプロジェクトで <code>kumu 追加</code> して、名前で読み込みます。どれにも README があり、ほとんどは Read the Docs に API のページがあります。この一覧は<a href="https://suru.readthedocs.io/en/latest/libraries.html">ドキュメント</a>(英語)にもあります。</p>
+
+  <h2 id="use"><span class="n">01</span>ライブラリを使う</h2>
+  <p>プロジェクトにライブラリを足します。依存しているものも kumu が取ってきます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 追加 github.com/suru-lang/db
+<span class="p">$ </span>kumu 追加 github.com/suru-lang/sqlite</pre></div>
+  <p>名前で読み込みます。次は 「蔵」 と SQLite の駆動を使う例です。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>本体.suru</span></div>
+<pre class="suru" data-check="no">「蔵」 を 読み込んで 使う
+「SQLite」 を 読み込んで 使う
+
+主処理する とは 以下の手順です
+  db とは 「店.db」 を SQLite駆動 で DB開封した 結果
+  db に 「CREATE TABLE IF NOT EXISTS 品 (名前 TEXT, 値段 REAL)」 を DB実行する
+  db を DB閉鎖する
+  「以上です」 を 表示する
+  以上です
+
+主処理する</pre></div>
+  <p>C のライブラリを呼ぶものは、そのライブラリをシステムに入れておきます。kumu は各ライブラリの <code>組.suru</code> の <code>外部依存</code> を確かめ、なければ入れ方を示します。</p>
+
+  <h2 id="list"><span class="n">02</span>ライブラリ</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>リポジトリ</th><th>読み込む名前</th><th>できること</th><th>する</th><th>API</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://github.com/suru-lang/http">http</a></td><td><code>「HTTP」</code> <code>「HTTP/クライアント」</code></td><td>HTTP サーバー(静的ファイル・並行応答・WebSocket)と HTTP/HTTPS クライアント</td><td>0.9.1</td><td><a href="https://http.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/template">template</a></td><td><code>「雛形」</code></td><td>Jinja2 に似たテンプレートエンジン(繰り返し・条件・フィルター・継承・自動エスケープ)</td><td>—</td><td><a href="https://suru-lang-template.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/db">db</a></td><td><code>「蔵」</code></td><td>薄いデータベースの層(接続・実行・行の取得・トランザクション)。どのデータベースかは駆動が決める</td><td>—</td><td><a href="https://suru-lang-db.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/sqlite">sqlite</a></td><td><code>「SQLite」</code></td><td>SQLite(libsqlite3)。単独でも、蔵の駆動 SQLite駆動 としても</td><td>0.9.1</td><td><a href="https://suru-lang-sqlite.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/postgresql">postgresql</a></td><td><code>「PostgreSQL」</code></td><td>蔵の PostgreSQL 駆動(libpq)</td><td>0.9.1</td><td><a href="https://suru-lang-postgresql.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/mysql">mysql</a></td><td><code>「MySQL」</code></td><td>蔵の MySQL 駆動(libmysqlclient)</td><td>0.9.1</td><td><a href="https://suru-lang-mysql.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/orm">orm</a></td><td><code>「台帳」</code></td><td>蔵の上の O/R マッパー(組の保存と検索・値で書く条件・一対多・【表】で導く表)</td><td>0.10.0</td><td><a href="https://orm.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/regex">regex</a></td><td><code>「正規表現」</code></td><td>PCRE2 の正規表現(検索・全検索・置換・分割)</td><td>0.9.1</td><td><a href="https://suru-lang-regex.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/gui-sdl3">gui-sdl3</a></td><td><code>「画面」</code></td><td>SDL3 でウィンドウ・図形・日本語の文字。Elm 風の部品つき</td><td>0.9.1</td><td><a href="https://gui-sdl3.readthedocs.io/en/latest/">docs</a></td></tr>
+      <tr><td><a href="https://github.com/suru-lang/python">python</a></td><td><code>「Python」</code></td><td>同じプロセスで Python を動かし(libpython を埋め込む)、値を受け取る</td><td>0.9.1</td><td><a href="https://github.com/suru-lang/python">README</a></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>する</b> の列は、各 README が求める一番古い する の版です(— は指定なし)。どれも最新の版で試験しています。「蔵」・「台帳」・駆動は組み合わせて使え、駆動を替えるだけで同じプログラムが SQLite・PostgreSQL・MySQL で動きます。</p>
+
+  <h2 id="web"><span class="n">03</span>ウェブフレームワーク 屋台</h2>
+  <p><a href="https://github.com/suru-lang/web">屋台</a>(suru-lang/web、<code>「屋台」</code>、する 0.11.0 以上)は、http・雛形・台帳 で作ったウェブフレームワークです。【道】で道筋を並べ、それぞれの処理を書きます。<code>kumu 新規 店 --対象 web</code> で、すべてそろったアプリができます。<a href="./#web">トップの節</a>と <a href="https://suru-lang-web.readthedocs.io/en/latest/">API のドキュメント</a>(英語)を見てください。</p>
+
+  <h2 id="ros2"><span class="n">04</span>ROS 2</h2>
+  <p><a href="https://github.com/suru-lang/rclsuru">rclsuru</a>(<code>「rclsuru」</code>)で、rclcpp・rclpy のノードと話す ROS 2 のノードを する で書けます。まず<a href="rclsuru.html">短いチュートリアル</a>から。</p>
+
+  <h2 id="tools"><span class="n">05</span>する で書いた道具</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>リポジトリ</th><th>何か</th><th>する</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://github.com/suru-lang/surl">surl</a></td><td>curl に似た HTTP・HTTPS のコマンド。http の上に作り、<code>kumu 導入</code> で入れる</td><td>0.12.0</td></tr>
+      <tr><td><a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama</a></td><td>Ollama でローカルの LLM と話すウェブアプリ(<a href="ohanashi.html">使い方</a>)</td><td>0.4.0</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="own"><span class="n">06</span>自分で作る</h2>
+  <p><code>組.suru</code> があってタグを付けた Git のリポジトリなら、どれでも <code>kumu 追加</code> で足せます。中央の登録所はありません。<a href="https://github.com/suru-lang/suru/blob/main/docs/ライブラリを公開する.md">ライブラリを公開する</a>を見てください。</p>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="tutorial.html">入門</a> · <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../libraries.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
