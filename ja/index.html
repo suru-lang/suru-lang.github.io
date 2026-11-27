@@ -30,6 +30,7 @@
       <a href="examples.html">例</a>
       <a href="ohanashi.html">おはなし</a>
       <a href="playground.html">試す</a>
+      <a href="#web">ウェブ</a>
       <a href="#ros2">ROS 2</a>
       <a href="#install">入れ方</a>
       <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a>
@@ -170,7 +171,7 @@ n を 階乗する とは
     <div class="section-head">
       <span class="num">04 / ライブラリ</span>
       <h2><span class="jp">標準</span>必要なものは、そろっています</h2>
-      <p>標準ライブラリそのものが する で書かれています。<code>「名前」 を 読み込む</code> で、ファイル、時間と暦(和暦も)、JSON、TCP、スレッドと通路、プロセスとパイプ、共有メモリ、シグナルが使えます。インタプリタでも、コンパイルしたバイナリでも、同じコードが動きます。HTTP サーバー(静的ファイル配信とクライアントつき)・SQLite・正規表現は、<code>kumu 追加</code> で足す標準の外のライブラリです。</p>
+      <p>標準ライブラリそのものが する で書かれています。<code>「名前」 を 読み込む</code> で、ファイル、時間と暦(和暦も)、JSON、TCP、スレッドと通路、プロセスとパイプ、共有メモリ、シグナルが使えます。インタプリタでも、コンパイルしたバイナリでも、同じコードが動きます。HTTP サーバー(静的ファイル配信とクライアントつき)・SQLite・正規表現は、<code>kumu 追加</code> で足す標準の外のライブラリです。ほかにも<a href="https://suru.readthedocs.io/en/latest/libraries.html">公式ライブラリ</a>(英語)に、テンプレート、SQLite・PostgreSQL・MySQL の駆動つきのデータベースの層、O/R マッパー、SDL3 の GUI、Python の呼び出しがあります。</p>
       <div class="libs">
         <code>標準</code><code>ファイル</code><code>時間</code><code>JSON</code><code>通信</code><code>スレッド</code><code>プロセス</code><code>共有メモリ</code><code>共有箱</code><code>シグナル</code><code>算術</code><code>乱数</code><code>環境</code>
       </div>
@@ -196,10 +197,41 @@ HTTP内の要求 を 案内する は HTTP内の応答 を 返す
 
 <div class="divider"></div>
 
+<section id="web">
+  <div class="wrap split">
+    <div class="section-head">
+      <span class="num">05 / ウェブ</span>
+      <h2><span class="jp">屋台</span>する で書くウェブフレームワーク</h2>
+      <p><a href="https://github.com/suru-lang/web">屋台</a>(suru-lang/web)は、HTTP サーバー・テンプレートエンジン 雛形・O/R マッパー 台帳 をまとめたものです。【道】で道筋を1行に1つずつ並べ、それぞれの処理を書きます。インタプリタでもコンパイルしたバイナリでも同じコードが動きます。<code>kumu 新規 店 --対象 web</code> で、道筋・テンプレート・静的ファイル・試験のそろったアプリができます。する 0.11.0 以上が要ります。API は <a href="https://suru-lang-web.readthedocs.io/en/latest/">Read the Docs のドキュメント</a>(英語)にあります。</p>
+      <div class="libs">
+        <code>道筋(【道】)</code><code>テンプレート</code><code>フォーム</code><code>セッションとクッキー</code><code>中継</code><code>O/R マッパー</code><code>道筋の試験</code>
+      </div>
+    </div>
+    <div class="window">
+      <div class="window-bar"><i></i><i></i><i></i><span>店.suru — 品ごとのページ</span></div>
+<pre class="suru" data-check="no">「屋台」 を 読み込んで 使う
+「標準」 を 読み込んで 使う
+
+文脈 を 品表示する は HTTP内の応答 の 動作
+c を 品表示する とは 「品 」 + （c から 「番号」 を 道引数取得する） + 「 です」 を 文字返答する
+
+道群 とは 以下の【道】です
+  GET  /品/:番号    品表示する
+以上です
+
+8080 を 道群 で 屋台開店する</pre>
+<pre class="sh"><span class="p">$ </span>curl localhost:8080/品/3
+品 3 です</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="ros2">
   <div class="wrap split">
     <div class="section-head">
-      <span class="num">05 / ROS 2</span>
+      <span class="num">06 / ROS 2</span>
       <h2><span class="jp">ロボット</span>ROS 2 のノードも する で</h2>
       <p><a href="https://github.com/suru-lang/rclsuru">rclsuru</a> は、する で ROS 2 のノードを書くためのライブラリです。トピック・サービス・アクション・パラメータ・ログ・ROS の時刻が使え、rclcpp・rclpy のノードや <code>ros2</code> の道具とそのまま話せます。ROS 2 Jazzy で確かめています。最初の版 0.1.0 を出しました。<code>kumu 追加 github.com/suru-lang/rclsuru@0.1.0</code> でプロジェクトに足します。</p>
       <div class="libs">
@@ -233,7 +265,7 @@ data: こんにちは</pre>
 <section id="ohanashi">
   <div class="wrap split">
     <div class="section-head">
-      <span class="num">06 / おはなし</span>
+      <span class="num">07 / おはなし</span>
       <h2><span class="jp">アプリ</span>手元の LLM と、ブラウザで話す</h2>
       <p><a href="ohanashi.html">おはなし</a>(<a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama</a>)は、手元の <a href="https://ollama.com/">Ollama</a> の LLM とブラウザでおしゃべりする Web アプリです。サーバーは する で約 4000 行で、1つの実行ファイルになります。会話は手元の SQLite にしまうので、外には出ません。</p>
       <div class="libs">
@@ -257,7 +289,7 @@ data: こんにちは</pre>
 <section id="tools">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">07 / 道具</span>
+      <span class="num">08 / 道具</span>
       <h2><span class="jp">道具</span>道具も日本語で</h2>
       <p>エラーの文も、コマンドも、道具も日本語です(必要なところには英語の別名もあります)。</p>
     </div>
@@ -275,7 +307,7 @@ data: こんにちは</pre>
 <section id="install">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">08 / 入れ方</span>
+      <span class="num">09 / 入れ方</span>
       <h2><span class="jp">導入</span>はじめる</h2>
       <p>好きな方法で入れてください。pip で入れるインタプリタには Python 3.10 以降、速い道具には Go 1.23 以降、バイナリを作るには clang が要ります(macOS なら <code>xcode-select --install</code>)。標準ライブラリの API と組み込み関数は <a href="https://suru.readthedocs.io/en/latest/">Read the Docs のドキュメント</a>(英語)にあります。</p>
     </div>
