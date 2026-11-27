@@ -56,7 +56,7 @@
     <div class="tp-card">
       <div class="tp-progress"><span id="tp-count"></span><span class="tp-bar"><i id="tp-fill"></i></span></div>
       <p class="tp-label">Type this</p>
-      <p class="tp-target" id="tp-target" lang="ja"></p>
+      <div class="tp-target-row"><p class="tp-target" id="tp-target" lang="ja"></p><button type="button" class="tp-say" id="tp-say" hidden aria-label="Listen to the word" title="Listen">🔊</button></div>
       <p class="tp-meaning" id="tp-meaning"></p>
       <form id="tp-form" class="tp-form" autocomplete="off">
         <input id="tp-input" class="tp-input" lang="ja" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Your answer">
@@ -69,6 +69,16 @@
         <button type="button" class="btn primary" id="tp-next" hidden>Next →</button>
       </div>
       <p class="tp-keys" id="tp-keys" hidden></p>
+      <div class="tp-chart" id="tp-chart" hidden>
+        <div class="tp-chart-head">
+          <div class="tp-tabs" role="tablist" aria-label="Kana chart">
+            <button type="button" role="tab" id="tp-tab-hira" aria-selected="true">Hiragana <span lang="ja">ひらがな</span></button>
+            <button type="button" role="tab" id="tp-tab-kata" aria-selected="false">Katakana <span lang="ja">カタカナ</span></button>
+          </div>
+          <p class="tp-chart-note" id="tp-chart-note">Each kana shows what to type. <span id="tp-sound-note" hidden>Click one to hear it.</span></p>
+        </div>
+        <div id="tp-chart-body" lang="ja"></div>
+      </div>
     </div>
   </section>
 
