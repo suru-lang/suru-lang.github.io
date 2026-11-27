@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rclsuru で ROS 2 — する (suru)</title>
+<meta name="description" content="する で ROS 2 のノードを書くライブラリ rclsuru の短いチュートリアル。話し手と聞き手、メッセージの型、サービス、パラメータ、ros2 run と ros2 launch。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/rclsuru.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/rclsuru.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/rclsuru.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="../assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="examples.html">例</a>
+      <a href="ohanashi.html">おはなし</a>
+      <a href="playground.html">試す</a>
+      <a href="libraries.html">ライブラリ</a>
+      <a href="rclsuru.html" aria-current="page">ROS 2</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../rclsuru.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>rclsuru で ROS 2</p>
+  <ol>
+    <li><a href="#start">入れる</a></li>
+    <li><a href="#first">はじめてのノード</a></li>
+    <li><a href="#listen">聞く</a></li>
+    <li><a href="#types">メッセージの型</a></li>
+    <li><a href="#services">サービス</a></li>
+    <li><a href="#params">パラメータとログ</a></li>
+    <li><a href="#launch">ros2 run と launch</a></li>
+    <li><a href="#more">もっと先へ</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">ライブラリ</span>
+  <h1><span class="glow">rclsuru</span> で ROS 2 のノード</h1>
+  <p class="lead"><a href="https://github.com/suru-lang/rclsuru">rclsuru</a> は、する で ROS 2 のノードを書くためのライブラリです。トピック・サービス・アクション・パラメータ・ログ・ROS の時刻が使え、rclcpp・rclpy のノードや <code>ros2</code> の道具とそのまま話せます。このページでは、10分ほどで最初のノードを動かします。関数ごとの説明は <a href="https://rclsuru.readthedocs.io/en/latest/">API のドキュメント</a>(英語)にあります。</p>
+  <div class="libs">
+    <code>トピックと QoS</code><code>サービス</code><code>アクション</code><code>パラメータ</code><code>/rosout へのログ</code><code>use_sim_time</code><code>ros2 run と launch</code><code>約200のメッセージ型</code>
+  </div>
+
+  <h2 id="start"><span class="n">01</span>入れる</h2>
+  <p>要るもの:</p>
+  <ul>
+    <li>Ubuntu 24.04 の <b>ROS 2 Jazzy</b>(<a href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html">ROS 2 の手順</a>で <code>ros-jazzy-ros-base</code> か <code>ros-jazzy-desktop</code>)</li>
+    <li><b>する 0.11.0 以上</b>と <code>kumu</code>、clang(<code>sudo apt install clang</code>)。トップの<a href="./#install">入れ方</a>を見てください</li>
+  </ul>
+  <p>使う端末では毎回、作る前に <code>source /opt/ros/jazzy/setup.bash</code> します。rclsuru は ROS 2 のヘッダーとライブラリを <code>/opt/ros/${ROS_DISTRO}</code> から探します。リポジトリの <code>docker/Dockerfile</code> には、ROS 2・する・clang をそろえた環境もあります。</p>
+
+  <h2 id="first"><span class="n">02</span>はじめてのノード</h2>
+  <p>プロジェクトを作り、rclsuru を足します。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>source /opt/ros/jazzy/setup.bash
+<span class="p">$ </span>kumu 新規 hello
+<span class="p">$ </span>cd hello
+<span class="p">$ </span>kumu 追加 github.com/suru-lang/rclsuru</pre></div>
+  <p><code>本体.suru</code> を書きます。1秒ごとに <code>chatter</code> へ「こんにちは」を送るノードです。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>本体.suru</span></div>
+<pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
+
+始めする とは 以下の手順です
+  n とは 「hello」 を ノード作成した 結果
+  p とは 文字列型 を 「chatter」 へ n で 発行者作成した 結果
+  （「こんにちは」 を p へ 発行する） を 1.0 で n に 周期登録する
+  「始めました」 を n で 情報記録する
+  n を スピンする
+  以上です
+
+始めする</pre></div>
+  <p><code>ノード作成する</code> でノードを作り(名前は英数字と <code>_</code> だけ。ROS の決まりです)、<code>発行者作成する</code> で発行者を作ります。<code>周期登録する</code> は ROS の時刻で 1.0 秒ごとに動作を行い、<code>スピンする</code> は Ctrl-C まで タイマーと届いたものを処理し続けます。動かして、別の端末で聞きます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 実行                 # 作って動かす
+
+<span class="p">$ </span>ros2 topic echo chatter std_msgs/msg/String
+data: こんにちは</pre></div>
+  <p><code>kumu 作る</code> なら、ふつうの実行ファイル <code>出力/hello</code> ができます。インタプリタ(<code>suru 本体.suru</code>)でも動きます。</p>
+
+  <h2 id="listen"><span class="n">03</span>聞く</h2>
+  <p>聞き手は <code>chatter</code> を購読し、届くたびに関数を呼びます。上の話し手や <code>ros2 run demo_nodes_cpp talker</code> と一緒に動かします。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>listener/本体.suru</span></div>
+<pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
+
+始めする とは 以下の手順です
+  n とは 「listener」 を ノード作成した 結果
+  文字列型 を 「chatter」 から n で 聞いたこと表示すること に 購読する
+  n を スピンする
+  以上です
+
+文 を 聞いたこと表示する とは （「聞きました: 」 + 文） を 表示する
+
+始めする</pre></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 実行
+聞きました: こんにちは
+聞きました: こんにちは</pre></div>
+  <p><code>文字列型</code> は <code>std_msgs/msg/String</code> で、する の値は文字列そのものです。</p>
+
+  <h2 id="types"><span class="n">04</span>メッセージの型</h2>
+  <p>よく使うパッケージの型を同梱しています(std_msgs・geometry_msgs・sensor_msgs・nav_msgs・example_interfaces など、全部で約200)。<code>「rclsuru/型/パッケージ」</code> を読み込んで使います。次のノードは turtlesim の亀を円く走らせます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>亀/本体.suru</span></div>
+<pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
+「rclsuru/型/geometry_msgs」 を 読み込んで 使う
+
+始めする とは 以下の手順です
+  n とは 「turtle_driver」 を ノード作成した 結果
+  p とは Twist型 を 「turtle1/cmd_vel」 へ n で 発行者作成した 結果
+  t とは linear は （x は 2.0 の Vector3既定） で angular は （z は 1.0 の Vector3既定） の Twist既定
+  （t を p へ 発行する） を 0.5 で n に 周期登録する
+  n を スピンする
+  以上です
+
+始めする</pre></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>ros2 run turtlesim turtlesim_node   # 別の端末で
+<span class="p">$ </span>kumu 実行</pre></div>
+  <p>1つのメッセージから、組の型(<code>Twist</code>)、既定の値(<code>Twist既定</code>。<code>x は 2.0 の …</code> で一部だけ変える)、発行者と購読に渡すメッセージ型(<code>Twist型</code>)ができます。自分の <code>.msg</code>・<code>.srv</code> の型は <code>生成器.suru</code> で作れます。</p>
+
+  <h2 id="services"><span class="n">05</span>サービス</h2>
+  <p>サービスのサーバーは、要求ごとに関数を呼び、その結果を応答として返します。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>足し算サーバー/本体.suru</span></div>
+<pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
+「rclsuru/型/example_interfaces」 を 読み込んで 使う
+
+始めする とは 以下の手順です
+  n とは 「add_two_ints_server」 を ノード作成した 結果
+  AddTwoInts型 を 「add_two_ints」 で n に 足し算すること へ サービス作成する
+  n を スピンする
+  以上です
+
+要求 を 足し算する とは （sum は （要求 の a） + （要求 の b） の AddTwoInts_Response既定） を 結果にする
+
+始めする</pre></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 実行 &amp;
+<span class="p">$ </span>ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 2, b: 3}"</pre></div>
+  <p>別の端末から呼ぶと <code>sum: 5</code> が返ります。クライアントは <code>クライアント作成する</code>・<code>サービス待機する</code>・<code>呼出する</code> を使います(<code>examples/足し算クライアント</code>)。アクションも <code>アクションサーバー作成する</code> で同じように書けます(<code>examples/フィボナッチサーバー</code>)。</p>
+
+  <h2 id="params"><span class="n">06</span>パラメータとログ</h2>
+  <p>パラメータは宣言してから使います。値は、起動時に渡された値(<code>--ros-args -p rate:=5.0</code> や YAML のファイル)か、なければ既定の値です。ログは rclcpp と同じく、コンソール・<code>/rosout</code>・ログファイルに出ます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>本体.suru</span></div>
+<pre class="suru" data-check="no">rate とは n から 「rate」 を 1.0 で 小数パラメータ宣言した 結果
+名 とは n から 「name」 を 「suru」 で 文字列パラメータ宣言した 結果
+（「こんにちは、」 + 名） を n で 情報記録する</pre></div>
+  <p><code>ros2 param list</code>・<code>get</code>・<code>set</code>・<code>dump</code> が する のノードにもそのまま使えます。ログは <code>詳細記録する</code>・<code>情報記録する</code>・<code>警告記録する</code>・<code>エラー記録する</code>・<code>致命記録する</code> の5段階です。</p>
+
+  <h2 id="launch"><span class="n">07</span>ros2 run と launch</h2>
+  <p>作ったノードはふつうの実行ファイルなので、ament のパッケージの <code>lib/&lt;パッケージ&gt;/</code> に置けば <code>ros2 run</code>・<code>ros2 launch</code> で起動できます。CMake から <code>kumu 作る</code> を呼びます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>CMakeLists.txt</span></div>
+<pre class="sh">find_program(KUMU kumu REQUIRED)
+add_custom_target(hello ALL
+  COMMAND ${KUMU} 作る
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/hello
+  VERBATIM)
+install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/hello/出力/hello DESTINATION lib/${PROJECT_NAME})</pre></div>
+  <p>リポジトリの <code>ros/rclsuru_examples</code> が、例をこの形にしたパッケージです。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>mkdir -p ws/src &amp;&amp; cd ws/src &amp;&amp; git clone https://github.com/suru-lang/rclsuru &amp;&amp; cd ..
+<span class="p">$ </span>colcon build
+<span class="p">$ </span>source install/setup.bash
+<span class="p">$ </span>ros2 launch rclsuru_examples talker_listener.launch.py</pre></div>
+
+  <h2 id="more"><span class="n">08</span>もっと先へ</h2>
+  <p>rclcpp・rclpy を知っていれば、次の対応で読めます。</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>rclcpp</th><th>rclpy</th><th>する(rclsuru)</th></tr></thead>
+    <tbody>
+      <tr><td><code>Node::make_shared("talker")</code></td><td><code>Node("talker")</code></td><td><code>「talker」 を ノード作成する</code></td></tr>
+      <tr><td><code>create_publisher&lt;String&gt;("chatter", 10)</code></td><td><code>create_publisher(String, "chatter", 10)</code></td><td><code>文字列型 を 「chatter」 へ n で 発行者作成する</code></td></tr>
+      <tr><td><code>pub-&gt;publish(msg)</code></td><td><code>pub.publish(msg)</code></td><td><code>値 を p へ 発行する</code></td></tr>
+      <tr><td><code>create_subscription&lt;T&gt;("t", 10, cb)</code></td><td><code>create_subscription(T, "t", cb, 10)</code></td><td><code>T型 を 「t」 から n で 関数 に 購読する</code></td></tr>
+      <tr><td><code>create_wall_timer(1s, cb)</code></td><td><code>create_timer(1.0, cb)</code></td><td><code>動作 を 1.0 で n に 周期登録する</code></td></tr>
+      <tr><td><code>rclcpp::spin(node)</code></td><td><code>rclpy.spin(node)</code></td><td><code>n を スピンする</code></td></tr>
+      <tr><td><code>create_service&lt;T&gt;("s", cb)</code></td><td><code>create_service(T, "s", cb)</code></td><td><code>T型 を 「s」 で n に 関数 へ サービス作成する</code></td></tr>
+      <tr><td><code>declare_parameter("rate", 1.0)</code></td><td><code>declare_parameter("rate", 1.0)</code></td><td><code>n から 「rate」 を 1.0 で 小数パラメータ宣言する</code></td></tr>
+      <tr><td><code>RCLCPP_INFO(get_logger(), "…")</code></td><td><code>get_logger().info("…")</code></td><td><code>「…」 を n で 情報記録する</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="next">
+    <a href="https://github.com/suru-lang/rclsuru">rclsuru<span>ソースと README の全部</span></a>
+    <a href="https://rclsuru.readthedocs.io/en/latest/">API のドキュメント<span>関数ごとの説明(Read the Docs、英語)</span></a>
+    <a href="https://github.com/suru-lang/rclsuru/tree/main/examples">例<span>talker・listener・亀・サービス・アクション</span></a>
+    <a href="tutorial.html">する の入門<span>言語そのもの</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="tutorial.html">入門</a> · <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../rclsuru.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

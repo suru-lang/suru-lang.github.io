@@ -30,7 +30,8 @@
       <a href="examples.html">Examples</a>
       <a href="ohanashi.html">Ohanashi</a>
       <a href="playground.html">Playground</a>
-      <a href="#ros2">ROS 2</a>
+      <a href="libraries.html">Libraries</a>
+      <a href="rclsuru.html">ROS 2</a>
       <a href="#install">Install</a>
       <a href="https://suru.readthedocs.io/en/latest/">Docs</a>
       <a href="https://github.com/suru-lang/suru">GitHub</a>
@@ -170,7 +171,7 @@ n を 階乗する とは
     <div class="section-head">
       <span class="num">04 / LIBRARY</span>
       <h2><span class="jp">標準</span>Batteries included</h2>
-      <p>The standard library is itself written in する. Load a module with <code>「名前」 を 読み込む</code> and you have files, time and the Japanese calendar, JSON, TCP, threads and channels, processes and pipes, shared memory, and signals. The same code runs in the interpreter and as a compiled binary. An HTTP server (with static file serving and a client), SQLite and regular expressions are libraries outside the standard library that you add with <code>kumu 追加</code>.</p>
+      <p>The standard library is itself written in する. Load a module with <code>「名前」 を 読み込む</code> and you have files, time and the Japanese calendar, JSON, TCP, threads and channels, processes and pipes, shared memory, and signals. The same code runs in the interpreter and as a compiled binary. An HTTP server (with static file serving and a client), SQLite and regular expressions are libraries outside the standard library that you add with <code>kumu 追加</code>. The <a href="libraries.html">official libraries</a> also cover templates, a database layer with SQLite, PostgreSQL and MySQL drivers, an O/R mapper, a GUI with SDL3 and calling Python.</p>
       <div class="libs">
         <code>標準</code><code>ファイル</code><code>時間</code><code>JSON</code><code>通信</code><code>スレッド</code><code>プロセス</code><code>共有メモリ</code><code>共有箱</code><code>シグナル</code><code>算術</code><code>乱数</code><code>環境</code>
       </div>
@@ -196,16 +197,47 @@ HTTP内の要求 を 案内する は HTTP内の応答 を 返す
 
 <div class="divider"></div>
 
+<section id="web">
+  <div class="wrap split">
+    <div class="section-head">
+      <span class="num">05 / WEB</span>
+      <h2><span class="jp">屋台</span>A web framework in する</h2>
+      <p><a href="https://github.com/suru-lang/web">屋台</a> (suru-lang/web) puts the HTTP server, the template engine 雛形 and the O/R mapper 台帳 together. List the routes one per line with 【道】 and write a handler for each; the same code runs in the interpreter and as a compiled binary. <code>kumu 新規 店 --対象 web</code> creates an app with routes, templates, static files and tests. It needs する 0.11.0 or later. The API is documented on <a href="https://suru-lang-web.readthedocs.io/en/latest/">Read the Docs</a>.</p>
+      <div class="libs">
+        <code>routes (【道】)</code><code>templates</code><code>forms</code><code>sessions + cookies</code><code>middleware</code><code>O/R mapper</code><code>route tests</code>
+      </div>
+    </div>
+    <div class="window">
+      <div class="window-bar"><i></i><i></i><i></i><span>shop.suru — a page for each item</span></div>
+<pre class="suru" data-check="no">「屋台」 を 読み込んで 使う
+「標準」 を 読み込んで 使う
+
+文脈 を 品表示する は HTTP内の応答 を 返す 入出力動作
+c を 品表示する とは 「品 」 + （c から 「番号」 を 道引数取得する） + 「 です」 を 文字返答する
+
+道群 とは 以下の【道】です
+  GET  /品/:番号    品表示する
+以上です
+
+8080 を 道群 で 屋台開店する</pre>
+<pre class="sh"><span class="p">$ </span>curl localhost:8080/品/3
+品 3 です</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="ros2">
   <div class="wrap split">
     <div class="section-head">
-      <span class="num">05 / ROS 2</span>
+      <span class="num">06 / ROS 2</span>
       <h2><span class="jp">ロボット</span>ROS 2 nodes in する</h2>
-      <p><a href="https://github.com/suru-lang/rclsuru">rclsuru</a> is a ROS 2 client library for する. Write nodes with topics, services, actions, parameters, logging and ROS time, and they talk to rclcpp and rclpy nodes and the <code>ros2</code> tools as they are. Tested on ROS 2 Jazzy. Version 0.1.0 is out; add it to a project with <code>kumu 追加 github.com/suru-lang/rclsuru@0.1.0</code>. The API is documented on <a href="https://rclsuru.readthedocs.io/en/latest/">Read the Docs</a>.</p>
+      <p><a href="https://github.com/suru-lang/rclsuru">rclsuru</a> is a ROS 2 client library for する. Write nodes with topics, services, actions, parameters, logging and ROS time, and they talk to rclcpp and rclpy nodes and the <code>ros2</code> tools as they are. Tested on ROS 2 Jazzy. Add it to a project with <code>kumu 追加 github.com/suru-lang/rclsuru</code> (する 0.11.0 or later). The API is documented on <a href="https://rclsuru.readthedocs.io/en/latest/">Read the Docs</a>.</p>
       <div class="libs">
         <code>topics + QoS</code><code>services</code><code>actions</code><code>parameters</code><code>/rosout logging</code><code>use_sim_time</code><code>ros2 launch</code>
       </div>
-      <p style="margin-top:16px">About 200 message types from std_msgs, geometry_msgs, sensor_msgs, nav_msgs and more come bundled, and a generator written in する makes types from your own <code>.msg</code> and <code>.srv</code> files. Messages are serialized to CDR in する itself, and a built node is a plain executable that <code>ros2 run</code> and <code>ros2 launch</code> can start.</p>
+      <p style="margin-top:16px">About 200 message types from std_msgs, geometry_msgs, sensor_msgs, nav_msgs and more come bundled, and a generator written in する makes types from your own <code>.msg</code> and <code>.srv</code> files. Messages are serialized to CDR in する itself, and a built node is a plain executable that <code>ros2 run</code> and <code>ros2 launch</code> can start. <a href="rclsuru.html">A short tutorial →</a></p>
     </div>
     <div class="window">
       <div class="window-bar"><i></i><i></i><i></i><span>hello.suru — a talker that publishes every second</span></div>
@@ -220,7 +252,7 @@ HTTP内の要求 を 案内する は HTTP内の応答 を 返す
   以上です
 
 始めする</pre>
-<pre class="sh"><span class="p">$ </span>kumu 追加 github.com/suru-lang/rclsuru@0.1.0
+<pre class="sh"><span class="p">$ </span>kumu 追加 github.com/suru-lang/rclsuru
 <span class="p">$ </span>kumu 実行 &amp;
 <span class="p">$ </span>ros2 topic echo chatter std_msgs/msg/String
 data: こんにちは</pre>
@@ -233,7 +265,7 @@ data: こんにちは</pre>
 <section id="ohanashi">
   <div class="wrap split">
     <div class="section-head">
-      <span class="num">06 / OHANASHI</span>
+      <span class="num">07 / OHANASHI</span>
       <h2><span class="jp">アプリ</span>Chat with your local LLMs in the browser</h2>
       <p><a href="ohanashi.html">Ohanashi</a> (<a href="https://github.com/suru-lang/ohanashi-ollama">ohanashi-ollama</a>) is a web app for chatting in the browser with the LLMs your local <a href="https://ollama.com/">Ollama</a> runs. Its server is about 4,000 lines of する and builds into a single executable. Conversations stay in a local SQLite file and never leave your machine.</p>
       <div class="libs">
@@ -257,7 +289,7 @@ data: こんにちは</pre>
 <section id="tools">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">07 / TOOLS</span>
+      <span class="num">08 / TOOLS</span>
       <h2><span class="jp">道具</span>Tooling that speaks Japanese too</h2>
       <p>Error messages, commands and tools all use Japanese, with English aliases where it helps.</p>
     </div>
@@ -275,7 +307,7 @@ data: こんにちは</pre>
 <section id="install">
   <div class="wrap">
     <div class="section-head">
-      <span class="num">08 / INSTALL</span>
+      <span class="num">09 / INSTALL</span>
       <h2><span class="jp">導入</span>Get started</h2>
       <p>Pick whichever way you like. You need Python 3.10+ for the interpreter, Go 1.23+ for the fast tools, and clang to build binaries (on macOS, <code>xcode-select --install</code>). The API of the standard library and the built-in functions are in the <a href="https://suru.readthedocs.io/en/latest/">documentation on Read the Docs</a>.</p>
     </div>
@@ -315,7 +347,7 @@ data: こんにちは</pre>
 <footer class="site-footer">
   <div class="wrap">
     <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
-    <span><a href="tutorial.html">Tutorial</a> · <a href="https://suru.readthedocs.io/en/latest/">Docs</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/" lang="ja">日本語</a></span>
+    <span><a href="tutorial.html">Tutorial</a> · <a href="libraries.html">Libraries</a> · <a href="https://suru.readthedocs.io/en/latest/">Docs</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/" lang="ja">日本語</a></span>
   </div>
 </footer>
 
