@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日本語入力の手引き(英語話者向け・日本語版) — する (suru)</title>
+<meta name="description" content="英語配列のキーボードで する (suru) のプログラムを書くための日本語入力の手引き。Windows・macOS・Ubuntu での入れ方、ローマ字入力、括弧と句読点。を、日本語に訳したものです。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/typing.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/typing.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/typing.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="../assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="examples.html">例</a>
+      <a href="ohanashi.html">おはなし</a>
+      <a href="playground.html">試す</a>
+      <a href="libraries.html">ライブラリ</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../typing.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>日本語入力</p>
+  <ol>
+    <li><a href="#ime">必要なもの</a></li>
+    <li><a href="#windows">Windows</a></li>
+    <li><a href="#mac">macOS</a></li>
+    <li><a href="#ubuntu">Ubuntu</a></li>
+    <li><a href="#romaji">ローマ字で打つ</a></li>
+    <li><a href="#symbols">括弧と句読点</a></li>
+    <li><a href="#suru">する のプログラムを打つ</a></li>
+    <li><a href="#editor">エディターに打ってもらう</a></li>
+    <li><a href="#end">おわりに</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">日本語入力</span>
+  <h1>英語のキーボードで <span class="glow">日本語</span> を打つ</h1>
+  <div class="note joke"><b>このページについて:</b> これは、英語話者のための<a href="../typing.html">日本語入力の手引き</a>を、日本語に忠実に訳したものです。ここまで読めている方には、たぶん要りません。もしこの文を日本語入力なしで読めているなら、それはそれで、すごいことです。</div>
+  <p class="lead">する のプログラムは日本語で書きますが、日本語のキーボードは要りません。どのコンピューターにも、日本語入力システム(IME)がもう入っています。音をローマ字で打つと、<code>hyouji</code> を <code>表示</code> にしてくれます。このページでは、その入れ方と、要るいくつかのキーを説明します。</p>
+
+  <h2 id="ime"><span class="n">01</span>必要なもの</h2>
+  <p>日本語は3つの文字を使います。ひらがな(<code>あいう</code>)、カタカナ(<code>アイウ</code>)、漢字(<code>表示</code>)です。IME では読みをローマ字で打つとひらがなで出て、<kbd>Space</kbd> を押すと漢字に変換されます。Windows と macOS では何もダウンロードしなくてよく、Ubuntu ではパッケージを1つ入れます。</p>
+  <p>2つのモードをいつも行き来することになります。</p>
+  <ul>
+    <li><strong>日本語モード</strong>(表示は <code>あ</code>): 文字がかなになります。</li>
+    <li><strong>英語モード</strong>(表示は <code>A</code>): キーボードがいつもどおりに動きます。</li>
+  </ul>
+  <p>英語(US)のキー配列はそのまま残します。日本語の IME はその上で動きます。</p>
+
+  <h2 id="windows"><span class="n">02</span>Windows</h2>
+  <h3>入れ方</h3>
+  <ol>
+    <li><strong>設定 → 時刻と言語 → 言語と地域</strong> を開きます。</li>
+    <li><strong>言語の追加</strong> を押し、<strong>日本語</strong> を選んで入れます。表示言語にする必要はありません。これで <strong>Microsoft IME</strong> が入ります。</li>
+    <li>日本語の横の <strong>⋯ → 言語のオプション</strong> を押します。<strong>キーボード レイアウト</strong> で <strong>英語キーボード (101/102 キー)</strong> を選び、再起動します。こうしないと、Windows が日本語キーボードだと思い込み、記号のキーで違う文字が出ることがあります。</li>
+  </ol>
+  <h3>モードの切り替え</h3>
+  <ul>
+    <li><kbd>Win</kbd> + <kbd>Space</kbd> で、英語と日本語のキーボードを切り替えます。</li>
+    <li>日本語のキーボードの中では、<kbd>Alt</kbd> + <kbd>`</kbd>(<kbd>1</kbd> の左のキー)で <code>あ</code> と <code>A</code> を切り替えます。タスクバーの <code>A</code>/<code>あ</code> を押してもかまいません。</li>
+    <li>代わりに <kbd>Ctrl</kbd> + <kbd>Space</kbd> を使いたいときは、Microsoft IME の設定(<code>A</code>/<code>あ</code> を右クリック → <strong>設定</strong>)の <strong>キーとタッチのカスタマイズ</strong> で割り当てます。</li>
+  </ul>
+
+  <h2 id="mac"><span class="n">03</span>macOS</h2>
+  <h3>入れ方</h3>
+  <ol>
+    <li><strong>システム設定 → キーボード</strong> を開き、<strong>入力ソース</strong> の横の <strong>編集…</strong> を押します。</li>
+    <li><strong>+</strong> を押して <strong>日本語</strong> を選び、<strong>ローマ字入力</strong>(日本語キーボードが要る かな入力 ではなく)を選んで <strong>追加</strong> を押します。</li>
+    <li><strong>ABC</strong> か <strong>U.S.</strong> は一覧に残します。<kbd>Space</kbd> を押したときだけ変換したい人は、日本語の入力ソースのオプションで <strong>ライブ変換</strong> を切れます。</li>
+  </ol>
+  <h3>モードの切り替え</h3>
+  <ul>
+    <li><kbd>Ctrl</kbd> + <kbd>Space</kbd> で前の入力ソースに切り替わるので、ABC と日本語を行き来できます。</li>
+    <li>最近の Mac では、<kbd>🌐</kbd>(fn)キーでも同じことができます。キーボードの設定で <strong>🌐キーを押して</strong> → <strong>入力ソースを変更</strong> にします。</li>
+    <li>または、入力ソースの設定で <strong>Caps Lock キーで ABC 入力モードに切り替える</strong> を入れ、<kbd>Caps Lock</kbd> を使います。</li>
+  </ul>
+
+  <h2 id="ubuntu"><span class="n">04</span>Ubuntu</h2>
+  <p>Ubuntu のデスクトップは IBus を使い、日本語のエンジンは <strong>Mozc</strong>(Google 日本語入力のオープンソース版)です。</p>
+  <h3>入れ方(IBus、既定)</h3>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>sudo apt install ibus-mozc</pre></div>
+  <ol>
+    <li>ログアウトして、もう一度ログインします。</li>
+    <li><strong>設定 → キーボード</strong> を開き、<strong>+ 入力ソースを追加</strong> を押して <strong>日本語 → 日本語 (Mozc)</strong> を選びます。<strong>英語 (US)</strong> も残します。</li>
+  </ol>
+  <h3>モードの切り替え</h3>
+  <ul>
+    <li><kbd>Super</kbd> + <kbd>Space</kbd> で、英語 (US) と Mozc を切り替えます。</li>
+    <li>Mozc でもローマ字のままのときは、上のバーの表示を押して <strong>入力モード → ひらがな</strong> を選びます。Mozc の <strong>ツール → プロパティ → キー設定</strong>(パッケージ <code>mozc-utils-gui</code>)で、オンとオフのキーを足せます。</li>
+  </ul>
+  <h3>fcitx5 で使う</h3>
+  <p>fcitx5(KDE でよく使われます)がよければ、<code>fcitx5-mozc</code> を入れて <code>im-config -n fcitx5</code> を実行し、ログアウトして、Fcitx の設定で <strong>Mozc</strong> を足します。そうすると <kbd>Ctrl</kbd> + <kbd>Space</kbd> で日本語のオンとオフを切り替えられます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>sudo apt install fcitx5-mozc
+<span class="p">$ </span>im-config -n fcitx5</pre></div>
+
+  <h2 id="romaji"><span class="n">05</span>ローマ字で打つ</h2>
+  <p>日本語モードで読みを打つと、下線付きで出ます。そのあとは次のとおりです。</p>
+  <ul>
+    <li><kbd>Space</kbd> で漢字に変換します。もう一度 <kbd>Space</kbd>(または矢印キー)で別の候補を選びます。</li>
+    <li><kbd>Enter</kbd> で確定します。<kbd>Space</kbd> を押さずに <kbd>Enter</kbd> を押すと、ひらがなのままになります。</li>
+    <li><kbd>Esc</kbd> で取り消します。IME が言葉の区切りを間違えたら、<kbd>Shift</kbd> + <kbd>←</kbd>/<kbd>→</kbd> で区切りを短く・長くします。</li>
+    <li>カタカナにするには、<kbd>Enter</kbd> の前に <kbd>F7</kbd>(Windows と Mozc)、Mac では <kbd>Ctrl</kbd> + <kbd>K</kbd> を押します。Windows と Mozc では、<kbd>F10</kbd> で打ったものをローマ字に戻せます。</li>
+  </ul>
+  <p>たいていの読みは聞こえるとおりに打てます。つまずきやすいのは次のものです。</p>
+  <div class="table-scroll"><table>
+    <tr><th>出したい字</th><th>打つ</th><th>わけ</th></tr>
+    <tr><td>を</td><td><code>wo</code></td><td>助詞は「お」と読みますが、<code>o</code> では お が出ます。</td></tr>
+    <tr><td>は</td><td><code>ha</code></td><td>助詞の <code>とは</code> は「とわ」と読みますが、<code>toha</code> と打ちます。</td></tr>
+    <tr><td>ん</td><td><code>nn</code></td><td>子音の前なら <code>n</code> 1つで出ます(<code>kansuu</code> → かんすう)が、母音・<code>y</code> の前や終わりでは <code>nn</code> と打ちます: <code>konnnichiha</code> → こんにちは。</td></tr>
+    <tr><td>っ</td><td><code>tt</code>・<code>kk</code>…</td><td>次の子音を2つ重ねます: <code>kitte</code> → きって。</td></tr>
+    <tr><td>きゃ</td><td><code>kya</code></td><td>小さい ゃゅょ は子音+<code>y</code> のあとに付けます。小さいかなだけなら <code>x</code> か <code>l</code> を前に付けます: <code>xtu</code> → っ。</td></tr>
+    <tr><td>ー</td><td><code>-</code></td><td>カタカナの伸ばす音です: <code>ke-ki</code> → ケーキ。</td></tr>
+    <tr><td>ひょう</td><td><code>hyou</code></td><td>長い「お」は おう と書きます: 表示 は <code>hyouji</code>、以上 は <code>ijou</code>。</td></tr>
+  </table></div>
+
+  <h2 id="symbols"><span class="n">06</span>括弧と句読点</h2>
+  <p>日本語モードでは、いくつかのキーが日本語の記号を打ちます。する で使うのは次のものです。</p>
+  <div class="table-scroll"><table>
+    <tr><th>出したい字</th><th>押す</th><th>する での使いみち</th></tr>
+    <tr><td>「 」</td><td><kbd>[</kbd> <kbd>]</kbd></td><td>文字列: <code>「こんにちは」</code></td></tr>
+    <tr><td>『 』</td><td><kbd>[</kbd> のあと <kbd>Space</kbd></td><td>ひらがなを含む名前: <code>『おやつの数』</code></td></tr>
+    <tr><td>【 】</td><td><kbd>[</kbd> のあと <kbd>Space</kbd>、または <code>kakko</code> と打って変換</td><td>導出と雛形: <code>【JSON】</code></td></tr>
+    <tr><td>（ ）</td><td><kbd>Shift</kbd> + <kbd>9</kbd> <kbd>0</kbd></td><td>まとめる。全角と半角の括弧のどちらでも動きます</td></tr>
+    <tr><td>、</td><td><kbd>,</kbd></td><td><a href="tutorial.html#punctuation">句読点の書き方</a>での区切り</td></tr>
+    <tr><td>。</td><td><kbd>.</kbd></td><td>句読点の書き方での文の終わり</td></tr>
+    <tr><td>× ÷</td><td><code>kakeru</code> / <code>waru</code> と打って変換</td><td>掛け算と割り算</td></tr>
+  </table></div>
+  <div class="note"><b>気をつけること:</b> 日本語モードでは、<kbd>-</kbd> は伸ばす音の <code>ー</code> を、<kbd>/</kbd> は <code>・</code> を打ちます。どちらも する では引き算や割り算になりません。計算は英語モードに切り替えて打つか、<code>×</code> と <code>÷</code> を使います。<code>x</code> のようなローマ字の名前も、英語モードで打ちます。</div>
+
+  <h2 id="suru"><span class="n">07</span>する のプログラムを打つ</h2>
+  <p>する の言葉は空白で区切ります。日本語モードでは <kbd>Space</kbd> が変換なので、確定したあとにもう一度押すと空白になります。Windows ではこの空白は既定で全角の <code>　</code> ですが、する は半角の空白と同じに受け付けます。全角の数字や <code>＋＊</code> も受け付けます。ですから、日本語モードのまま1行を打ちきれます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>zenkaku.suru</span></div>
+<pre class="suru">値段　とは　１２００　です
+値段　＊　２
+「する」　を　表示する</pre>
+<pre class="out">2400
+する</pre></div>
+  <p>半角の空白がよければ、Microsoft IME の設定の <strong>全般 → スペース</strong> を <strong>常に半角</strong> にできます。Windows では <kbd>Shift</kbd> + <kbd>Space</kbd> でもう片方の幅の空白が打てます。よく使う言葉の打ち方は次のとおりです。</p>
+  <div class="table-scroll"><table>
+    <tr><th>言葉</th><th>打つ</th><th>意味</th></tr>
+    <tr><td>表示する</td><td><code>hyoujisuru</code></td><td>表示する</td></tr>
+    <tr><td>とは</td><td><code>toha</code></td><td>とは</td></tr>
+    <tr><td>です</td><td><code>desu</code></td><td>です(定義の終わり)</td></tr>
+    <tr><td>を</td><td><code>wo</code></td><td>目的語の助詞</td></tr>
+    <tr><td>加算する</td><td><code>kasansuru</code></td><td>加算する</td></tr>
+    <tr><td>以下の手順です</td><td><code>ikanotejunndesu</code></td><td>以下の手順です</td></tr>
+    <tr><td>以上です</td><td><code>ijoudesu</code></td><td>以上です(まとまりを閉じる)</td></tr>
+  </table></div>
+  <p>IME が違う漢字を選んだら、もう一度 <kbd>Space</kbd> を押して一覧から選びます。選んだものは覚えてくれるので、2回目からは速くなります。自分の関数の名前を、ユーザー辞書に足すこともできます。</p>
+
+  <h2 id="editor"><span class="n">08</span>エディターに打ってもらう</h2>
+  <p>名前を打つのは1回だけで済みます。VS Code に <a href="https://marketplace.visualstudio.com/items?itemName=suru-lang.suru">する の拡張</a> を入れると、次のことができます。</p>
+  <ul>
+    <li><strong>補完</strong>(<kbd>Ctrl</kbd> + <kbd>Space</kbd>)で、自分の関数と値・組み込み関数・標準ライブラリ・キーワードが出ます。<code>表</code> のように最初の漢字を打って、<code>表示する</code> を選びます。ひらがなを含む名前は、はじめから <code>『』</code> で囲んで入ります。一覧は打っているうちにひとりでにも出るので、<kbd>Ctrl</kbd> + <kbd>Space</kbd> がたいてい入力ソースの切り替えになっている Mac でも助かります。</li>
+    <li><code>（</code>・<code>「</code>・<code>『</code> を打つと、閉じる括弧を足してくれます。</li>
+    <li>関数の上にマウスを置くと、どの助詞を取るかが出るので、調べなくて済みます。</li>
+  </ul>
+  <p>注釈や自分の変数の名前は英語でもかまわないので、日本語モードにするのは言語の言葉を打つときだけです。用意はできましたか。<a href="tutorial.html">入門</a>に進むか、<a href="playground.html">試す</a>のページで動かしてみてください。</p>
+
+  <h2 id="end"><span class="n">09</span>おわりに</h2>
+  <div class="note joke"><b>おめでとうございます。</b> あなたはこのページを最後まで日本語で読みました。日本語入力の手引きとしては何も新しいことを学ばなかったかもしれませんが、少なくとも、する を書くのに要る日本語力はもうあります。ここで覚えたかもしれない唯一のことは、「を」は <code>wo</code> と打つ、ということです。以上です。</div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="tutorial.html">入門</a> · <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../typing.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
