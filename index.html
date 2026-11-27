@@ -59,14 +59,14 @@
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>divide.suru</span></div>
 <pre class="suru"># “a を b で 割る” — divide a by b
-a を b で 割った数にする とは a / b
+a を b で 割った数にする とは a / b です
 
 10 を 2 で 割った数にする
 2 で 10 を 割った数にする    # same: particles decide
 
 n を 階乗する とは
   もし n が 0 ならば 1
-  そうでなければ n * （n - 1 を 階乗する）
+  そうでなければ n * （n - 1 を 階乗する） です
 
 10 を 階乗する</pre>
 <pre class="out">5
@@ -98,8 +98,8 @@ n を 階乗する とは
       </div>
       <div class="window" style="margin-top:18px">
         <div class="window-bar"><i></i><i></i><i></i><span>lists.suru</span></div>
-<pre class="suru">x を 三倍する とは x * 3
-数列 とは 1 と 2 と 3 と 4
+<pre class="suru">x を 三倍する とは x * 3 です
+数列 とは 1 と 2 と 3 と 4 です
 
 数列 の それぞれ を 三倍する
 数列 を 加算して 三倍する
@@ -124,7 +124,7 @@ n を 階乗する とは
     <div class="grid">
       <div class="card"><span class="glyph">型</span><h3>Inferred static types</h3><p>Hindley–Milner type inference checks the whole program before it runs. You never have to write a type, but you can declare one when you want to.</p></div>
       <div class="card"><span class="glyph">形</span><h3>Data &amp; pattern matching</h3><p>Records, sum types, generic types, pattern matching with guards, definitions by cases, and type classes called 性質 (“traits”).</p></div>
-      <div class="card"><span class="glyph">動</span><h3>Effects as values</h3><p>Printing and input are 動作 (“actions”) that you combine in a 手順 (“procedure”) block, much like Haskell’s do notation.</p></div>
+      <div class="card"><span class="glyph">動</span><h3>Effects as values</h3><p>Printing and input are 入出力動作 (“input/output actions”) that you run in order between 以下の手順です and 以上です (“the procedure is as follows … that is all”), much like Haskell’s do notation.</p></div>
       <div class="card"><span class="glyph">速</span><h3>Native binaries</h3><p>The compiler emits LLVM IR and links it with clang into a single executable. A Go compiler, <code>suruc</code>, generates the IR 14–35× faster than the reference one.</p></div>
       <div class="card"><span class="glyph">並</span><h3>Parallel threads</h3><p>Threads run truly in parallel on every core. Share data through channels called 通路, locks, semaphores and atomic boxes, with a parallel garbage collector underneath.</p></div>
       <div class="card"><span class="glyph">繋</span><h3>Call C, C++ and Go</h3><p>Declare a type, point at a symbol, and call it. Use libc, libm, or any shared library you build yourself.</p></div>
@@ -144,15 +144,15 @@ n を 階乗する とは
     <div class="split">
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>spaced style</span></div>
-<pre class="suru">a と b を 平均する とは 合計 / 2
-ただし 合計 とは a + b
+<pre class="suru">a と b を 平均する とは 合計 / 2 です
+ただし 合計 とは a + b です
 
 3 と 5 を 平均する</pre>
 <pre class="out">4</pre>
       </div>
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>punctuation style</span></div>
-<pre class="suru">aとbを平均するとは、合計/2。ただし、合計とは、a+b。
+<pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。
 3と5を平均します。
 「できました」を表示します。</pre>
 <pre class="out">4
@@ -178,6 +178,7 @@ n を 階乗する とは
       <div class="window-bar"><i></i><i></i><i></i><span>server.suru — a web server in 7 lines (suru-lang/http)</span></div>
 <pre class="suru" data-check="no">「HTTP」 を 読み込む
 
+HTTP内の要求 を 案内する は HTTP内の応答 を 返す
 要求 を 案内する とは
   もし 要求 の 道 が
     「/」 ならば 「こんにちは」 を HTTP内の本文応答する

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>入門 — する</title>
-<meta name="description" content="プログラミング言語「する」の入門。助詞、リスト、関数、パターンマッチ、動作、型、ネイティブのバイナリまでを順に学びます。">
+<meta name="description" content="プログラミング言語「する」の入門。助詞、リスト、関数、パターンマッチ、入出力動作、型、ネイティブのバイナリまでを順に学びます。">
 <link rel="alternate" hreflang="en" href="https://suru-lang.github.io/tutorial.html">
 <link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/tutorial.html">
 <link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/tutorial.html">
@@ -50,7 +50,7 @@
     <li><a href="#conditions">条件と述語</a></li>
     <li><a href="#cases">再帰と場合ごとの定義</a></li>
     <li><a href="#data">自分の型</a></li>
-    <li><a href="#actions">動作と手順</a></li>
+    <li><a href="#actions">入出力動作と手順</a></li>
     <li><a href="#punctuation">句読点の書き方</a></li>
     <li><a href="#types">型</a></li>
     <li><a href="#modules">読み込みと標準ライブラリ</a></li>
@@ -81,8 +81,8 @@
   <h2 id="values"><span class="n">02</span>値と名前</h2>
   <p><code>とは</code> で名前に値を付けます。名前は漢字・カタカナ・英字で書きます。式だけの行は、その値を表示します。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>値.suru</span></div>
-<pre class="suru">税率 とは 0.1
-値段 とは 1200
+<pre class="suru">税率 とは 0.1 です
+値段 とは 1200 です
 値段 * （1 + 税率）
 「する」 + 「言語」</pre>
 <pre class="out">1320
@@ -90,14 +90,14 @@
   <p>算術は <code>+ - * / % ^</code> です(全角の <code>＋ × ÷</code> も使えます)。<code>+</code> は文字列もつなぎます。括弧は半角でも全角でもかまいません。</p>
 
   <h2 id="functions"><span class="n">03</span>関数と助詞</h2>
-  <p>関数の名前は「する」で終わる動詞です。引数に名前を付けた呼び出しの形を書き、<code>とは</code> の後に本体を書けば定義になります。</p>
+  <p>関数の名前は「する」で終わる動詞です。引数に名前を付けた呼び出しの形を書き、<code>とは</code> の後に本体を書けば定義になります。終わりの <code>です</code> は文として読みやすくするためのもので、書かなくても意味は同じです。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>二乗.suru</span></div>
-<pre class="suru">x を 二乗する とは x * x
+<pre class="suru">x を 二乗する とは x * x です
 5 を 二乗する</pre>
 <pre class="out">25</pre></div>
   <p>引数には<strong>格助詞</strong>を付けます。呼び出すときは助詞で引数が決まるので、順番は自由です。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>割り算.suru</span></div>
-<pre class="suru">a を b で 割った数にする とは a / b
+<pre class="suru">a を b で 割った数にする とは a / b です
 10 を 2 で 割った数にする
 2 で 10 を 割った数にする</pre>
 <pre class="out">5
@@ -116,7 +116,7 @@
   <h2 id="lists"><span class="n">04</span>リスト</h2>
   <p><code>と</code> で並べるとリストになります。<code>の</code> の後に <code>先頭</code>・<code>残り</code>・<code>最後</code>・<code>長さ</code> を書くと、リストの性質を取り出せます。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>リスト.suru</span></div>
-<pre class="suru">数列 とは 1 と 2 と 3 と 4
+<pre class="suru">数列 とは 1 と 2 と 3 と 4 です
 数列 の 先頭
 数列 の 長さ
 数列 を 加算する
@@ -130,7 +130,7 @@
   <h2 id="pipelines"><span class="n">05</span>「して」でつなぐ</h2>
   <p>「する」を「して」にすると、その結果が次の関数の「を」に入ります。長い処理も文のように読めます。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>パイプ.suru</span></div>
-<pre class="suru">x を 二乗する とは x * x
+<pre class="suru">x を 二乗する とは x * x です
 3 を 二乗して 1 に 加算する
 1 と 2 を 加算して 二乗する</pre>
 <pre class="out">10
@@ -139,8 +139,8 @@
   <h2 id="higher"><span class="n">06</span>関数を値として使う</h2>
   <p>「すること」で終わらせると、関数そのものを値として渡せます。前に引数を書けば部分適用です。名前のない関数は <code>x を 受け取って … を 返すこと</code> と書きます。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>高階関数.suru</span></div>
-<pre class="suru">x を 三倍する とは x * 3
-数列 とは 1 と 2 と 3 と 4
+<pre class="suru">x を 三倍する とは x * 3 です
+数列 とは 1 と 2 と 3 と 4 です
 数列 の それぞれ を 三倍する
 数列 から （x を 受け取って x > 2 を 返すこと） で 選別する
 数列 を 0 から 加算すること で 畳み込みする
@@ -155,8 +155,8 @@
   <p><code>もし … ならば … そうでなければ …</code> は式なので、両方の枝が必要です。<code>が</code> は等しいかどうかを調べます。</p>
   <p>「である」で終わる名前は<strong>述語</strong>(真か偽を返す関数)です。主語は「が」で受け、「でない」で否定し、「であること」で値になります。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>偶数.suru</span></div>
-<pre class="suru">n が 偶数である とは n % 2 が 0
-n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」
+<pre class="suru">n が 偶数である とは n % 2 が 0 です
+n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」 です
 7 を 判定する
 4 が 偶数である
 3 が 偶数でない
@@ -170,8 +170,8 @@ n を 判定する とは もし n が 偶数である ならば 「偶数」 �
   <h2 id="cases"><span class="n">08</span>再帰と場合ごとの定義</h2>
   <p>引数名の代わりに値や形を書くと、場合ごとに関数を定義できます。上から順に、当てはまった最初の定義を使います。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>階乗.suru</span></div>
-<pre class="suru">0 を 階乗する とは 1
-n を 階乗する とは n * （n - 1 を 階乗する）
+<pre class="suru">0 を 階乗する とは 1 です
+n を 階乗する とは n * （n - 1 を 階乗する） です
 10 を 階乗する</pre>
 <pre class="out">3628800</pre></div>
   <p>呼び出しの結果を計算に使うときは <code>n * （n - 1 を 階乗する）</code> のように括弧で囲みます。リストは <code>先頭 は x で 残り は 他</code> で先頭と残りに分けられ、<code>空</code> は空のリストに当てはまります。</p>
@@ -179,12 +179,12 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="data"><span class="n">09</span>自分の型</h2>
   <p><code>か</code> で、型がとりうる形を並べます。<code>もし 値 が</code> の後に字下げした行を並べるとパターンマッチです。構造は Python のように字下げで決まります。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>図形.suru</span></div>
-<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形
+<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形 です
 
 形 を 面積にする とは
   もし 形 が
-    半径 の 円 ならば 3 * 半径 ^ 2
-    幅 と 高 の 長方形 ならば 幅 * 高
+    半径 の 円 ならば 3 * 半径 ^ 2 です
+    幅 と 高 の 長方形 ならば 幅 * 高 です
 
 5 の 円 を 面積にする
 幅 は 2 で 高 は 3 の 長方形 を 面積にする</pre>
@@ -192,10 +192,11 @@ n を 階乗する とは n * （n - 1 を 階乗する）
 6</pre></div>
   <p>値は順番どおり(<code>5 の 円</code>)にも、名前付き(<code>幅 は 2 で 高 は 3 の 長方形</code>)にも作れます。場合分けで形が足りなければ、実行する前にエラーになります。組は <code>点 とは 横 と 縦 の 組</code>、型クラスは「性質」と書きます。</p>
 
-  <h2 id="actions"><span class="n">10</span>動作と手順</h2>
-  <p><code>表示する</code> や <code>入力する</code> のような副作用は、その場では何もせず「動作」という値を作ります。一番外に書いた動作が行われます。いくつかの動作を順に行うときは <code>手順</code> の中に並べ、<code>… した 結果</code> で動作の結果に名前を付けます。</p>
+  <h2 id="actions"><span class="n">10</span>入出力動作と手順</h2>
+  <p><code>表示する</code> や <code>入力する</code> のような副作用は、その場では何もせず「入出力動作」という値を作ります。一番外に書いた入出力動作が行われます。いくつかの入出力動作を順に行うときは <code>以下の手順です</code> と <code>以上です</code> の間に1行に1つずつ並べ、<code>… した 結果</code> で入出力動作の結果に名前を付けます。1行目の型の宣言は「何も返さない入出力動作」という意味です。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶する.suru</span></div>
-<pre class="suru">挨拶する とは 以下の手順です
+<pre class="suru">挨拶する は 無 を 返す 入出力動作
+挨拶する とは 以下の手順です
   名前 とは 「お名前は? 」 を 入力した 結果
   「こんにちは、」 + 名前 + 「さん」 を 表示する
   以上です
@@ -203,12 +204,12 @@ n を 階乗する とは n * （n - 1 を 階乗する）
 挨拶する</pre>
 <pre class="out">お名前は? 太郎
 こんにちは、太郎さん</pre></div>
-  <p><code>入力してから 表示する</code> のように「してから」で、動作の結果を次の関数に渡せます。純粋な計算と副作用が分かれるので、どこで何が起きるかが読み取りやすくなります。</p>
+  <p><code>入力してから 表示する</code> のように「してから」で、入出力動作の結果を次の関数に渡せます。純粋な計算と副作用が分かれるので、どこで何が起きるかが読み取りやすくなります。</p>
 
   <h2 id="punctuation"><span class="n">11</span>句読点の書き方</h2>
   <p>「。」か「、」のある行は、文字の種類(漢字・かな・数字)の境目で単語を切ります。「。」で文が終わり、「、」は読みやすさのための区切りです。丁寧語の「します」は「する」と同じ意味です。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>句読点.suru</span></div>
-<pre class="suru">aとbを平均するとは、合計/2。ただし、合計とは、a+b。
+<pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。
 3と5を平均します。
 「できました」を表示します。</pre>
 <pre class="out">4
@@ -218,15 +219,15 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="types"><span class="n">12</span>型</h2>
   <p>実行する前に、すべての式の型を推論して調べ、合わないところがあれば止めます。エラーは行と文字の位置と印つきで、日本語で出ます。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>間違い.suru</span></div>
-<pre class="suru">x を 二乗する とは x * x
+<pre class="suru">x を 二乗する とは x * x です
 「三」 を 二乗する</pre>
 <pre class="out err">エラー: 2行目 7文字目: 「二乗する」の「を」には数が必要ですが、文字列が渡されています
   「三」 を 二乗する
             ^</pre></div>
-  <p>型は書かなくてもかまいませんが、<code>は</code> で宣言することもできます。</p>
+  <p>型は書かなくてもかまいませんが、<code>は … を 返す</code> で宣言することもできます。</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>宣言.suru</span></div>
-<pre class="suru">数 を 二乗する は 数
-x を 二乗する とは x * x
+<pre class="suru">数 を 二乗する は 数 を 返す
+x を 二乗する とは x * x です
 4 を 二乗する</pre>
 <pre class="out">16</pre></div>
   <p>型の名前には <code>数</code>・<code>文字列</code>・<code>真偽</code>・<code>数 の リスト</code>・<code>文字列 を 返す 入出力動作</code>(短く <code>文字列 の 動作</code> とも)などがあります。<code>suru --検査 ファイル.suru</code> で、実行せずに調べるだけにもできます。</p>
@@ -267,7 +268,7 @@ x を y で 累乗する とは 外部の「pow」 で 小数 を 小数 で 受
 1.4142135623730951
 2
 こんにちは</pre></div>
-  <p>1つなら <code>… とは 外部の「C の名前」 で</code> の後に、定義と同じ助詞で引数の型を書き、<code>受け取って</code>、結果の型を書く1行で定義します。たくさんなら <code>以下は外部の関数です</code> と <code>以上です</code> の間に1行に1つずつ並べます。副作用のある関数は <code>以下は外部の入出力動作です</code> に書きます。<code>表示する</code> と同じく動作になり、行ったときに呼ばれます。</p>
+  <p>1つなら <code>… とは 外部の「C の名前」 で</code> の後に、定義と同じ助詞で引数の型を書き、<code>受け取って</code>、結果の型を書く1行で定義します。たくさんなら <code>以下は外部の関数です</code> と <code>以上です</code> の間に1行に1つずつ並べます。副作用のある関数は <code>以下は外部の入出力動作です</code> に書きます。<code>表示する</code> と同じく入出力動作になり、行ったときに呼ばれます。</p>
   <p>使える型は <code>数</code>(int64)・<code>小数</code>(double)・<code>整数</code>(int)・<code>単精度</code>(float)・<code>真偽</code>・<code>文字列</code>(char*)・<code>番地</code>(ポインタ)・<code>バイト列</code>・<code>無</code>(void)です。C に渡す引数を並べ替えたり定数を足したりするときは、<code>r を 読取する とは 「f」（r と 0） で 番地 を 受け取って 番地 を 返します</code> のように名前を付けて書きます。SQLite・PCRE2・OpenSSL・SDL3 などのライブラリも、こうして する だけで包んであります(GitHub の <code>suru-lang</code> のリポジトリ)。</p>
 
   <h2 id="binaries"><span class="n">15</span>ネイティブのバイナリ</h2>

@@ -81,8 +81,8 @@
   <h2 id="values"><span class="n">02</span>Values and names</h2>
   <p><code>とは</code> means “is defined as.” A name made of kanji, katakana or Latin letters can hold any value. A line that is just an expression prints its value.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>values.suru</span></div>
-<pre class="suru">税率 とは 0.1           # tax rate
-値段 とは 1200          # price
+<pre class="suru">税率 とは 0.1 です        # tax rate
+値段 とは 1200 です       # price
 値段 * （1 + 税率）
 「する」 + 「言語」</pre>
 <pre class="out">1320
@@ -90,14 +90,14 @@
   <p>Arithmetic uses the usual <code>+ - * / % ^</code> (full-width <code>＋ × ÷</code> work too), and <code>+</code> joins strings. Parentheses may be ASCII or full-width.</p>
 
   <h2 id="functions"><span class="n">03</span>Functions and particles</h2>
-  <p>A function name is a verb that ends in <code>する</code> (“to do”). You define it by writing an example call with parameter names, then <code>とは</code> and the body.</p>
+  <p>A function name is a verb that ends in <code>する</code> (“to do”). You define it by writing an example call with parameter names, then <code>とは</code> and the body. The <code>です</code> (“is”) at the end only makes it read as a sentence; it means the same without it.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>square.suru</span></div>
-<pre class="suru">x を 二乗する とは x * x      # “to square x is x * x”
+<pre class="suru">x を 二乗する とは x * x です   # “to square x is x * x”
 5 を 二乗する</pre>
 <pre class="out">25</pre></div>
   <p>Each parameter is tagged with a <strong>particle</strong>. When you call the function, the particles match the arguments to the parameters, so the order doesn’t matter:</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>divide.suru</span></div>
-<pre class="suru">a を b で 割った数にする とは a / b
+<pre class="suru">a を b で 割った数にする とは a / b です
 10 を 2 で 割った数にする
 2 で 10 を 割った数にする</pre>
 <pre class="out">5
@@ -116,7 +116,7 @@
   <h2 id="lists"><span class="n">04</span>Lists</h2>
   <p><code>と</code> means “and,” and it builds a list. <code>の</code> (“of”) reads a property of a list: <code>先頭</code> (head), <code>残り</code> (rest), <code>最後</code> (last) and <code>長さ</code> (length).</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>lists.suru</span></div>
-<pre class="suru">数列 とは 1 と 2 と 3 と 4
+<pre class="suru">数列 とは 1 と 2 と 3 と 4 です
 数列 の 先頭
 数列 の 長さ
 数列 を 加算する
@@ -130,7 +130,7 @@
   <h2 id="pipelines"><span class="n">05</span>Pipelines</h2>
   <p>Change the ending <code>する</code> to <code>して</code> (“and then”) and the result flows into the <code>を</code> of the next verb. Long chains read like a sentence.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>pipeline.suru</span></div>
-<pre class="suru">x を 二乗する とは x * x
+<pre class="suru">x を 二乗する とは x * x です
 3 を 二乗して 1 に 加算する      # square 3, then add 1
 1 と 2 を 加算して 二乗する      # add 1 and 2, then square</pre>
 <pre class="out">10
@@ -139,8 +139,8 @@
   <h2 id="higher"><span class="n">06</span>Functions as values</h2>
   <p>Ending a verb in <code>すること</code> (“the act of doing”) turns it into a value you can pass around. If you give it some arguments first, it is partially applied. An anonymous function is written <code>x を 受け取って … を 返すこと</code> (“take x and return …”).</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>higher.suru</span></div>
-<pre class="suru">x を 三倍する とは x * 3
-数列 とは 1 と 2 と 3 と 4
+<pre class="suru">x を 三倍する とは x * 3 です
+数列 とは 1 と 2 と 3 と 4 です
 数列 の それぞれ を 三倍する
 数列 から （x を 受け取って x > 2 を 返すこと） で 選別する
 数列 を 0 から 加算すること で 畳み込みする
@@ -155,8 +155,8 @@
   <p><code>もし … ならば … そうでなければ …</code> is “if … then … otherwise ….” It is an expression, so both branches are required. <code>が</code> compares for equality.</p>
   <p>A name ending in <code>である</code> (“is …”) defines a <strong>predicate</strong>, a function that returns true (<code>真</code>) or false (<code>偽</code>). Its subject takes <code>が</code>, you negate it with <code>でない</code> (“is not”), and <code>であること</code> makes it a value.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>even.suru</span></div>
-<pre class="suru">n が 偶数である とは n % 2 が 0
-n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」
+<pre class="suru">n が 偶数である とは n % 2 が 0 です
+n を 判定する とは もし n が 偶数である ならば 「偶数」 そうでなければ 「奇数」 です
 7 を 判定する
 4 が 偶数である
 3 が 偶数でない
@@ -170,8 +170,8 @@ n を 判定する とは もし n が 偶数である ならば 「偶数」 �
   <h2 id="cases"><span class="n">08</span>Recursion and definitions by cases</h2>
   <p>Write a value or a pattern in place of a parameter name to define a function case by case. The first case that matches is used.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>factorial.suru</span></div>
-<pre class="suru">0 を 階乗する とは 1
-n を 階乗する とは n * （n - 1 を 階乗する）
+<pre class="suru">0 を 階乗する とは 1 です
+n を 階乗する とは n * （n - 1 を 階乗する） です
 10 を 階乗する</pre>
 <pre class="out">3628800</pre></div>
   <p>Wrap a call in parentheses when you use its result inside arithmetic, as in <code>n * （n - 1 を 階乗する）</code>. Lists split into head and rest with <code>先頭 は x で 残り は 他</code> (“the head is x and the rest is 他”), and <code>空</code> matches the empty list.</p>
@@ -179,12 +179,12 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="data"><span class="n">09</span>Your own data types</h2>
   <p><code>か</code> (“or”) lists the shapes a type can take. <code>もし 値 が</code> followed by indented cases is pattern matching. Indentation decides the structure, as in Python.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>shapes.suru</span></div>
-<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形
+<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形 です
 
 形 を 面積にする とは
   もし 形 が
-    半径 の 円 ならば 3 * 半径 ^ 2
-    幅 と 高 の 長方形 ならば 幅 * 高
+    半径 の 円 ならば 3 * 半径 ^ 2 です
+    幅 と 高 の 長方形 ならば 幅 * 高 です
 
 5 の 円 を 面積にする
 幅 は 2 で 高 は 3 の 長方形 を 面積にする</pre>
@@ -193,9 +193,10 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <p>Here a 図形 (shape) is either a 円 (circle) with a 半径 (radius) or a 長方形 (rectangle) with a 幅 (width) and 高 (height). Build values in order (<code>5 の 円</code>) or by field name (<code>幅 は 2 で 高 は 3 の 長方形</code>). If you leave a shape out of the match, the program is rejected before it runs. Records are written <code>点 とは 横 と 縦 の 組</code>, and type classes are called 性質 (“traits”).</p>
 
   <h2 id="actions"><span class="n">10</span>Actions and procedures</h2>
-  <p>Side effects such as <code>表示する</code> (display) and <code>入力する</code> (read a line) don’t happen when they are evaluated. They produce an <strong>action</strong> (<code>動作</code>), and actions at the top level are performed. To run several in order, put them in a <code>手順</code> (“procedure”) block. <code>… した 結果</code> (“the result of having done …”) gives a name to an action’s result.</p>
+  <p>Side effects such as <code>表示する</code> (display) and <code>入力する</code> (read a line) don’t happen when they are evaluated. They produce an <strong>action</strong> (<code>入出力動作</code>, “input/output action”), and actions at the top level are performed. To run several in order, list them one per line between <code>以下の手順です</code> (“the procedure is as follows”) and <code>以上です</code> (“that is all”). <code>… した 結果</code> (“the result of having done …”) gives a name to an action’s result. The type declaration on the first line says “an action that returns nothing” (<code>無</code>).</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>greet.suru</span></div>
-<pre class="suru">挨拶する とは 以下の手順です
+<pre class="suru">挨拶する は 無 を 返す 入出力動作
+挨拶する とは 以下の手順です
   名前 とは 「お名前は? 」 を 入力した 結果
   「こんにちは、」 + 名前 + 「さん」 を 表示する
   以上です
@@ -208,7 +209,7 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="punctuation"><span class="n">11</span>Writing without spaces</h2>
   <p>Real Japanese has no spaces between words. Once a line contains <code>。</code> or <code>、</code>, する splits words where the script changes (kanji, kana, numbers). <code>。</code> ends a sentence and <code>、</code> is just a pause for readability. You can also use the polite form: <code>します</code> means the same as <code>する</code>.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>punct.suru</span></div>
-<pre class="suru">aとbを平均するとは、合計/2。ただし、合計とは、a+b。
+<pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。
 3と5を平均します。
 「できました」を表示します。</pre>
 <pre class="out">4
@@ -218,15 +219,15 @@ n を 階乗する とは n * （n - 1 を 階乗する）
   <h2 id="types"><span class="n">12</span>Types</h2>
   <p>Before running anything, する infers the type of every expression and stops if something doesn’t fit. Errors are in Japanese, with a line, a column and a marker.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>oops.suru</span></div>
-<pre class="suru">x を 二乗する とは x * x
+<pre class="suru">x を 二乗する とは x * x です
 「三」 を 二乗する</pre>
 <pre class="out err">エラー: 2行目 7文字目: 「二乗する」の「を」には数が必要ですが、文字列が渡されています
   「三」 を 二乗する
             ^</pre></div>
-  <p>The message says: “line 2, column 7: the を of 二乗する needs a number, but a string was given.” Types are optional to write, but you can declare one with <code>は</code>:</p>
+  <p>The message says: “line 2, column 7: the を of 二乗する needs a number, but a string was given.” Types are optional to write, but you can declare one with <code>は … を 返す</code> (“… returns …”):</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>declared.suru</span></div>
-<pre class="suru">数 を 二乗する は 数      # takes a number (数), returns a number
-x を 二乗する とは x * x
+<pre class="suru">数 を 二乗する は 数 を 返す  # takes a number (数), returns a number
+x を 二乗する とは x * x です
 4 を 二乗する</pre>
 <pre class="out">16</pre></div>
   <p>Type names include <code>数</code> (number), <code>文字列</code> (string), <code>真偽</code> (boolean), <code>数 の リスト</code> (list of numbers) and <code>文字列 を 返す 入出力動作</code> (an action that yields a string; <code>文字列 の 動作</code> is the short form). Run <code>suru --検査 file.suru</code> to check without running.</p>

@@ -74,24 +74,24 @@
 「JSON」 を 読み込んで 使う
 「HTTP/クライアント」 を 読み込む
 
-発言 とは 役 と 内容 の 組
+発言 とは 役 と 内容 の 組 です
 
 # The JSON we send: {"model":…, "messages":[{"role":…, "content":…}, …]}
-発言 を 発言JSONにする は JSON
-m を 発言JSONにする とは （（「role」 と （m の 役 の JSON文字列） の JSON項目） と （「content」 と （m の 内容 の JSON文字列） の JSON項目）） の JSON物
+発言 を 発言JSONにする は JSON を 返す
+m を 発言JSONにする とは （（「role」 と （m の 役 の JSON文字列） の JSON項目） と （「content」 と （m の 内容 の JSON文字列） の JSON項目）） の JSON物 です
 
-発言 の リスト を 要求本文にする は 文字列
+発言 の リスト を 要求本文にする は 文字列 を 返す
 履歴 を 要求本文にする とは
   （（「model」 と （「llama3.2」 の JSON文字列） の JSON項目） と （「messages」 と （（履歴 の それぞれ を 発言JSONにする） の JSON配列） の JSON項目）） の JSON物 を JSON文字列にする
 
 # Each line we get back is {"message":{"content":"…"}, …}: one piece of the answer
-JSON を 文字値取得する は 文字列
-（s の JSON文字列） を 文字値取得する とは s
-v を 文字値取得する とは 「」
+JSON を 文字値取得する は 文字列 を 返す
+（s の JSON文字列） を 文字値取得する とは s です
+v を 文字値取得する とは 「」 です
 
-（JSON と 文字列） の 成否 を 断片にする は 文字列
+（JSON と 文字列） の 成否 を 断片にする は 文字列 を 返す
 （v の 成功） を 断片にする とは （（v から 「message」 を JSON取得する） から 「content」 を JSON取得する） を 文字値取得する
-（e の 失敗） を 断片にする とは 「」
+（e の 失敗） を 断片にする とは 「」 です
 
 # For every line: print its piece without a newline, and add it to the answer so far
 文字列 を 文字列 に 断片表示する は 文字列 を 返す 入出力動作
@@ -101,9 +101,9 @@ v を 文字値取得する とは 「」
   答え + 断片 を 結果にする
   以上です
 
-文字列 の 有無 を 入力文にする は 文字列
-（s の 有） を 入力文にする とは s
-無 を 入力文にする とは 「」
+文字列 の 有無 を 入力文にする は 文字列 を 返す
+（s の 有） を 入力文にする とは s です
+無 を 入力文にする とは 「」 です
 
 発言 の リスト を 会話する は 数 を 返す 入出力動作
 履歴 を 会話する とは 以下の手順です
@@ -144,7 +144,7 @@ AI&gt; こんにちは is Japanese.
   <h3>Streaming with a function value</h3>
   <p><code>URL に 本文 を 初期 から 処理 で 逐次投稿する</code> POSTs the body and calls 処理 once for every line of the reply, as it arrives. Writing <code>断片表示すること</code> (“the act of showing a piece”) passes our function itself as a value. It starts from the empty answer <code>「」</code>, prints each piece with <code>続表示する</code> (“keep printing”, no newline), and the final answer becomes the value of <code>答え</code>.</p>
   <h3>Actions in a procedure</h3>
-  <p>Printing, reading input and sending requests are 動作 (actions). A <code>手順</code> (procedure) block runs them in order, and <code>…した 結果</code> (“the result of having done …”) takes the value an action produced. 会話する and 回答する call each other, so the conversation is a loop without a loop statement.</p>
+  <p>Printing, reading input and sending requests are 入出力動作 (input/output actions), and the type declarations say so with <code>… を 返す 入出力動作</code>. Between <code>以下の手順です</code> and <code>以上です</code> they run in order, and <code>…した 結果</code> (“the result of having done …”) takes the value an action produced. 会話する and 回答する call each other, so the conversation is a loop without a loop statement.</p>
 
   <h2 id="llm-more"><span class="n">05</span>Going further</h2>
   <p>The longer version in the HTTP library takes the model and URL as arguments, also talks to OpenAI-compatible servers such as llama.cpp’s <code>llama-server</code> and LM Studio, and keeps going when a request fails.</p>
