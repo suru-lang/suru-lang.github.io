@@ -299,11 +299,11 @@ x を y で 累乗する とは 外部の「pow」 で 小数 を 小数 で 受
   <p>Tests are written in する itself, next to the code. <code>例えば … は … です</code> (“for example, … is …”) under a definition is an example of it, and <code>以下は「name」の試験です</code> … <code>以上です</code> is a test block. Both are type-checked with the file, skipped when it runs as a program, and run by <code>suru --試験</code>.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>double.suru</span></div>
 <pre class="suru">数 を 二倍する は 数 を 返す
-x を 二倍する とは x * 2 です
-例えば （2 を 二倍する） は 4 です
+x を 二倍する とは x * 2 です        # 二倍する = double
+例えば （2 を 二倍する） は 4 です   # 例えば = for example
 
-以下は「二倍」の試験です
-  （-3 を 二倍する） を -6 に 一致確認する
+以下は「二倍」の試験です             # 試験 = test
+  （-3 を 二倍する） を -6 に 一致確認する  # 一致確認する = check that it equals
   以上です</pre></div>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
 <pre class="sh"><span class="p">$ </span>suru --試験 double.suru</pre>
