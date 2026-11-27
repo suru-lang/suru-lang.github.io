@@ -250,6 +250,7 @@ h2 .jp { font-family: var(--font-jp); color: var(--cyan); font-weight: 900; marg
 }
 .closing p { color: #b9c2df; font-size: 18px; }
 .closing .cta { justify-content: center; }
+.closing p.origin { max-width: 560px; margin: 56px auto 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
 .mascot { margin: 0 auto 28px; }
 .mascot img { width: 240px; height: auto; filter: drop-shadow(0 0 6px rgba(94,234,255,.65)); }
 .mascot figcaption { color: var(--muted); font-size: 15px; margin-top: 6px; }
