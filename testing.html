@@ -69,26 +69,26 @@
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>計算.suru</span></div>
 <pre class="suru"># Returns x times two.
 数 を 二倍する は 数 を 返す
-x を 二倍する とは x * 2 です
-例えば （2 を 二倍する） は 4 です
+x を 二倍する とは x * 2 です        # 二倍する = double
+例えば （2 を 二倍する） は 4 です   # 例えば = for example
 例えば （-3 を 二倍する） は -6 です
 
 数 を 加一する は 数 を 返す
-x を 加一する とは x + 1 です
+x を 加一する とは x + 1 です        # 加一する = add one
 
-以下は「二倍」の試験です
-  （0 を 加一して 二倍する） を 2 に 一致確認する
-  1 &lt; 2 を 確認する
+以下は「二倍」の試験です             # 試験 = test
+  （0 を 加一して 二倍する） を 2 に 一致確認する  # 一致確認する = check that it equals
+  1 &lt; 2 を 確認する                # 確認する = check that it is true
   以上です
 
-加一する は 非公開とする</pre></div>
+加一する は 非公開とする             # 非公開 = private</pre></div>
   <p>When you run the file as a program (<code>suru 計算.suru</code>), or another file reads it with <code>「計算」 を 読み込む</code>, the examples and the test block are skipped, and a build leaves them out of the binary. They run only when you ask for the tests.</p>
 
   <h2 id="examples"><span class="n">02</span>Examples: 例えば</h2>
   <p><code>例えば</code> means “for example.” A top-level line <code>例えば expression は expected です</code> (“for example, <em>expression</em> is <em>expected</em>”) is an example of the definition just above it. It passes when the two sides are equal (<code>=</code>). The <code>です</code> at the end may be left out.</p>
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
 <pre class="suru">文字列 を 挨拶にする は 文字列 を 返す
-名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です
+名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です  # 挨拶にする = make a greeting
 例えば （「太郎」 を 挨拶にする） は 「こんにちは、太郎さん」 です</pre></div>
   <p>Each example is reported as “<em>name</em>の例(<em>line</em>行)”, the example of that definition on that line. Because an example is a sentence, not a comment, a typo in it is an error before anything runs, and it can never drift silently out of date. In VS Code, hovering over the function’s name shows its examples next to its type.</p>
 
@@ -99,7 +99,7 @@ x を 加一する とは x + 1 です
 名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です
 
 以下は「挨拶」の試験です
-  文 とは 「花子」 を 挨拶にする
+  文 とは 「花子」 を 挨拶にする  # 文 = sentence
   文 を 「こんにちは、花子さん」 に 一致確認する
   （文 の 長さ） > 0 を 確認する
   以上です</pre></div>
@@ -140,7 +140,7 @@ x を 加一する とは x + 1 です
 <pre class="suru" data-check="no">「試験」 を 読み込んで 使う
 「計算」 を 読み込む                 # the project, by the name in 組.suru
 
-二倍試験する は 真偽 を 返す 入出力動作
+二倍試験する は 真偽 を 返す 入出力動作  # 二倍試験する = test 二倍する
 二倍試験する とは 以下の手順です
   （5 を 計算内の二倍する） を 10 に 一致確認する
   （0 を 計算内の二倍する） = 0 を 確認する
