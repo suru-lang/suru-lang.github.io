@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing — する (suru)</title>
+<meta name="description" content="How to test programs in する (suru): examples written as sentences next to a definition, test blocks in the same file, tests in the 試験/ folder, and running them with suru --試験, suruc --試験, kumu 試験 and GitHub Actions.">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/testing.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/testing.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/testing.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="testing.html" aria-current="page">Testing</a>
+      <a href="examples.html">Examples</a>
+      <a href="ohanashi.html">Ohanashi</a>
+      <a href="playground.html">Playground</a>
+      <a href="libraries.html">Libraries</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="./#install">Install</a>
+      <a href="https://suru.readthedocs.io/en/latest/">Docs</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span><a href="ja/testing.html" hreflang="ja" lang="ja">日本語</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>Testing</p>
+  <ol>
+    <li><a href="#idea">Tests live with the code</a></li>
+    <li><a href="#examples">Examples: 例えば</a></li>
+    <li><a href="#blocks">Test blocks</a></li>
+    <li><a href="#run">Running the tests</a></li>
+    <li><a href="#folder">The 試験/ folder</a></li>
+    <li><a href="#kumu">kumu 試験</a></li>
+    <li><a href="#editor">In the editor</a></li>
+    <li><a href="#ci">On every pull request</a></li>
+    <li><a href="#more">Going further</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">Tutorial</span>
+  <h1>Testing in <span class="glow">する</span></h1>
+  <p class="lead">する has no separate test framework. You write tests in the language itself: short examples right under a definition, test blocks in the same file, and larger tests in a <code>試験/</code> (“test”) folder. One command runs them all. This page needs する 0.10.0 or later; read the <a href="tutorial.html">tutorial</a> first if the grammar is new to you.</p>
+  <div class="libs">
+    <code>例えば … は … です</code><code>以下は「…」の試験です</code><code>…試験する</code><code>suru --試験</code><code>suruc --試験</code><code>kumu 試験</code><code>GitHub Actions</code>
+  </div>
+
+  <h2 id="idea"><span class="n">01</span>Tests live with the code</h2>
+  <p>Here is a small file, <code>計算.suru</code> (“calculation”), with one public function, two examples and one test block. Nothing in it is a comment with special meaning: the examples and the test are ordinary sentences, so the interpreter, the compiler and the editor type-check them with the rest of the file.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>計算.suru</span></div>
+<pre class="suru"># Returns x times two.
+数 を 二倍する は 数 を 返す
+x を 二倍する とは x * 2 です
+例えば （2 を 二倍する） は 4 です
+例えば （-3 を 二倍する） は -6 です
+
+数 を 加一する は 数 を 返す
+x を 加一する とは x + 1 です
+
+以下は「二倍」の試験です
+  （0 を 加一して 二倍する） を 2 に 一致確認する
+  1 &lt; 2 を 確認する
+  以上です
+
+加一する は 非公開とする</pre></div>
+  <p>When you run the file as a program (<code>suru 計算.suru</code>), or another file reads it with <code>「計算」 を 読み込む</code>, the examples and the test block are skipped, and a build leaves them out of the binary. They run only when you ask for the tests.</p>
+
+  <h2 id="examples"><span class="n">02</span>Examples: 例えば</h2>
+  <p><code>例えば</code> means “for example.” A top-level line <code>例えば expression は expected です</code> (“for example, <em>expression</em> is <em>expected</em>”) is an example of the definition just above it. It passes when the two sides are equal (<code>=</code>). The <code>です</code> at the end may be left out.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
+<pre class="suru">文字列 を 挨拶にする は 文字列 を 返す
+名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です
+例えば （「太郎」 を 挨拶にする） は 「こんにちは、太郎さん」 です</pre></div>
+  <p>Each example is reported as “<em>name</em>の例(<em>line</em>行)”, the example of that definition on that line. Because an example is a sentence, not a comment, a typo in it is an error before anything runs, and it can never drift silently out of date. In VS Code, hovering over the function’s name shows its examples next to its type.</p>
+
+  <h2 id="blocks"><span class="n">03</span>Test blocks</h2>
+  <p>For checks that take more than one line, write a test block at the top level of the file: <code>以下は「二倍」の試験です</code> (“the following is the test 「二倍」”), a procedure, then <code>以上です</code> (“that is all”). The name in 「」 is the name of the test. A file may hold several blocks, each with its own name.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
+<pre class="suru">文字列 を 挨拶にする は 文字列 を 返す
+名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です
+
+以下は「挨拶」の試験です
+  文 とは 「花子」 を 挨拶にする
+  文 を 「こんにちは、花子さん」 に 一致確認する
+  （文 の 長さ） > 0 を 確認する
+  以上です</pre></div>
+  <p>Inside a test block you can use the file’s private names (such as <code>加一する</code> above, which is marked <code>非公開とする</code>, “make private”) and the check actions of the 「試験」 library without reading it in:</p>
+  <div class="table-scroll"><table>
+    <tr><th>Check</th><th>Meaning</th><th>When it fails</th></tr>
+    <tr><td><code>actual を expected に 一致確認する</code></td><td>check that the two are equal</td><td><code>等しくありません: 期待は 4 / 実際は 5</code> (“not equal: expected 4 / actual 5”)</td></tr>
+    <tr><td><code>condition を 確認する</code></td><td>check that the condition is <code>真</code> (true)</td><td><code>真ではありません</code> (“not true”)</td></tr>
+    <tr><td><code>reason を 不合格にする</code></td><td>fail now, with your own reason</td><td>the reason you gave</td></tr>
+  </table></div>
+  <p>A failing check writes its line and its reason to standard error and ends that test with exit code 1. The other tests still run.</p>
+
+  <h2 id="run"><span class="n">04</span>Running the tests</h2>
+  <p><code>suru --試験</code> takes files or folders (a folder means every <code>.suru</code> file in it) and runs their examples, test blocks and <code>…試験する</code> procedures with the interpreter. Each test runs in its own process, so a crash stops only that test.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>suru --試験 計算.suru</pre>
+<pre class="out">✓ 計算.suru 二倍するの例(4行)
+✓ 計算.suru 二倍するの例(5行)
+✓ 計算.suru 二倍
+
+合格 3・不合格 0</pre></div>
+  <p><code>合格</code> is “passed” and <code>不合格</code> is “failed.” When a test fails, its reason and anything it printed appear indented under it, and the exit code is 1. Suppose the second example said <code>は 6 です</code> by mistake:</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>suru --試験 計算.suru</pre>
+<pre class="out">✓ 計算.suru 二倍するの例(4行)
+✗ 計算.suru 二倍するの例(5行)
+    計算.suru:5: 等しくありません: 期待は 6 / 実際は -6
+✓ 計算.suru 二倍
+
+合格 2・不合格 1</pre></div>
+  <p>Any argument that is not a path picks tests by part of their name or path: <code>suru --試験 計算.suru 二倍する</code> runs only the examples of <code>二倍する</code>. <code>suruc --試験</code> does the same with the Go compiler: it builds one test binary per file (at <code>-O0</code> unless you give another <code>-O</code>) and runs each test as its own process. The report looks the same.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>suruc --試験 計算.suru 二倍</pre></div>
+
+  <h2 id="folder"><span class="n">05</span>The 試験/ folder</h2>
+  <p>Tests that use a whole project, as its users would, go in files under <code>試験/</code>. There, every top-level definition with no arguments whose name ends in <code>試験する</code> (“to test”) is one test. (Names may not be all hiragana, so it is <code>二倍試験する</code>, not “二倍を試験する”.) Read in the checks with <code>「試験」 を 読み込んで 使う</code> (“read in and use 「試験」”), and read the project by the name in its <code>組.suru</code>.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>試験/二倍.suru</span></div>
+<pre class="suru" data-check="no">「試験」 を 読み込んで 使う
+「計算」 を 読み込む                 # the project, by the name in 組.suru
+
+二倍試験する は 真偽 を 返す 入出力動作
+二倍試験する とは 以下の手順です
+  （5 を 計算内の二倍する） を 10 に 一致確認する
+  （0 を 計算内の二倍する） = 0 を 確認する
+  以上です</pre></div>
+  <p>Other definitions in the file, such as helper functions, are not tests. A file in <code>試験/</code> may have the same name as the project file it tests: <code>「計算」 を 読み込む</code> in <code>試験/計算.suru</code> skips the file itself and finds the project’s <code>計算.suru</code>. <code>kumu 新規</code> (“new”) creates <code>試験/例.suru</code> with one test, so a new project has a test to run from the start.</p>
+
+  <h2 id="kumu"><span class="n">06</span>kumu 試験</h2>
+  <p>In a <code>kumu</code> project, <code>kumu 試験</code> (<code>kumu test</code>) runs everything: first the examples and test blocks in the project’s source files, then the <code>…試験する</code> procedures in <code>試験/</code>. Each test file becomes one binary under <code>出力/試験/</code>, linked with the project’s dependencies and C sources, and each test runs as its own process.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 新規 計算        # new project; put 計算.suru above next to 本体.suru
+<span class="p">$ </span>cd 計算
+<span class="p">$ </span>kumu 試験</pre>
+<pre class="out">✓ 計算.suru 二倍するの例(4行)
+✓ 計算.suru 二倍するの例(5行)
+✓ 計算.suru 二倍
+✓ 試験/二倍.suru 二倍試験する
+
+合格 4・不合格 0</pre></div>
+  <p>A failure points at the line of the check in the test file, even when the code under test is in a library:</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 試験 二倍試験</pre>
+<pre class="out">✗ 試験/二倍.suru 二倍試験する
+    「二倍.suru」の6行目 25文字目: 等しくありません: 期待は 11 / 実際は 10
+
+合格 0・不合格 1</pre></div>
+  <p>As with <code>suru --試験</code>, words after <code>kumu 試験</code> pick tests by part of their name or path. A file that cannot be read or does not type-check fails as a whole, with the error under it. Subfolders that have their own <code>組.suru</code> (separate projects, such as <code>例/</code>) are skipped. <code>kumu 公開</code> (“publish”) runs all the tests and refuses to tag a release if any fail.</p>
+
+  <h2 id="editor"><span class="n">07</span>In the editor</h2>
+  <p>The <a href="https://github.com/suru-lang/suru/tree/main/editors/vscode">VS Code extension</a> checks examples and test blocks as you type, like the rest of the file. In files under <code>試験/</code>, a “▷ 試験する” link appears above each <code>…試験する とは</code> line and runs just that test. The command palette has “プロジェクトを試験する(kumu 試験)” (“test the project”) for the whole project.</p>
+
+  <h2 id="ci"><span class="n">08</span>On every pull request</h2>
+  <p>Because <code>kumu 試験</code> exits with 1 when a test fails, it is all a CI job needs. This GitHub Actions workflow installs <code>kumu</code> and clang and runs the tests on every push and pull request. The official libraries use the same steps, plus the C libraries they wrap.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>.github/workflows/試験.yml</span></div>
+<pre class="sh">name: 試験
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - run: sudo apt-get update &amp;&amp; sudo apt-get install -y clang
+      - run: go install github.com/suru-lang/suru/cmd/kumu@latest
+      - run: ~/go/bin/kumu 試験</pre></div>
+  <p>Without <code>kumu</code>, run <code>pip install suru-lang</code> and <code>suru --試験 .</code> instead.</p>
+
+  <h2 id="more"><span class="n">09</span>Going further</h2>
+  <p>The full rules are in the language README: “Tests in the same file and examples” for <code>例えば</code> and test blocks, and “Project management (kumu)” for <code>試験/</code> and <code>kumu 試験</code>. The standard library tests itself this way too: <code>lib/算術.suru</code> and <code>lib/乱数.suru</code> carry their own examples and test blocks.</p>
+  <div class="next">
+    <a href="https://github.com/suru-lang/suru#readme">Language README<span>Every rule about tests and examples</span></a>
+    <a href="https://github.com/suru-lang/suru/blob/main/lib/試験.suru">The 「試験」 library<span>The checks, written in する</span></a>
+    <a href="https://github.com/suru-lang/suru/blob/main/lib/算術.suru">lib/算術.suru<span>A library file with examples and tests</span></a>
+    <a href="tutorial.html">Tutorial<span>The rest of the language</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="https://suru.readthedocs.io/en/latest/">Docs</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/testing.html" lang="ja">日本語</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

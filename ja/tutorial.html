@@ -24,6 +24,7 @@
     <nav class="nav">
       <a href="./#features">特徴</a>
       <a href="tutorial.html" aria-current="page">入門</a>
+      <a href="testing.html">試験</a>
       <a href="examples.html">例</a>
       <a href="ohanashi.html">おはなし</a>
       <a href="playground.html">試す</a>
@@ -58,6 +59,7 @@
     <li><a href="#modules">読み込みと標準ライブラリ</a></li>
     <li><a href="#ffi">C の関数を呼ぶ</a></li>
     <li><a href="#binaries">ネイティブのバイナリ</a></li>
+    <li><a href="#testing">試験</a></li>
     <li><a href="#next">次に読むもの</a></li>
   </ol>
 </aside>
@@ -289,10 +291,29 @@ x を y で 累乗する とは 外部の「pow」 で 小数 を 小数 で 受
 <pre class="out">「挨拶」0.1.0 を組みました(出力/挨拶)
 こんにちは</pre></div>
 
-  <h2 id="next"><span class="n">16</span>次に読むもの</h2>
+  <h2 id="testing"><span class="n">16</span>試験</h2>
+  <p>試験は する そのもので、コードのすぐそばに書きます。定義の下の <code>例えば … は … です</code> はその定義の例、<code>以下は「名前」の試験です</code> … <code>以上です</code> は試験のまとまりです。どちらもファイルと一緒に型を検査し、プログラムとして動かすときは飛ばし、<code>suru --試験</code> で動きます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>二倍.suru</span></div>
+<pre class="suru">数 を 二倍する は 数 を 返す
+x を 二倍する とは x * 2 です
+例えば （2 を 二倍する） は 4 です
+
+以下は「二倍」の試験です
+  （-3 を 二倍する） を -6 に 一致確認する
+  以上です</pre></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>suru --試験 二倍.suru</pre>
+<pre class="out">✓ 二倍.suru 二倍するの例(3行)
+✓ 二倍.suru 二倍
+
+合格 2・不合格 0</pre></div>
+  <p><code>kumu</code> のプロジェクトでは、<code>kumu 試験</code> がこれらと <code>試験/</code> のフォルダの試験を動かします。CI まで含めた全部は<a href="testing.html">試験のページ</a>にあります。</p>
+
+  <h2 id="next"><span class="n">17</span>次に読むもの</h2>
   <p>ここまでで言語の中心は一通り見ました。リポジトリには、スレッドと通路、C や Go の呼び出し、JSON、和暦、そして文法の決まりの全部があります。</p>
   <div class="next">
     <a href="https://github.com/suru-lang/suru">リポジトリと詳しい説明<span>文法の決まりをすべて書いた README</span></a>
+    <a href="testing.html">試験<span>例・試験のまとまり・kumu 試験</span></a>
     <a href="examples.html">ローカル LLM とチャット<span>約50行の実際のプログラム</span></a>
     <a href="https://github.com/suru-lang/suru/tree/main/examples">例のプログラム<span>スレッド、外部の関数、JSON など</span></a>
     <a href="https://github.com/suru-lang/suru/tree/main/lib">標準ライブラリのソース<span>する で書いてあります</span></a>
