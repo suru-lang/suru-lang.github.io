@@ -59,14 +59,14 @@
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>割り算.suru</span></div>
 <pre class="suru"># 「a を b で 割る」をそのまま書く
-a を b で 割った数にする とは a / b
+a を b で 割った数にする とは a / b です
 
 10 を 2 で 割った数にする
 2 で 10 を 割った数にする    # 助詞で決まるので同じ
 
 n を 階乗する とは
   もし n が 0 ならば 1
-  そうでなければ n * （n - 1 を 階乗する）
+  そうでなければ n * （n - 1 を 階乗する） です
 
 10 を 階乗する</pre>
 <pre class="out">5
@@ -98,8 +98,8 @@ n を 階乗する とは
       </div>
       <div class="window" style="margin-top:18px">
         <div class="window-bar"><i></i><i></i><i></i><span>リスト.suru</span></div>
-<pre class="suru">x を 三倍する とは x * 3
-数列 とは 1 と 2 と 3 と 4
+<pre class="suru">x を 三倍する とは x * 3 です
+数列 とは 1 と 2 と 3 と 4 です
 
 数列 の それぞれ を 三倍する
 数列 を 加算して 三倍する
@@ -124,7 +124,7 @@ n を 階乗する とは
     <div class="grid">
       <div class="card"><span class="glyph">型</span><h3>型の推論と検査</h3><p>Hindley–Milner の型推論で、実行する前にプログラム全体の型を調べます。型は書かなくてよく、書きたいところには宣言できます。</p></div>
       <div class="card"><span class="glyph">形</span><h3>データとパターンマッチ</h3><p>組(名前付きタプル)、選択肢のある型、型の引数、条件付きのパターンマッチ、場合ごとの関数定義、性質(型クラス)。</p></div>
-      <div class="card"><span class="glyph">動</span><h3>副作用は「動作」</h3><p>表示や入力は「動作」という値です。「手順」で順に行います(Haskell の do 記法にあたります)。</p></div>
+      <div class="card"><span class="glyph">動</span><h3>副作用は「入出力動作」</h3><p>表示や入力は「入出力動作」という値です。「以下の手順です」から「以上です」までに並べて順に行います(Haskell の do 記法にあたります)。</p></div>
       <div class="card"><span class="glyph">速</span><h3>ネイティブのバイナリ</h3><p>LLVM IR を出し、clang で1つの実行ファイルにします。Go で書いたコンパイラ <code>suruc</code> は、IR を作るまでが元の版の 14〜35 倍速くなります。</p></div>
       <div class="card"><span class="glyph">並</span><h3>本当に並列なスレッド</h3><p>スレッドは CPU のコアの数まで同時に動きます。通路・ロック・枠・箱で値をやりとりし、GC もスレッドに対応しています。</p></div>
       <div class="card"><span class="glyph">繋</span><h3>C・C++・Go を呼ぶ</h3><p>型を宣言して名前を指すだけで、libc や libm、自分で作った共有ライブラリの関数を呼べます。</p></div>
@@ -144,15 +144,15 @@ n を 階乗する とは
     <div class="split">
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>空白の書き方</span></div>
-<pre class="suru">a と b を 平均する とは 合計 / 2
-ただし 合計 とは a + b
+<pre class="suru">a と b を 平均する とは 合計 / 2 です
+ただし 合計 とは a + b です
 
 3 と 5 を 平均する</pre>
 <pre class="out">4</pre>
       </div>
       <div class="window">
         <div class="window-bar"><i></i><i></i><i></i><span>句読点の書き方</span></div>
-<pre class="suru">aとbを平均するとは、合計/2。ただし、合計とは、a+b。
+<pre class="suru">aとbを平均するとは、合計/2です。ただし、合計とは、a+bです。
 3と5を平均します。
 「できました」を表示します。</pre>
 <pre class="out">4
@@ -178,6 +178,7 @@ n を 階乗する とは
       <div class="window-bar"><i></i><i></i><i></i><span>サーバー.suru — 7行の Web サーバー(suru-lang/http)</span></div>
 <pre class="suru" data-check="no">「HTTP」 を 読み込む
 
+HTTP内の要求 を 案内する は HTTP内の応答 を 返す
 要求 を 案内する とは
   もし 要求 の 道 が
     「/」 ならば 「こんにちは」 を HTTP内の本文応答する
