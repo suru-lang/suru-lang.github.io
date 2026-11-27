@@ -80,6 +80,24 @@
     </div>
   </div>
 
+  <details class="pg-ime" id="typing">
+    <summary>No Japanese keyboard? How to type <span lang="ja">「する」</span> here</summary>
+    <p>Turn on your computer’s Japanese input method (IME), type the reading in romaji, press <kbd>Space</kbd> to convert to kanji and <kbd>Enter</kbd> to confirm. It works in the editor above like anywhere else. The full guide is on <a href="typing.html">Typing Japanese</a>.</p>
+    <div class="pg-ime-os">
+      <div><h3>Windows</h3><p>Settings → Time &amp; language → Add a language → 日本語. Set its keyboard layout to <strong>English keyboard (101/102 key)</strong>.</p><p><kbd>Win</kbd>+<kbd>Space</kbd> switches keyboards, <kbd>Alt</kbd>+<kbd>`</kbd> switches <code>A</code>/<code>あ</code>.</p></div>
+      <div><h3>macOS</h3><p>System Settings → Keyboard → Input Sources → Edit… → + → Japanese → <strong>Romaji</strong>.</p><p><kbd>Ctrl</kbd>+<kbd>Space</kbd> or the <kbd>🌐</kbd> key switches between ABC and Japanese.</p></div>
+      <div><h3>Ubuntu</h3><p><code>sudo apt install ibus-mozc</code>, log out and in, then Settings → Keyboard → Add Input Source → Japanese (Mozc).</p><p><kbd>Super</kbd>+<kbd>Space</kbd> switches sources.</p></div>
+    </div>
+    <div class="table-scroll"><table>
+      <tr><th>To get</th><th>In Japanese mode</th><th>To get</th><th>In Japanese mode</th></tr>
+      <tr><td>「 」</td><td><kbd>[</kbd> <kbd>]</kbd></td><td>を</td><td><code>wo</code></td></tr>
+      <tr><td>『 』 【 】</td><td><kbd>[</kbd> then <kbd>Space</kbd></td><td>ん</td><td><code>nn</code></td></tr>
+      <tr><td>、 。</td><td><kbd>,</kbd> <kbd>.</kbd></td><td>とは</td><td><code>toha</code></td></tr>
+      <tr><td>（ ）</td><td><kbd>Shift</kbd>+<kbd>9</kbd> <kbd>0</kbd></td><td>表示する</td><td><code>hyoujisuru</code></td></tr>
+    </table></div>
+    <p>Full-width spaces, digits and <code>＋＊</code> are fine, so you can stay in Japanese mode. But <kbd>-</kbd> and <kbd>/</kbd> type <code>ー</code> and <code>・</code> there: switch to <code>A</code> for minus and division, and for Latin names like <code>x</code>.</p>
+  </details>
+
   <div class="note"><b>What works here.</b> The language, type checking and the standard library work as they do on your computer, including <code>「算術」</code> (math), <code>「乱数」</code> (random numbers), <code>「時間」</code> (time) and JSON. Files go to a temporary file system inside the page, which is gone when you leave. Things that need more of the operating system do not work: processes, threads, signals, sockets and HTTP, and C libraries other than the C standard library. The first visit downloads Python for the browser (<a href="https://pyodide.org/">Pyodide</a>, about 10 MB), then your browser keeps it. To use everything, <a href="./#install">install する</a>.</div>
 </main>
 
