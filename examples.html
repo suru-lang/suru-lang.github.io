@@ -77,45 +77,45 @@
 「JSON」 を 読み込んで 使う
 「HTTP/クライアント」 を 読み込む
 
-発言 とは 役 と 内容 の 組 です
+発言 とは 役 と 内容 の 組 です           # 発言 = message: a record (組) of a 役 (role) and 内容 (content)
 
 # The JSON we send: {"model":…, "messages":[{"role":…, "content":…}, …]}
-発言 を 発言JSONにする は JSON を 返す
+発言 を 発言JSONにする は JSON を 返す    # 発言JSONにする = make it into message JSON
 m を 発言JSONにする とは （（「role」 と （m の 役 の JSON文字列） の JSON項目） と （「content」 と （m の 内容 の JSON文字列） の JSON項目）） の JSON物 です
 
-発言 の リスト を 要求本文にする は 文字列 を 返す
+発言 の リスト を 要求本文にする は 文字列 を 返す  # 要求本文にする = make it into the request body
 履歴 を 要求本文にする とは
   （（「model」 と （「llama3.2」 の JSON文字列） の JSON項目） と （「messages」 と （（履歴 の それぞれ を 発言JSONにする） の JSON配列） の JSON項目）） の JSON物 を JSON文字列にする
 
 # Each line we get back is {"message":{"content":"…"}, …}: one piece of the answer
-JSON を 文字値取得する は 文字列 を 返す
+JSON を 文字値取得する は 文字列 を 返す  # 文字値取得する = get the string value
 （s の JSON文字列） を 文字値取得する とは s です
 v を 文字値取得する とは 「」 です
 
-（JSON と 文字列） の 成否 を 断片にする は 文字列 を 返す
+（JSON と 文字列） の 成否 を 断片にする は 文字列 を 返す  # 成否 = success or failure, 断片 = piece
 （v の 成功） を 断片にする とは （（v から 「message」 を JSON取得する） から 「content」 を JSON取得する） を 文字値取得する
 （e の 失敗） を 断片にする とは 「」 です
 
 # For every line: print its piece without a newline, and add it to the answer so far
-文字列 を 文字列 に 断片表示する は 文字列 を 返す 入出力動作
+文字列 を 文字列 に 断片表示する は 文字列 を 返す 入出力動作  # 断片表示する = show a piece
 答え を 行 に 断片表示する とは 以下の手順です
   断片 とは 行 を JSON解析して 断片にする
   断片 を 続表示する
   答え + 断片 を 結果にする
   以上です
 
-文字列 の 有無 を 入力文にする は 文字列 を 返す
+文字列 の 有無 を 入力文にする は 文字列 を 返す  # 有無 = maybe (有 = some, 無 = none), 入力文 = input line
 （s の 有） を 入力文にする とは s です
 無 を 入力文にする とは 「」 です
 
-発言 の リスト を 会話する は 数 を 返す 入出力動作
+発言 の リスト を 会話する は 数 を 返す 入出力動作  # 会話する = talk
 履歴 を 会話する とは 以下の手順です
   質問 とは 「あなた&gt; 」 を 入力確認した 結果 を 入力文にする
   もし 質問 が 「」 ならば 改行 を 続表示する
   そうでなければ 履歴 + （（役 は 「user」 で 内容 は 質問 の 発言） を 空 に 挿入する） を 回答する
   以上です
 
-発言 の リスト を 回答する は 数 を 返す 入出力動作
+発言 の リスト を 回答する は 数 を 返す 入出力動作  # 回答する = answer
 履歴 を 回答する とは 以下の手順です
   「AI&gt; 」 を 続表示する
   答え とは 「http://localhost:11434/api/chat」 に （履歴 を 要求本文にする） を 「」 から 断片表示すること で クライアント内の逐次投稿した 結果
@@ -123,7 +123,7 @@ v を 文字値取得する とは 「」 です
   履歴 + （（役 は 「assistant」 で 内容 は 答え の 発言） を 空 に 挿入する） を 会話する
   以上です
 
-空 を 会話する</pre></div>
+空 を 会話する                            # 空 = the empty list</pre></div>
 
   <h2 id="llm-run"><span class="n">03</span>Run it</h2>
   <p><code>kumu 実行</code> compiles the project to a native binary and starts it. Type a question after <code>あなた&gt;</code> (“you”). An empty line or Ctrl+D ends the chat.</p>

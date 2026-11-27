@@ -82,11 +82,11 @@
   <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>本体.suru</span></div>
 <pre class="suru" data-check="no">「rclsuru」 を 読み込んで 使う
 
-始めする とは 以下の手順です
+始めする とは 以下の手順です           # 始めする = start
   n とは 「hello」 を ノード作成した 結果
   p とは 文字列型 を 「chatter」 へ n で 発行者作成した 結果
   （「こんにちは」 を p へ 発行する） を 1.0 で n に 周期登録する
-  「始めました」 を n で 情報記録する
+  「始めました」 を n で 情報記録する  # 情報記録する = log info
   n を スピンする
   以上です
 
@@ -110,6 +110,7 @@ data: こんにちは</pre></div>
   n を スピンする
   以上です
 
+# 聞いたこと表示する = show what we heard, 文 = sentence
 文 を 聞いたこと表示する とは （「聞きました: 」 + 文） を 表示する
 
 始めする</pre></div>
@@ -151,6 +152,7 @@ data: こんにちは</pre></div>
   n を スピンする
   以上です
 
+# 足し算する = add, 要求 = request
 要求 を 足し算する とは （sum は （要求 の a） + （要求 の b） の AddTwoInts_Response既定） を 結果にする
 
 始めする</pre></div>
