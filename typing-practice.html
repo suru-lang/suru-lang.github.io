@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typing practice — する (suru)</title>
+<meta name="description" content="Practice typing Japanese with your input method: hiragana, katakana, kanji and a line of する (suru), checked as you go.">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="examples.html">Examples</a>
+      <a href="ohanashi.html">Ohanashi</a>
+      <a href="playground.html">Playground</a>
+      <a href="libraries.html">Libraries</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="typing.html" aria-current="page">Typing</a>
+      <a href="./#install">Install</a>
+      <a href="https://suru.readthedocs.io/en/latest/">Docs</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>Typing practice</p>
+  <ol id="tp-lessons"></ol>
+  <button type="button" class="tp-reset" id="tp-reset">Start over</button>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">Typing practice</span>
+  <h1>Practice typing <span class="glow">日本語</span></h1>
+  <p class="lead">Type each word with your Japanese input method and press <strong>Submit (回答)</strong>. When it matches, you move on. If you haven’t turned on the input method yet, start with <a href="typing.html">Typing Japanese</a>.</p>
+  <noscript><p class="note">This page needs JavaScript.</p></noscript>
+
+  <section class="tp" id="tp" hidden>
+    <h2 id="tp-title"><span class="n" id="tp-num"></span><span id="tp-name"></span></h2>
+    <p id="tp-intro"></p>
+    <div class="tp-card">
+      <div class="tp-progress"><span id="tp-count"></span><span class="tp-bar"><i id="tp-fill"></i></span></div>
+      <p class="tp-label">Type this</p>
+      <p class="tp-target" id="tp-target" lang="ja"></p>
+      <p class="tp-meaning" id="tp-meaning"></p>
+      <form id="tp-form" class="tp-form" autocomplete="off">
+        <input id="tp-input" class="tp-input" lang="ja" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Your answer">
+        <button type="submit" class="btn primary" id="tp-submit">Submit <span lang="ja">(回答)</span></button>
+      </form>
+      <p class="tp-result" id="tp-result" role="status" aria-live="polite"></p>
+      <div class="tp-actions">
+        <button type="button" class="btn ghost" id="tp-hint">Show the keys</button>
+        <button type="button" class="btn ghost" id="tp-skip">Skip</button>
+        <button type="button" class="btn primary" id="tp-next" hidden>Next →</button>
+      </div>
+      <p class="tp-keys" id="tp-keys" hidden></p>
+    </div>
+  </section>
+
+  <section class="tp-done" id="tp-done" hidden>
+    <h2><span class="n">✓</span>All done</h2>
+    <p>You can type hiragana, katakana, kanji and a line of する. That is all the Japanese input a する program needs. Go on to the <a href="tutorial.html">tutorial</a> or write something in the <a href="playground.html">playground</a>.</p>
+  </section>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="tutorial.html">Tutorial</a> · <a href="typing.html">Typing Japanese</a> · <a href="https://github.com/suru-lang/suru">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/typing-practice.js"></script>
+</body>
+</html>
