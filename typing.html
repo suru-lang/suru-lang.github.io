@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typing Japanese — する (suru)</title>
+<meta name="description" content="How to type Japanese on an English keyboard to write する (suru) programs: setting up the Japanese input method on Windows, macOS and Ubuntu, romaji input, brackets and punctuation.">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/typing.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/typing.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/typing.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="examples.html">Examples</a>
+      <a href="ohanashi.html">Ohanashi</a>
+      <a href="playground.html">Playground</a>
+      <a href="libraries.html">Libraries</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="typing.html" aria-current="page">Typing</a>
+      <a href="./#install">Install</a>
+      <a href="https://suru.readthedocs.io/en/latest/">Docs</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span><a href="ja/typing.html" hreflang="ja" lang="ja">日本語</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>Typing Japanese</p>
+  <ol>
+    <li><a href="#ime">What you need</a></li>
+    <li><a href="#windows">Windows</a></li>
+    <li><a href="#mac">macOS</a></li>
+    <li><a href="#ubuntu">Ubuntu</a></li>
+    <li><a href="#romaji">Typing in romaji</a></li>
+    <li><a href="#symbols">Brackets and punctuation</a></li>
+    <li><a href="#suru">Typing a する program</a></li>
+    <li><a href="#editor">Let the editor type for you</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">Typing Japanese</span>
+  <h1>Type <span class="glow">日本語</span> on an English keyboard</h1>
+  <p class="lead">する programs are written in Japanese, but you don’t need a Japanese keyboard. Every computer already has a Japanese input method (IME): you type the sound in Latin letters, and it turns <code>hyouji</code> into <code>表示</code>. This page shows how to turn it on and the few keys you need.</p>
+
+  <h2 id="ime"><span class="n">01</span>What you need</h2>
+  <p>Japanese uses three scripts: hiragana (<code>あいう</code>), katakana (<code>アイウ</code>) and kanji (<code>表示</code>). An IME lets you type the reading in romaji, shows it as hiragana, and converts it to kanji when you press <kbd>Space</kbd>. Nothing has to be downloaded on Windows or macOS; on Ubuntu you install one package.</p>
+  <p>You will switch between two modes all the time:</p>
+  <ul>
+    <li><strong>Japanese mode</strong> (the indicator shows <code>あ</code>): letters become kana.</li>
+    <li><strong>English mode</strong> (the indicator shows <code>A</code>): your keyboard works as usual.</li>
+  </ul>
+  <p>Keep your English (US) keyboard layout. The Japanese IME sits on top of it.</p>
+
+  <h2 id="windows"><span class="n">02</span>Windows</h2>
+  <h3>Set it up</h3>
+  <ol>
+    <li>Open <strong>Settings → Time &amp; language → Language &amp; region</strong>.</li>
+    <li>Click <strong>Add a language</strong>, choose <strong>日本語 (Japanese)</strong> and install it. You don’t need to make it the display language. This adds <strong>Microsoft IME</strong>.</li>
+    <li>Click <strong>⋯ → Language options</strong> next to Japanese. Under <strong>Keyboard layout</strong>, choose <strong>English keyboard (101/102 key)</strong> and restart. Without this, Windows may assume a Japanese keyboard and your symbol keys type the wrong characters.</li>
+  </ol>
+  <h3>Switch modes</h3>
+  <ul>
+    <li><kbd>Win</kbd> + <kbd>Space</kbd> switches between the English and Japanese keyboards.</li>
+    <li>Inside the Japanese keyboard, <kbd>Alt</kbd> + <kbd>`</kbd> (the key left of <kbd>1</kbd>) switches between <code>あ</code> and <code>A</code>. You can also click the <code>A</code>/<code>あ</code> in the taskbar.</li>
+    <li>To use <kbd>Ctrl</kbd> + <kbd>Space</kbd> instead, open the Microsoft IME settings (right-click <code>A</code>/<code>あ</code> → <strong>Settings</strong>) and assign it under <strong>Key and touch customization</strong>.</li>
+  </ul>
+
+  <h2 id="mac"><span class="n">03</span>macOS</h2>
+  <h3>Set it up</h3>
+  <ol>
+    <li>Open <strong>System Settings → Keyboard</strong>, and next to <strong>Input Sources</strong> click <strong>Edit…</strong>.</li>
+    <li>Click <strong>+</strong>, choose <strong>Japanese</strong>, then <strong>Romaji</strong> (not Kana, which needs a Japanese keyboard), and click <strong>Add</strong>.</li>
+    <li>Keep <strong>ABC</strong> or <strong>U.S.</strong> in the list. In the Japanese source’s options you can turn off <strong>Live Conversion</strong> if you prefer to convert only when you press <kbd>Space</kbd>.</li>
+  </ol>
+  <h3>Switch modes</h3>
+  <ul>
+    <li><kbd>Ctrl</kbd> + <kbd>Space</kbd> switches to the previous input source, so it toggles between ABC and Japanese.</li>
+    <li>On recent Macs, the <kbd>🌐</kbd> (fn) key can do the same: set <strong>Press 🌐 key to</strong> → <strong>Change Input Source</strong> in Keyboard settings.</li>
+    <li>Or turn on <strong>Use the Caps Lock key to switch to and from ABC</strong> in the input source settings, and use <kbd>Caps Lock</kbd>.</li>
+  </ul>
+
+  <h2 id="ubuntu"><span class="n">04</span>Ubuntu</h2>
+  <p>Ubuntu’s desktop uses IBus, and the Japanese engine is <strong>Mozc</strong> (the open-source version of Google’s Japanese input).</p>
+  <h3>Set it up (IBus, the default)</h3>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>sudo apt install ibus-mozc</pre></div>
+  <ol>
+    <li>Log out and back in.</li>
+    <li>Open <strong>Settings → Keyboard</strong>, click <strong>+ Add Input Source</strong>, choose <strong>Japanese → Japanese (Mozc)</strong>. Keep <strong>English (US)</strong> as well.</li>
+  </ol>
+  <h3>Switch modes</h3>
+  <ul>
+    <li><kbd>Super</kbd> + <kbd>Space</kbd> switches between English (US) and Mozc.</li>
+    <li>If Mozc still types Latin letters, click the indicator in the top bar and choose <strong>Input Mode → Hiragana</strong>. In Mozc’s <strong>Tools → Properties → Keymap</strong> (package <code>mozc-utils-gui</code>) you can add a key to turn it on and off.</li>
+  </ul>
+  <h3>Or with fcitx5</h3>
+  <p>If you prefer fcitx5 (common on KDE), install <code>fcitx5-mozc</code>, run <code>im-config -n fcitx5</code>, log out, and add <strong>Mozc</strong> in the Fcitx configuration. <kbd>Ctrl</kbd> + <kbd>Space</kbd> then turns Japanese on and off.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>sudo apt install fcitx5-mozc
+<span class="p">$ </span>im-config -n fcitx5</pre></div>
+
+  <h2 id="romaji"><span class="n">05</span>Typing in romaji</h2>
+  <p>In Japanese mode, type the reading. It appears underlined. Then:</p>
+  <ul>
+    <li><kbd>Space</kbd> converts it to kanji. Press <kbd>Space</kbd> again (or the arrow keys) to pick another candidate.</li>
+    <li><kbd>Enter</kbd> confirms the text. Pressing <kbd>Enter</kbd> without <kbd>Space</kbd> keeps it in hiragana.</li>
+    <li><kbd>Esc</kbd> cancels. <kbd>Shift</kbd> + <kbd>←</kbd>/<kbd>→</kbd> makes a segment shorter or longer when the IME splits a word in the wrong place.</li>
+    <li>For katakana, press <kbd>F7</kbd> before <kbd>Enter</kbd> (Windows and Mozc), or <kbd>Ctrl</kbd> + <kbd>K</kbd> on a Mac. On Windows and Mozc, <kbd>F10</kbd> turns what you typed back into Latin letters.</li>
+  </ul>
+  <p>Most readings are typed as they sound. These are the ones that trip people up:</p>
+  <div class="table-scroll"><table>
+    <tr><th>To get</th><th>Type</th><th>Why</th></tr>
+    <tr><td>を</td><td><code>wo</code></td><td>The particle is pronounced “o”, but <code>o</code> gives お.</td></tr>
+    <tr><td>は</td><td><code>ha</code></td><td>The particle <code>とは</code> is pronounced “to-wa” but typed <code>toha</code>.</td></tr>
+    <tr><td>ん</td><td><code>nn</code></td><td>A single <code>n</code> works before a consonant (<code>kansuu</code> → かんすう), but before a vowel, <code>y</code> or at the end, type <code>nn</code>: <code>konnnichiha</code> → こんにちは.</td></tr>
+    <tr><td>っ</td><td><code>tt</code>, <code>kk</code>…</td><td>Double the next consonant: <code>kitte</code> → きって.</td></tr>
+    <tr><td>きゃ</td><td><code>kya</code></td><td>Small ゃゅょ follow a consonant + <code>y</code>. A lone small kana is <code>x</code> or <code>l</code> + kana: <code>xtu</code> → っ.</td></tr>
+    <tr><td>ー</td><td><code>-</code></td><td>The long-vowel mark in katakana: <code>ke-ki</code> → ケーキ.</td></tr>
+    <tr><td>ひょう</td><td><code>hyou</code></td><td>Long “o” is written おう: 表示 is <code>hyouji</code>, 以上 is <code>ijou</code>.</td></tr>
+  </table></div>
+
+  <h2 id="symbols"><span class="n">06</span>Brackets and punctuation</h2>
+  <p>In Japanese mode, a few keys type Japanese symbols instead. These are the ones する uses:</p>
+  <div class="table-scroll"><table>
+    <tr><th>To get</th><th>Press</th><th>Used in する for</th></tr>
+    <tr><td>「 」</td><td><kbd>[</kbd> <kbd>]</kbd></td><td>strings: <code>「こんにちは」</code></td></tr>
+    <tr><td>『 』</td><td><kbd>[</kbd> then <kbd>Space</kbd></td><td>names that contain hiragana: <code>『おやつの数』</code></td></tr>
+    <tr><td>【 】</td><td><kbd>[</kbd> then <kbd>Space</kbd>, or type <code>kakko</code> and convert</td><td>derivations and templates: <code>【JSON】</code></td></tr>
+    <tr><td>（ ）</td><td><kbd>Shift</kbd> + <kbd>9</kbd> <kbd>0</kbd></td><td>grouping; full-width and ASCII parentheses both work</td></tr>
+    <tr><td>、</td><td><kbd>,</kbd></td><td>a pause in the <a href="tutorial.html#punctuation">punctuation style</a></td></tr>
+    <tr><td>。</td><td><kbd>.</kbd></td><td>the end of a sentence in the punctuation style</td></tr>
+    <tr><td>× ÷</td><td>type <code>kakeru</code> / <code>waru</code> and convert</td><td>multiplication and division</td></tr>
+  </table></div>
+  <div class="note"><b>Watch out:</b> in Japanese mode, <kbd>-</kbd> types the long-vowel mark <code>ー</code> and <kbd>/</kbd> types <code>・</code>. Neither is minus or division in する. For arithmetic, switch to English mode (or use <code>×</code> and <code>÷</code>). The same goes for Latin names like <code>x</code>: type them in English mode.</div>
+
+  <h2 id="suru"><span class="n">07</span>Typing a する program</h2>
+  <p>Words in する are separated by spaces. In Japanese mode, <kbd>Space</kbd> converts, so press it once more after confirming to get a space. On Windows that space is the full-width <code>　</code> by default; する accepts it just like an ASCII space, and it accepts full-width digits and <code>＋＊</code> too. So you can type a whole line without leaving Japanese mode:</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>zenkaku.suru</span></div>
+<pre class="suru">値段　とは　１２００　です
+値段　＊　２
+「する」　を　表示する</pre>
+<pre class="out">2400
+する</pre></div>
+  <p>If you prefer ASCII spaces, the Microsoft IME setting <strong>General → Space</strong> can be set to <strong>Always half-width</strong>, and <kbd>Shift</kbd> + <kbd>Space</kbd> types the other width on Windows. Here is how some common words are typed:</p>
+  <div class="table-scroll"><table>
+    <tr><th>Word</th><th>Type</th><th>Meaning</th></tr>
+    <tr><td>表示する</td><td><code>hyoujisuru</code></td><td>display</td></tr>
+    <tr><td>とは</td><td><code>toha</code></td><td>is defined as</td></tr>
+    <tr><td>です</td><td><code>desu</code></td><td>is (ends a definition)</td></tr>
+    <tr><td>を</td><td><code>wo</code></td><td>object particle</td></tr>
+    <tr><td>加算する</td><td><code>kasansuru</code></td><td>add</td></tr>
+    <tr><td>以下の手順です</td><td><code>ikanotejunndesu</code></td><td>the steps below are</td></tr>
+    <tr><td>以上です</td><td><code>ijoudesu</code></td><td>that’s all (closes a block)</td></tr>
+  </table></div>
+  <p>If the IME picks the wrong kanji, press <kbd>Space</kbd> again and choose from the list. It remembers your choices, so the second time is faster. You can also add your own function names to its user dictionary.</p>
+
+  <h2 id="editor"><span class="n">08</span>Let the editor type for you</h2>
+  <p>You only need to type a name once. In VS Code with the <a href="https://marketplace.visualstudio.com/items?itemName=suru-lang.suru">する extension</a>:</p>
+  <ul>
+    <li><strong>Completion</strong> (<kbd>Ctrl</kbd> + <kbd>Space</kbd>) offers your functions and values, built-ins, the standard library and keywords. Type the first kanji, such as <code>表</code>, and pick <code>表示する</code>. Names with hiragana are inserted already in <code>『』</code>. The list also appears on its own as you type, which helps on a Mac, where <kbd>Ctrl</kbd> + <kbd>Space</kbd> usually switches the input source.</li>
+    <li>Typing <code>（</code>, <code>「</code> or <code>『</code> adds the closing bracket for you.</li>
+    <li>Hovering over a function shows which particles it takes, so you don’t have to look them up.</li>
+  </ul>
+  <p>Comments and the names of your own variables can be in English, so you only switch to Japanese mode for the words of the language. Ready? Go on to the <a href="tutorial.html">tutorial</a>, or try it in the <a href="playground.html">playground</a>.</p>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="tutorial.html">Tutorial</a> · <a href="https://suru.readthedocs.io/en/latest/">Docs</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/typing.html" lang="ja">日本語</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

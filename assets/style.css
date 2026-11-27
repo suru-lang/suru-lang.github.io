@@ -381,3 +381,11 @@ td:first-child { font-family: var(--font-jp); font-weight: 700; color: var(--pin
   .pg-code textarea, .pg-code .pg-hl { font-size: 13.5px; padding: 14px 14px; }
   .pg-status { margin-left: 0; width: 100%; }
 }
+
+/* ---------- keys (typing page) ---------- */
+.article kbd {
+  font-family: var(--font-code); font-size: .82em; padding: 1px 7px; border-radius: 6px; white-space: nowrap;
+  border: 1px solid var(--line-strong); border-bottom-width: 2px; background: rgba(13,21,40,.8); color: var(--text);
+}
+.joke { border-color: rgba(255,94,168,.45); background: rgba(255,94,168,.08); color: #f4d3e3; }
+.joke b { color: var(--pink); }
