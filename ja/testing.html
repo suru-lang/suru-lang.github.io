@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>試験 — する (suru)</title>
+<meta name="description" content="する のプログラムの試験の書き方: 定義のすぐ下に文で書く例、同じファイルの試験のまとまり、試験/ のフォルダの試験と、suru --試験・suruc --試験・kumu 試験・GitHub Actions での動かし方。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/testing.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/testing.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/testing.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="../assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="testing.html" aria-current="page">試験</a>
+      <a href="examples.html">例</a>
+      <a href="ohanashi.html">おはなし</a>
+      <a href="playground.html">試す</a>
+      <a href="libraries.html">ライブラリ</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../testing.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>試験</p>
+  <ol>
+    <li><a href="#idea">試験はコードと一緒に</a></li>
+    <li><a href="#examples">例えば で書く例</a></li>
+    <li><a href="#blocks">試験のまとまり</a></li>
+    <li><a href="#run">試験を動かす</a></li>
+    <li><a href="#folder">試験/ のフォルダ</a></li>
+    <li><a href="#kumu">kumu 試験</a></li>
+    <li><a href="#editor">エディタで</a></li>
+    <li><a href="#ci">PR ごとに動かす</a></li>
+    <li><a href="#more">次に読むもの</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">入門</span>
+  <h1><span class="glow">する</span> の試験</h1>
+  <p class="lead">する には、別の試験の道具はありません。試験は言語そのもので書きます。定義のすぐ下に短い例を、同じファイルに試験のまとまりを、大きな試験は <code>試験/</code> のフォルダに書き、1つのコマンドで全部を動かします。このページの内容は する 0.10.0 以上で使えます。文法が初めてなら、先に<a href="tutorial.html">入門</a>を読んでください。</p>
+  <div class="libs">
+    <code>例えば … は … です</code><code>以下は「…」の試験です</code><code>…試験する</code><code>suru --試験</code><code>suruc --試験</code><code>kumu 試験</code><code>GitHub Actions</code>
+  </div>
+
+  <h2 id="idea"><span class="n">01</span>試験はコードと一緒に</h2>
+  <p>小さなファイル <code>計算.suru</code> の例です。公開の関数が1つ、例が2つ、試験のまとまりが1つあります。特別な意味を持つ注釈はありません。例も試験もふつうの文なので、インタプリタ・コンパイラ・エディタが、ファイルのほかの部分と一緒に型を検査します。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>計算.suru</span></div>
+<pre class="suru"># x の2倍を返します。
+数 を 二倍する は 数 を 返す
+x を 二倍する とは x * 2 です
+例えば （2 を 二倍する） は 4 です
+例えば （-3 を 二倍する） は -6 です
+
+数 を 加一する は 数 を 返す
+x を 加一する とは x + 1 です
+
+以下は「二倍」の試験です
+  （0 を 加一して 二倍する） を 2 に 一致確認する
+  1 &lt; 2 を 確認する
+  以上です
+
+加一する は 非公開とする</pre></div>
+  <p>このファイルをプログラムとして動かすとき(<code>suru 計算.suru</code>)や、ほかのファイルが <code>「計算」 を 読み込む</code> で読み込むときは、例と試験のまとまりを飛ばします。ビルドしたバイナリにも入りません。動くのは、試験を動かすと言ったときだけです。</p>
+
+  <h2 id="examples"><span class="n">02</span>例えば で書く例</h2>
+  <p>一番外に書いた <code>例えば 式 は 期待する値 です</code> は、すぐ上の定義の例です。両辺が等しければ(<code>=</code>)合格です。終わりの <code>です</code> は省けます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
+<pre class="suru">文字列 を 挨拶にする は 文字列 を 返す
+名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です
+例えば （「太郎」 を 挨拶にする） は 「こんにちは、太郎さん」 です</pre></div>
+  <p>例は「定義の名前の例(行)」、たとえば「挨拶にするの例(3行)」という名前で知らせます。注釈ではなく文なので、打ち間違えれば動かす前にエラーになり、気づかないうちに古くなることもありません。VS Code では、関数の名前にカーソルを乗せると、型と一緒に例が出ます。</p>
+
+  <h2 id="blocks"><span class="n">03</span>試験のまとまり</h2>
+  <p>1行では書けない確かめは、ファイルの一番外に試験のまとまりとして書きます。<code>以下は「二倍」の試験です</code> の後に手順を書き、<code>以上です</code> で閉じます。「」の中が試験の名前です。1つのファイルに、名前の違うまとまりをいくつも書けます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>挨拶.suru</span></div>
+<pre class="suru">文字列 を 挨拶にする は 文字列 を 返す
+名前 を 挨拶にする とは 「こんにちは、」 + 名前 + 「さん」 です
+
+以下は「挨拶」の試験です
+  文 とは 「花子」 を 挨拶にする
+  文 を 「こんにちは、花子さん」 に 一致確認する
+  （文 の 長さ） > 0 を 確認する
+  以上です</pre></div>
+  <p>試験のまとまりの中では、そのファイルの非公開の名前(上の <code>非公開とする</code> とした <code>加一する</code> など)と、「試験」ライブラリの確かめる入出力動作を、読み込まずに使えます。</p>
+  <div class="table-scroll"><table>
+    <tr><th>確かめ</th><th>意味</th><th>落ちたとき</th></tr>
+    <tr><td><code>実際 を 期待 に 一致確認する</code></td><td>2つが等しいことを確かめる</td><td><code>等しくありません: 期待は 4 / 実際は 5</code></td></tr>
+    <tr><td><code>条件 を 確認する</code></td><td>条件が <code>真</code> であることを確かめる</td><td><code>真ではありません</code></td></tr>
+    <tr><td><code>理由 を 不合格にする</code></td><td>自分で書いた理由で、すぐに落とす</td><td>書いた理由</td></tr>
+  </table></div>
+  <p>確かめが落ちると、その行と理由を標準エラーに書き、その試験を終了コード 1 で終えます。ほかの試験はそのまま動きます。</p>
+
+  <h2 id="run"><span class="n">04</span>試験を動かす</h2>
+  <p><code>suru --試験</code> にファイルかフォルダ(フォルダなら中の全部の <code>.suru</code>)を渡すと、例・試験のまとまり・<code>…試験する</code> の手順をインタプリタで動かします。試験は1つずつ別のプロセスで動くので、落ちて止まるのはその試験だけです。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>suru --試験 計算.suru</pre>
+<pre class="out">✓ 計算.suru 二倍するの例(4行)
+✓ 計算.suru 二倍するの例(5行)
+✓ 計算.suru 二倍
+
+合格 3・不合格 0</pre></div>
+  <p>不合格の試験は、理由とその試験が書いたものを下に字下げして見せ、終了コードは 1 になります。2つ目の例を間違えて <code>は 6 です</code> と書いたときは、こうなります。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>suru --試験 計算.suru</pre>
+<pre class="out">✓ 計算.suru 二倍するの例(4行)
+✗ 計算.suru 二倍するの例(5行)
+    計算.suru:5: 等しくありません: 期待は 6 / 実際は -6
+✓ 計算.suru 二倍
+
+合格 2・不合格 1</pre></div>
+  <p>道でない引数は、名前か道の一部で試験を選びます。<code>suru --試験 計算.suru 二倍する</code> なら <code>二倍する</code> の例だけです。<code>suruc --試験</code> は Go 版のコンパイラで同じことをします。ファイル1つにつき試験用のバイナリを1つ作り(ほかの <code>-O</code> を書かなければ <code>-O0</code>)、試験ごとに別のプロセスで動かします。知らせ方も同じです。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>suruc --試験 計算.suru 二倍</pre></div>
+
+  <h2 id="folder"><span class="n">05</span>試験/ のフォルダ</h2>
+  <p>プロジェクト全体を、使う人と同じように使う試験は、<code>試験/</code> の下のファイルに書きます。そこでは、一番外の引数のない定義のうち、名前が <code>試験する</code> で終わるものが1つの試験です(ひらがなだけの名前は使えないので「二倍を試験する」ではなく <code>二倍試験する</code>)。確かめる入出力動作は <code>「試験」 を 読み込んで 使う</code> で、プロジェクトは <code>組.suru</code> の名前で読み込みます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>試験/二倍.suru</span></div>
+<pre class="suru" data-check="no">「試験」 を 読み込んで 使う
+「計算」 を 読み込む                 # 組.suru の名前で、プロジェクトを読み込む
+
+二倍試験する は 真偽 を 返す 入出力動作
+二倍試験する とは 以下の手順です
+  （5 を 計算内の二倍する） を 10 に 一致確認する
+  （0 を 計算内の二倍する） = 0 を 確認する
+  以上です</pre></div>
+  <p>ファイルのほかの定義(補助の関数など)は試験になりません。<code>試験/</code> のファイルは、試すプロジェクトのファイルと同じ名前でもかまいません。<code>試験/計算.suru</code> の <code>「計算」 を 読み込む</code> は自分を飛ばして、プロジェクトの <code>計算.suru</code> を見つけます。<code>kumu 新規</code> は試験を1つ書いた <code>試験/例.suru</code> を作るので、新しいプロジェクトでもすぐに試験を動かせます。</p>
+
+  <h2 id="kumu"><span class="n">06</span>kumu 試験</h2>
+  <p><code>kumu</code> のプロジェクトでは、<code>kumu 試験</code>(<code>kumu test</code>)が全部を動かします。先にプロジェクトのソースのファイルの例と試験のまとまり、次に <code>試験/</code> の <code>…試験する</code> の手順です。試験のファイルは1つずつ <code>出力/試験/</code> にバイナリになり、プロジェクトの依存と C のソースとつながれて、試験ごとに別のプロセスで動きます。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 新規 計算        # 新しいプロジェクト。上の 計算.suru を 本体.suru の隣に置く
+<span class="p">$ </span>cd 計算
+<span class="p">$ </span>kumu 試験</pre>
+<pre class="out">✓ 計算.suru 二倍するの例(4行)
+✓ 計算.suru 二倍するの例(5行)
+✓ 計算.suru 二倍
+✓ 試験/二倍.suru 二倍試験する
+
+合格 4・不合格 0</pre></div>
+  <p>落ちたときは、試すコードがライブラリの中にあっても、試験のファイルの確かめた行を出します。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>端末</span></div>
+<pre class="sh"><span class="p">$ </span>kumu 試験 二倍試験</pre>
+<pre class="out">✗ 試験/二倍.suru 二倍試験する
+    「二倍.suru」の6行目 25文字目: 等しくありません: 期待は 11 / 実際は 10
+
+合格 0・不合格 1</pre></div>
+  <p><code>suru --試験</code> と同じく、<code>kumu 試験</code> の後ろの言葉は、名前か道の一部で試験を選びます。読めない・型が合わないファイルは、ファイルごと不合格にして、エラーを下に出します。自分の <code>組.suru</code> を持つ下のフォルダ(<code>例/</code> など別のプロジェクト)は飛ばします。<code>kumu 公開</code> は試験を全部動かし、不合格があればタグを付けません。</p>
+
+  <h2 id="editor"><span class="n">07</span>エディタで</h2>
+  <p><a href="https://github.com/suru-lang/suru/tree/main/editors/vscode">VS Code 拡張</a>は、例と試験のまとまりも、ファイルのほかの部分と同じく書きながら検査します。<code>試験/</code> のファイルでは、<code>…試験する とは</code> の行の上に「▷ 試験する」が出て、その試験だけを動かせます。プロジェクト全体は、コマンドパレットの「プロジェクトを試験する(kumu 試験)」です。</p>
+
+  <h2 id="ci"><span class="n">08</span>PR ごとに動かす</h2>
+  <p><code>kumu 試験</code> は不合格があれば終了コード 1 で終わるので、CI にはこれだけで足ります。次の GitHub Actions のワークフローは、push と PR のたびに <code>kumu</code> と clang を入れて試験を動かします。公式ライブラリも、包む C のライブラリを足して、同じ手順で試験しています。</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>.github/workflows/試験.yml</span></div>
+<pre class="sh">name: 試験
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - run: sudo apt-get update &amp;&amp; sudo apt-get install -y clang
+      - run: go install github.com/suru-lang/suru/cmd/kumu@latest
+      - run: ~/go/bin/kumu 試験</pre></div>
+  <p><code>kumu</code> を使わないなら、代わりに <code>pip install suru-lang</code> と <code>suru --試験 .</code> を動かします。</p>
+
+  <h2 id="more"><span class="n">09</span>次に読むもの</h2>
+  <p>決まりの全部は、言語の README にあります。<code>例えば</code> と試験のまとまりは「同じファイルの試験と例」、<code>試験/</code> と <code>kumu 試験</code> は「プロジェクト管理(kumu)」です。標準ライブラリも同じ形で試しています。<code>lib/算術.suru</code> と <code>lib/乱数.suru</code> には、例と試験のまとまりが入っています。</p>
+  <div class="next">
+    <a href="https://github.com/suru-lang/suru/blob/main/README_jp.md">言語の README<span>試験と例の決まりの全部</span></a>
+    <a href="https://github.com/suru-lang/suru/blob/main/lib/試験.suru">「試験」ライブラリ<span>確かめる入出力動作を する で書いたもの</span></a>
+    <a href="https://github.com/suru-lang/suru/blob/main/lib/算術.suru">lib/算術.suru<span>例と試験の入ったライブラリのファイル</span></a>
+    <a href="tutorial.html">入門<span>言語のほかの部分</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../testing.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -10,10 +10,11 @@
 |---|---|
 | `index.html` | トップ(英語。これが正) |
 | `tutorial.html` | 入門(英語) |
+| `testing.html` | 試験: 例・試験のまとまり・試験/ のフォルダ・`kumu 試験`・CI(英語) |
 | `examples.html` | 例のプログラム(英語) |
 | `ohanashi.html` | する で書いたチャットの Web アプリ「おはなし」(ohanashi-ollama)の使い方(英語) |
 | `playground.html` | プレイグラウンド: ブラウザで する を書いて動かす(英語) |
-| `ja/index.html`・`ja/tutorial.html`・`ja/examples.html`・`ja/ohanashi.html`・`ja/playground.html` | 日本語の訳 |
+| `ja/index.html`・`ja/tutorial.html`・`ja/testing.html`・`ja/examples.html`・`ja/ohanashi.html`・`ja/playground.html` | 日本語の訳 |
 | `assets/style.css` | 全部のページの見た目 |
 | `assets/icon.svg`・`assets/apple-touch-icon.png` | ファビコンとホーム画面のアイコン: マスコットのするぞう |
 | `assets/suruzou.svg` | 見出しのマスコット |

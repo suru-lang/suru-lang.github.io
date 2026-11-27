@@ -24,6 +24,7 @@
     <nav class="nav">
       <a href="./#features">Features</a>
       <a href="tutorial.html" aria-current="page">Tutorial</a>
+      <a href="testing.html">Testing</a>
       <a href="examples.html">Examples</a>
       <a href="ohanashi.html">Ohanashi</a>
       <a href="playground.html">Playground</a>
@@ -58,6 +59,7 @@
     <li><a href="#modules">Modules and the library</a></li>
     <li><a href="#ffi">Calling C functions</a></li>
     <li><a href="#binaries">Native binaries</a></li>
+    <li><a href="#testing">Testing</a></li>
     <li><a href="#next">Where to go next</a></li>
   </ol>
 </aside>
@@ -289,10 +291,29 @@ x を y で 累乗する とは 外部の「pow」 で 小数 を 小数 で 受
 <pre class="out">「挨拶」0.1.0 を組みました(出力/挨拶)
 こんにちは</pre></div>
 
-  <h2 id="next"><span class="n">16</span>Where to go next</h2>
+  <h2 id="testing"><span class="n">16</span>Testing</h2>
+  <p>Tests are written in する itself, next to the code. <code>例えば … は … です</code> (“for example, … is …”) under a definition is an example of it, and <code>以下は「name」の試験です</code> … <code>以上です</code> is a test block. Both are type-checked with the file, skipped when it runs as a program, and run by <code>suru --試験</code>.</p>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>double.suru</span></div>
+<pre class="suru">数 を 二倍する は 数 を 返す
+x を 二倍する とは x * 2 です
+例えば （2 を 二倍する） は 4 です
+
+以下は「二倍」の試験です
+  （-3 を 二倍する） を -6 に 一致確認する
+  以上です</pre></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>terminal</span></div>
+<pre class="sh"><span class="p">$ </span>suru --試験 double.suru</pre>
+<pre class="out">✓ double.suru 二倍するの例(3行)
+✓ double.suru 二倍
+
+合格 2・不合格 0</pre></div>
+  <p><code>合格</code> means passed and <code>不合格</code> failed. In a <code>kumu</code> project, <code>kumu 試験</code> runs these and the tests in the <code>試験/</code> folder. The <a href="testing.html">testing page</a> covers all of it, including CI.</p>
+
+  <h2 id="next"><span class="n">17</span>Where to go next</h2>
   <p>You have seen the core of the language. The repository has much more: threads and channels, calling C and Go, JSON, the Japanese calendar, and the full list of design decisions.</p>
   <div class="next">
     <a href="https://github.com/suru-lang/suru">Repository and full reference<span>README with every rule of the grammar</span></a>
+    <a href="testing.html">Testing<span>Examples, test blocks and kumu 試験</span></a>
     <a href="examples.html">Chat with a local LLM<span>A real program in about 50 lines</span></a>
     <a href="https://github.com/suru-lang/suru/tree/main/examples">Example programs<span>Threads, FFI, JSON and more</span></a>
     <a href="https://github.com/suru-lang/suru/tree/main/lib">Standard library source<span>Written in する itself</span></a>
