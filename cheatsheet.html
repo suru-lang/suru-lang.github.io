@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat sheet — する (suru)</title>
+<meta name="description" content="A one-page cheat sheet of する (suru): particles, values, functions, chains, conditions, types, actions, libraries, tests and commands.">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/cheatsheet.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/cheatsheet.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/cheatsheet.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">Features</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="cheatsheet.html" aria-current="page">Cheat sheet</a>
+      <a href="testing.html">Testing</a>
+      <a href="examples.html">Examples</a>
+      <a href="ohanashi.html">Ohanashi</a>
+      <a href="playground.html">Playground</a>
+      <a href="libraries.html">Libraries</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="./#install">Install</a>
+      <a href="https://suru.readthedocs.io/en/latest/">Docs</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="Language">
+      <span aria-current="true">EN</span><a href="ja/cheatsheet.html" hreflang="ja" lang="ja">日本語</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>Cheat sheet</p>
+  <ol>
+    <li><a href="#particles">Particles</a></li>
+    <li><a href="#values">Values and names</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#chains">Chains and functions as values</a></li>
+    <li><a href="#conditions">Conditions and cases</a></li>
+    <li><a href="#data">Your own types</a></li>
+    <li><a href="#actions">Actions (input and output)</a></li>
+    <li><a href="#modules">Files and libraries</a></li>
+    <li><a href="#testing">Tests</a></li>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#more">Going further</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">Reference</span>
+  <h1><span class="glow">する</span> cheat sheet</h1>
+  <p class="lead">The whole language on one page. Each row is something you can write, with what it means. Every example here runs as written; the <a href="tutorial.html">tutorial</a> explains them step by step, and you can try them in the <a href="playground.html">playground</a>.</p>
+
+  <h2 id="particles"><span class="n">01</span>Particles</h2>
+  <p>Particles mark each argument's role, so the order is free.</p>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>を</code></td><td>the thing acted on (object)</td></tr>
+      <tr><td><code>に</code></td><td>the target: <code>5 を 数列 に 追加する</code></td></tr>
+      <tr><td><code>で</code></td><td>with / by: <code>10 を 2 で 割った数にする</code></td></tr>
+      <tr><td><code>から</code></td><td>from: <code>1 から 5 を 範囲にする</code></td></tr>
+      <tr><td><code>へ・より</code></td><td>toward / than</td></tr>
+      <tr><td><code>と</code></td><td>joins a list: <code>1 と 2 と 3</code></td></tr>
+      <tr><td><code>の</code></td><td>a property or field: <code>数列 の 長さ</code></td></tr>
+      <tr><td><code>が</code></td><td>the subject of a test: <code>n が 偶数である</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="values"><span class="n">02</span>Values and names</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>42　3.14</code></td><td>numbers (数)</td></tr>
+      <tr><td><code>「こんにちは」</code></td><td>a string (文字列); <code>+</code> joins strings</td></tr>
+      <tr><td><code>真　偽</code></td><td>true, false (真偽)</td></tr>
+      <tr><td><code>1 と 2 と 3</code></td><td>a list</td></tr>
+      <tr><td><code>空</code></td><td>the empty list</td></tr>
+      <tr><td><code>税率 とは 0.1 です</code></td><td>give a value a name</td></tr>
+      <tr><td><code># …</code></td><td>a comment (<code>＃</code> and <code>※</code> too)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="functions"><span class="n">03</span>Functions</h2>
+  <p>A function name ends in する. Define it with とは and call it with the same particles.</p>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>x を 二乗する とは x * x です</code></td><td>define a function</td></tr>
+      <tr><td><code>5 を 二乗する</code></td><td>call it</td></tr>
+      <tr><td><code>a を b で 割った数にする とは a / b です</code></td><td>two arguments, told apart by particles</td></tr>
+      <tr><td><code>数 を 二乗する は 数 を 返す</code></td><td>declare its type (optional)</td></tr>
+      <tr><td><code>n が 偶数である とは n % 2 が 0 です</code></td><td>a test: ends in である; <code>…でない</code> is its negation</td></tr>
+      <tr><td><code>0 を 階乗する とは 1 です</code></td><td>a case for one value (recursion)</td></tr>
+      <tr><td><code>ただし 合計 とは a + b です</code></td><td>a local name, on the line after the definition</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="chains"><span class="n">04</span>Chains and functions as values</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>3 を 二乗して 1 に 加算する</code></td><td>して passes the result to the next call</td></tr>
+      <tr><td><code>数列 の それぞれ を 二乗する</code></td><td>apply to each element</td></tr>
+      <tr><td><code>二乗すること</code></td><td>the function itself, as a value</td></tr>
+      <tr><td><code>（10 を 加算すること）</code></td><td>partial application</td></tr>
+      <tr><td><code>数列 を （10 を 加算すること） で 写像する</code></td><td>map</td></tr>
+      <tr><td><code>数列 から 偶数であること で 選別する</code></td><td>filter</td></tr>
+      <tr><td><code>数列 を 0 から 加算すること で 畳み込みする</code></td><td>fold</td></tr>
+      <tr><td><code>（x を 受け取って x &gt; 2 を 返すこと）</code></td><td>an anonymous function</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="conditions"><span class="n">05</span>Conditions and cases</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>もし c ならば a そうでなければ b</code></td><td>if / else</td></tr>
+      <tr><td><code>かつ　または</code></td><td>and, or</td></tr>
+      <tr><td><code>=　≠　&lt;　&gt;　&lt;=　&gt;=</code></td><td>comparison</td></tr>
+      <tr><td><code>もし 形 が … ならば …</code></td><td>cases by shape (see the example below)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Example</span></div>
+<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形 です
+
+形 を 面積にする とは
+  もし 形 が
+    半径 の 円 ならば 3 * 半径 ^ 2 です
+    幅 と 高 の 長方形 ならば 幅 * 高 です</pre></div>
+
+  <h2 id="data"><span class="n">06</span>Your own types</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>図形 とは 半径 の 円 か 幅 と 高 の 長方形 です</code></td><td>a type with two shapes</td></tr>
+      <tr><td><code>5 の 円</code></td><td>make one</td></tr>
+      <tr><td><code>人 とは 名前 は 文字列 で 年 は 数 の 組</code></td><td>a record type</td></tr>
+      <tr><td><code>名前 は 「太郎」 で 年 は 20 の 人</code></td><td>make a record</td></tr>
+      <tr><td><code>太郎 の 年</code></td><td>read a field</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="actions"><span class="n">07</span>Actions (input and output)</h2>
+  <p>Steps that read or write go in a 以下の手順です … 以上です block, in order.</p>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>「やあ」 を 表示する</code></td><td>print a line</td></tr>
+      <tr><td><code>x とは … を 入力した 結果</code></td><td>the result of an action, inside steps</td></tr>
+      <tr><td><code>… は 無 を 返す 入出力動作</code></td><td>the type of an action</td></tr>
+    </tbody>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Example</span></div>
+<pre class="suru">挨拶する は 無 を 返す 入出力動作
+挨拶する とは 以下の手順です
+  名前 とは 「お名前は? 」 を 入力した 結果
+  「こんにちは、」 + 名前 + 「さん」 を 表示する
+  以上です</pre></div>
+
+  <h2 id="modules"><span class="n">08</span>Files and libraries</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>「標準」 を 読み込んで 使う</code></td><td>use the standard library without a prefix</td></tr>
+      <tr><td><code>「数学」 を 読み込む</code></td><td>load 数学.suru; call its names as <code>数学内の…</code></td></tr>
+      <tr><td><code>3 と 1 と 2 を 整列する</code></td><td>sort (標準)</td></tr>
+      <tr><td><code>「a,b,c」 を 「,」 で 分割する</code></td><td>split (標準)</td></tr>
+      <tr><td><code>x と y は 非公開とする</code></td><td>at the end of a file: keep names private</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="testing"><span class="n">09</span>Tests</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>例えば （3 を 二乗する） は 9 です</code></td><td>an example under a definition, checked as a test</td></tr>
+      <tr><td><code>以下は「…」の試験です … 以上です</code></td><td>a test block (see below)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Example</span></div>
+<pre class="suru">x を 二乗する とは x * x です
+例えば （3 を 二乗する） は 9 です
+
+以下は「二乗」の試験です
+  （4 を 二乗する） を 16 に 一致確認する
+  以上です</pre></div>
+
+  <h2 id="commands"><span class="n">10</span>Commands</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>Write</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>suru ファイル.suru</code></td><td>run a program</td></tr>
+      <tr><td><code>suru --点検 ファイル.suru</code></td><td>lint: unused names, hard-to-read lines and more</td></tr>
+      <tr><td><code>suru --試験 .</code></td><td>run every test and example</td></tr>
+      <tr><td><code>suruc ファイル.suru -o 出力</code></td><td>build a native binary</td></tr>
+      <tr><td><code>kumu 新規 名前</code></td><td>start a project</td></tr>
+      <tr><td><code>kumu 実行　kumu 試験　kumu 点検</code></td><td>run, test, lint a project</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="more"><span class="n">11</span>Going further</h2>
+  <div class="next">
+    <a href="tutorial.html">Tutorial<span>Every row explained step by step</span></a>
+    <a href="playground.html">Playground<span>Try the examples in the browser</span></a>
+    <a href="https://github.com/suru-lang/suru#readme">Language README<span>Every rule, with reasons</span></a>
+    <a href="https://suru.readthedocs.io/en/latest/">API docs<span>Every library function</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — compiler and tools under GPL-3.0-or-later; runtime and standard library under MIT. Programs you write are yours.</span>
+    <span><a href="./">Home</a> · <a href="https://suru.readthedocs.io/en/latest/">Docs</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="ja/cheatsheet.html" lang="ja">日本語</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

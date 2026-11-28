@@ -24,6 +24,7 @@
     <nav class="nav">
       <a href="./#features">特徴</a>
       <a href="tutorial.html" aria-current="page">入門</a>
+      <a href="cheatsheet.html">早見表</a>
       <a href="testing.html">試験</a>
       <a href="examples.html">例</a>
       <a href="ohanashi.html">おはなし</a>
@@ -60,6 +61,7 @@
     <li><a href="#ffi">C の関数を呼ぶ</a></li>
     <li><a href="#binaries">ネイティブのバイナリ</a></li>
     <li><a href="#testing">試験</a></li>
+    <li><a href="#mistakes">よくある間違い</a></li>
     <li><a href="#next">次に読むもの</a></li>
   </ol>
 </aside>
@@ -309,7 +311,26 @@ x を 二倍する とは x * 2 です
 合格 2・不合格 0</pre></div>
   <p><code>kumu</code> のプロジェクトでは、<code>kumu 試験</code> がこれらと <code>試験/</code> のフォルダの試験を動かします。CI まで含めた全部は<a href="testing.html">試験のページ</a>にあります。</p>
 
-  <h2 id="next"><span class="n">17</span>次に読むもの</h2>
+  <h2 id="mistakes"><span class="n">17</span>よくある間違い</h2>
+  <p>始めたばかりのときによくある間違いです。どれも、検査がエラーの文で場所を教えてくれます。<code>suru --点検 ファイル.suru</code>(点検)を使うと、使っていない名前や読みにくい行も見つけられます。正しい書き方を1ページにまとめたものは<a href="cheatsheet.html">早見表</a>にあります。</p>
+  <div class="table-scroll"><table class="cheat three">
+    <thead><tr><th>こう書かずに</th><th>こう書く</th><th>わけ</th></tr></thead>
+    <tbody>
+      <tr><td><code>おやつ とは 3</code></td><td><code>『おやつ』 とは 3</code></td><td>ひらがなを含む名前は『』で囲むか、漢字・カタカナにします。ひらがなは助詞のためにとってあります。</td></tr>
+      <tr><td><code>1、2、3</code></td><td><code>1 と 2 と 3</code></td><td>リストは と でつなぎます。「、」と「・」は別の意味に使います。</td></tr>
+      <tr><td><code>x を 流す とは x</code></td><td><code>x を 流出する とは x</code></td><td>関数の名前は「する」で終わります。</td></tr>
+      <tr><td><code>a+b</code></td><td><code>a + b</code></td><td>空白で区切る書き方では、詰めた a+b は1つの名前になります。</td></tr>
+      <tr><td><code>3 を 二乗する + 1</code></td><td><code>（3 を 二乗する） + 1</code></td><td>呼び出しを計算に使うときは（）で囲みます。</td></tr>
+      <tr><td><code>「値: 」 + n</code></td><td><code>「値: 」 + （n を 文字列化する）</code></td><td>+ がつなぐのは文字列どうしです。数は文字列にします。</td></tr>
+      <tr><td><code>1 と 「a」</code></td><td><code>1 と 2</code></td><td>リストに入るのは1つの型です。混ぜたいときは組か自分の型にします。</td></tr>
+      <tr><td><code>「数学」 を 読み込む … 二乗する</code></td><td><code>数学内の二乗する</code></td><td>読み込んだファイルの名前には前置きを付けます。付けたくなければ 読み込んで 使う にします。</td></tr>
+      <tr><td><code>以下の手順です …(以上なし)</code></td><td><code>… 以上です</code></td><td>手順のまとまりは 以上です の行で閉じます。</td></tr>
+      <tr><td><code>xs の それぞれ を 表示する</code></td><td><code>（xs の それぞれ を 表示する） を 実行する</code></td><td>手順の中では、左の書き方は動作のリストを作るだけです。実行する で動かします。</td></tr>
+      <tr><td><code>xs から 0 を 番目取得する</code></td><td><code>xs から 1 を 番目取得する</code></td><td>位置は1から数えます。</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="next"><span class="n">18</span>次に読むもの</h2>
   <p>ここまでで言語の中心は一通り見ました。リポジトリには、スレッドと通路、C や Go の呼び出し、JSON、和暦、そして文法の決まりの全部があります。</p>
   <div class="next">
     <a href="https://github.com/suru-lang/suru">リポジトリと詳しい説明<span>文法の決まりをすべて書いた README</span></a>

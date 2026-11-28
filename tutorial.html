@@ -24,6 +24,7 @@
     <nav class="nav">
       <a href="./#features">Features</a>
       <a href="tutorial.html" aria-current="page">Tutorial</a>
+      <a href="cheatsheet.html">Cheat sheet</a>
       <a href="testing.html">Testing</a>
       <a href="examples.html">Examples</a>
       <a href="ohanashi.html">Ohanashi</a>
@@ -61,6 +62,7 @@
     <li><a href="#ffi">Calling C functions</a></li>
     <li><a href="#binaries">Native binaries</a></li>
     <li><a href="#testing">Testing</a></li>
+    <li><a href="#mistakes">Common mistakes</a></li>
     <li><a href="#next">Where to go next</a></li>
   </ol>
 </aside>
@@ -313,7 +315,26 @@ x を 二倍する とは x * 2 です        # 二倍する = double
 合格 2・不合格 0</pre></div>
   <p><code>合格</code> means passed and <code>不合格</code> failed. In a <code>kumu</code> project, <code>kumu 試験</code> runs these and the tests in the <code>試験/</code> folder. The <a href="testing.html">testing page</a> covers all of it, including CI.</p>
 
-  <h2 id="next"><span class="n">17</span>Where to go next</h2>
+  <h2 id="mistakes"><span class="n">17</span>Common mistakes</h2>
+  <p>These are the mistakes people make most often when they start. The checker points at each of them with a message; <code>suru --点検 ファイル.suru</code> (the linter) also finds names you never use and lines that are hard to read. For a page of everything that <em>is</em> right, see the <a href="cheatsheet.html">cheat sheet</a>.</p>
+  <div class="table-scroll"><table class="cheat three">
+    <thead><tr><th>Instead of</th><th>Write</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><code>おやつ とは 3</code></td><td><code>『おやつ』 とは 3</code></td><td>Names with hiragana go in 『』, or use kanji or katakana. Hiragana is kept for particles.</td></tr>
+      <tr><td><code>1、2、3</code></td><td><code>1 と 2 と 3</code></td><td>Lists are joined with と. 「、」 and 「・」 mean something else.</td></tr>
+      <tr><td><code>x を 流す とは x</code></td><td><code>x を 流出する とは x</code></td><td>A function name ends in する.</td></tr>
+      <tr><td><code>a+b</code></td><td><code>a + b</code></td><td>In the spaced style, a+b with no spaces reads as one name.</td></tr>
+      <tr><td><code>3 を 二乗する + 1</code></td><td><code>（3 を 二乗する） + 1</code></td><td>Put a call in （） before using it in arithmetic.</td></tr>
+      <tr><td><code>「値: 」 + n</code></td><td><code>「値: 」 + （n を 文字列化する）</code></td><td>+ joins two strings, not a string and a number.</td></tr>
+      <tr><td><code>1 と 「a」</code></td><td><code>1 と 2</code></td><td>A list holds one type. Use a record or your own type for mixed values.</td></tr>
+      <tr><td><code>「数学」 を 読み込む … 二乗する</code></td><td><code>数学内の二乗する</code></td><td>Names from a loaded file take its name as a prefix, or load it with 読み込んで 使う.</td></tr>
+      <tr><td><code>以下の手順です …(以上なし)</code></td><td><code>… 以上です</code></td><td>Close a block of steps with a line 以上です.</td></tr>
+      <tr><td><code>xs の それぞれ を 表示する</code></td><td><code>（xs の それぞれ を 表示する） を 実行する</code></td><td>Inside steps, the first only makes a list of actions. 実行する runs them.</td></tr>
+      <tr><td><code>xs から 0 を 番目取得する</code></td><td><code>xs から 1 を 番目取得する</code></td><td>Positions count from 1.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="next"><span class="n">18</span>Where to go next</h2>
   <p>You have seen the core of the language. The repository has much more: threads and channels, calling C and Go, JSON, the Japanese calendar, and the full list of design decisions.</p>
   <div class="next">
     <a href="https://github.com/suru-lang/suru">Repository and full reference<span>README with every rule of the grammar</span></a>
