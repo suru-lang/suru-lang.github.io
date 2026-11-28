@@ -47,7 +47,7 @@
 <article class="article">
   <span class="eyebrow">Typing practice</span>
   <h1>Practice typing <span class="glow">日本語</span></h1>
-  <p class="lead">Type each word with your Japanese input method and press <strong>Submit (回答)</strong>. When it matches, you move on. If you haven’t turned on the input method yet, start with <a href="typing.html">Typing Japanese</a>.</p>
+  <p class="lead">Think Japanese looks cool but have never typed it? You need no Japanese keyboard and no Japanese. In about ten minutes you will turn on the Japanese input that is already in your computer, then type hiragana, katakana and kanji. Type each word and press <strong>Submit (回答)</strong>; when it matches, you move on.</p>
   <noscript><p class="note">This page needs JavaScript.</p></noscript>
 
   <section class="tp" id="tp" hidden>
@@ -55,6 +55,35 @@
     <p id="tp-intro"></p>
     <div class="tp-card">
       <div class="tp-progress"><span id="tp-count"></span><span class="tp-bar"><i id="tp-fill"></i></span></div>
+      <div class="tp-setup" id="tp-setup" hidden>
+        <div class="tp-tabs tp-os" role="tablist" aria-label="Your system">
+          <button type="button" role="tab" data-os="win">Windows</button>
+          <button type="button" role="tab" data-os="mac">macOS</button>
+          <button type="button" role="tab" data-os="linux">Ubuntu</button>
+          <button type="button" role="tab" data-os="phone">Phone</button>
+        </div>
+        <ol class="tp-steps" data-os="win">
+          <li>Open <strong>Settings → Time &amp; language → Language &amp; region</strong>.</li>
+          <li>Click <strong>Add a language</strong>, choose <strong>日本語 (Japanese)</strong> and install it. This adds <strong>Microsoft IME</strong>.</li>
+          <li>Click <strong>⋯ → Language options</strong> next to Japanese and set <strong>Keyboard layout</strong> to <strong>English keyboard (101/102 key)</strong>, then restart.</li>
+          <li>Press <kbd>Win</kbd>+<kbd>Space</kbd> to pick Japanese, then <kbd>Alt</kbd>+<kbd>`</kbd> until the taskbar shows <code>あ</code>.</li>
+        </ol>
+        <ol class="tp-steps" data-os="mac">
+          <li>Open <strong>System Settings → Keyboard</strong>, and next to <strong>Input Sources</strong> click <strong>Edit…</strong>.</li>
+          <li>Click <strong>+</strong>, choose <strong>Japanese</strong>, then <strong>Romaji</strong>, and click <strong>Add</strong>.</li>
+          <li>Press <kbd>Ctrl</kbd>+<kbd>Space</kbd> (or the <kbd>🌐</kbd> key) until the menu bar shows <code>あ</code>.</li>
+        </ol>
+        <ol class="tp-steps" data-os="linux">
+          <li>In a terminal, run <code>sudo apt install ibus-mozc</code>, then log out and back in.</li>
+          <li>Open <strong>Settings → Keyboard</strong>, click <strong>+ Add Input Source</strong>, and choose <strong>Japanese → Japanese (Mozc)</strong>.</li>
+          <li>Press <kbd>Super</kbd>+<kbd>Space</kbd> to pick Mozc. If it still types Latin letters, choose <strong>Input Mode → Hiragana</strong> from the top bar.</li>
+        </ol>
+        <ol class="tp-steps" data-os="phone">
+          <li><strong>iPhone and iPad:</strong> Settings → General → Keyboard → Keyboards → Add New Keyboard → <strong>Japanese → Romaji</strong>. Tap 🌐 on the keyboard to switch.</li>
+          <li><strong>Android (Gboard):</strong> Gboard settings → Languages → Add keyboard → <strong>日本語 → QWERTY</strong>. Tap 🌐 to switch.</li>
+        </ol>
+        <p class="tp-setup-more">More detail, including fcitx5 and other settings, is on <a href="typing.html">Typing Japanese</a>.</p>
+      </div>
       <p class="tp-label">Type this</p>
       <div class="tp-target-row"><p class="tp-target" id="tp-target" lang="ja"></p><button type="button" class="tp-say" id="tp-say" hidden aria-label="Listen to the word" title="Listen">🔊</button></div>
       <p class="tp-meaning" id="tp-meaning"></p>
@@ -66,6 +95,7 @@
       <div class="tp-actions">
         <button type="button" class="btn ghost" id="tp-hint">Show the keys</button>
         <button type="button" class="btn ghost" id="tp-skip">Skip</button>
+        <button type="button" class="btn ghost" id="tp-gosetup" hidden>Set up Japanese input</button>
         <button type="button" class="btn primary" id="tp-next" hidden>Next →</button>
       </div>
       <p class="tp-keys" id="tp-keys" hidden></p>

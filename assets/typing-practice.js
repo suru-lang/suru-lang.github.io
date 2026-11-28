@@ -8,6 +8,13 @@
   // Each item: answer (what must be typed), keys (what to press), meaning (English).
   var LESSONS = [
     {
+      id: "setup", name: "Set up your keyboard",
+      intro: "Your computer already has a Japanese input method; it only has to be turned on. Follow the steps for your system below (we picked the one you seem to use). Then switch to Japanese mode, type the letter a, press Enter, and submit. If you see あ, you are ready.",
+      items: [
+        { answer: "あ", keys: "a, then Enter (in Japanese mode)", meaning: "the first letter of the Japanese alphabet (the sound “a”)" }
+      ]
+    },
+    {
       id: "hiragana", name: "Hiragana",
       intro: "Switch to Japanese mode (あ). Type the romaji and the letters turn into hiragana as you type. Press Enter to confirm without converting, then Enter again (or the button) to submit.",
       items: [
@@ -73,7 +80,7 @@
     }
   ];
 
-  var KEY = "suru-typing-practice";
+  var KEY = "suru-typing-practice-2";
   var state = load();
 
   function load() {
@@ -99,7 +106,9 @@
 
   function hintFor(got, want) {
     if (!got) return "Type the word in the box first.";
-    if (/^[\x20-\x7e]+$/.test(got)) return "These are Latin letters, so the input method is off. Switch to Japanese mode (あ) and type it again.";
+    if (/^[\x20-\x7e]+$/.test(got)) return LESSONS[state.lesson].id === "setup"
+      ? "Still Latin letters, so Japanese mode is not on yet. Follow the steps above, switch to あ, and type a again."
+      : "These are Latin letters, so the input method is off. Switch to Japanese mode (あ) and type it again, or set it up first.";
     if (/[a-zA-Z]/.test(got)) {
       if (/n/i.test(got)) return "A letter was left over. A lone n stays as a letter: type nn for ん.";
       return "Some letters were not turned into kana. Check the romaji under “Show the keys”.";
@@ -149,6 +158,8 @@
     var kanaLesson = { hiragana: "hira", tricky: "hira", katakana: "kata" }[l.id];
     $("tp-chart").hidden = !kanaLesson;
     if (kanaLesson && $("tp-chart").dataset.lesson !== l.id) { chartKind = kanaLesson; $("tp-chart").dataset.lesson = l.id; renderChart(); }
+    $("tp-setup").hidden = l.id !== "setup";
+    $("tp-gosetup").hidden = true;
     keys.textContent = "Keys: " + it.keys;
     keys.hidden = true;
     result.textContent = ""; result.className = "tp-result";
@@ -177,7 +188,8 @@
       solved = true;
       state.done[l.id + "/" + state.item] = true; save();
       var last = state.item + 1 === l.items.length;
-      result.textContent = last ? "Success! Lesson complete." : "Success!";
+      result.textContent = l.id === "setup" ? "Success! Your Japanese input works." : last ? "Success! Lesson complete." : "Success!";
+      $("tp-gosetup").hidden = true;
       result.className = "tp-result ok"; input.className = "tp-input ok"; input.readOnly = true;
       $("tp-submit").disabled = true; $("tp-skip").hidden = true;
       next.textContent = last ? (state.lesson + 1 < LESSONS.length ? "Next lesson →" : "Finish →") : "Next →";
@@ -186,6 +198,7 @@
       renderToc();
     } else {
       result.textContent = hintFor(got, it.answer);
+      $("tp-gosetup").hidden = !(l.id !== "setup" && /^[\x20-\x7e]+$/.test(got));
       result.className = "tp-result bad"; input.className = "tp-input bad";
     }
   }
@@ -303,6 +316,19 @@
   $("tp-tab-kata").addEventListener("click", function () { chartKind = "kata"; renderChart(); });
   $("tp-say").addEventListener("click", function () { say($("tp-target").textContent); });
   if (canSpeak) { $("tp-say").hidden = false; $("tp-sound-note").hidden = false; speechSynthesis.getVoices(); }
+
+  // ---------- setup: pick the reader's system ----------
+  var ua = navigator.userAgent || "";
+  var OS = /Android|iPhone|iPad/.test(ua) ? "phone" : MAC ? "mac" : /Win/.test(navigator.platform || ua) ? "win" : /Linux|X11/.test(ua) ? "linux" : "win";
+  function showOS(os) {
+    Array.prototype.forEach.call(document.querySelectorAll(".tp-os button"), function (b) { b.setAttribute("aria-selected", String(b.dataset.os === os)); });
+    Array.prototype.forEach.call(document.querySelectorAll(".tp-steps"), function (ol) { ol.hidden = ol.dataset.os !== os; });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".tp-os button"), function (b) {
+    b.addEventListener("click", function () { showOS(b.dataset.os); });
+  });
+  showOS(OS);
+  $("tp-gosetup").addEventListener("click", function () { go(0, 0); });
 
   var start = LESSONS.findIndex(function (l) { return "#" + l.id === location.hash; });
   if (start >= 0) { state.lesson = start; state.item = 0; state.finished = false; }
