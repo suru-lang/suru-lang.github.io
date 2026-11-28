@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>早見表 — する (suru)</title>
+<meta name="description" content="する (suru) の早見表: 助詞・値・関数・つなぎ方・条件・型・動作・ライブラリ・試験・コマンドを1ページに。">
+<link rel="alternate" hreflang="en" href="https://suru-lang.github.io/cheatsheet.html">
+<link rel="alternate" hreflang="ja" href="https://suru-lang.github.io/ja/cheatsheet.html">
+<link rel="alternate" hreflang="x-default" href="https://suru-lang.github.io/cheatsheet.html">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-mark" src="../assets/suruzou.svg" alt="" width="38" height="38">する <small>suru</small></a>
+    <nav class="nav">
+      <a href="./#features">特徴</a>
+      <a href="tutorial.html">入門</a>
+      <a href="cheatsheet.html" aria-current="page">早見表</a>
+      <a href="testing.html">試験</a>
+      <a href="examples.html">例</a>
+      <a href="ohanashi.html">おはなし</a>
+      <a href="playground.html">試す</a>
+      <a href="libraries.html">ライブラリ</a>
+      <a href="rclsuru.html">ROS 2</a>
+      <a href="./#install">入れ方</a>
+      <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a>
+      <a href="https://github.com/suru-lang/suru">GitHub</a>
+    </nav>
+    <div class="lang" aria-label="言語">
+      <a href="../cheatsheet.html" hreflang="en" lang="en">EN</a><span aria-current="true">日本語</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+<aside class="toc">
+  <p>早見表</p>
+  <ol>
+    <li><a href="#particles">助詞</a></li>
+    <li><a href="#values">値と名前</a></li>
+    <li><a href="#functions">関数</a></li>
+    <li><a href="#chains">つなぐ・関数を値に</a></li>
+    <li><a href="#conditions">条件と場合分け</a></li>
+    <li><a href="#data">自分の型</a></li>
+    <li><a href="#actions">動作(入出力)</a></li>
+    <li><a href="#modules">ファイルとライブラリ</a></li>
+    <li><a href="#testing">試験</a></li>
+    <li><a href="#commands">コマンド</a></li>
+    <li><a href="#more">もっと知る</a></li>
+  </ol>
+</aside>
+
+<article class="article">
+  <span class="eyebrow">早見</span>
+  <h1><span class="glow">する</span> の早見表</h1>
+  <p class="lead">言語の全体を1ページにまとめました。1行に1つ、書けることとその意味を並べています。例はどれも、そのまま動きます。くわしくは<a href="tutorial.html">入門</a>に順に書いてあり、<a href="playground.html">試す</a>のページで動かせます。</p>
+
+  <h2 id="particles"><span class="n">01</span>助詞</h2>
+  <p>助詞が引数の役目を表すので、順番は自由です。</p>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>を</code></td><td>する相手(目的語)</td></tr>
+      <tr><td><code>に</code></td><td>行き先・相手: <code>5 を 数列 に 追加する</code></td></tr>
+      <tr><td><code>で</code></td><td>道具・やり方: <code>10 を 2 で 割った数にする</code></td></tr>
+      <tr><td><code>から</code></td><td>始まり: <code>1 から 5 を 範囲にする</code></td></tr>
+      <tr><td><code>へ・より</code></td><td>向かう先・比べる相手</td></tr>
+      <tr><td><code>と</code></td><td>リストをつなぐ: <code>1 と 2 と 3</code></td></tr>
+      <tr><td><code>の</code></td><td>性質・欄: <code>数列 の 長さ</code></td></tr>
+      <tr><td><code>が</code></td><td>判定の主語: <code>n が 偶数である</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="values"><span class="n">02</span>値と名前</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>42　3.14</code></td><td>数(数)</td></tr>
+      <tr><td><code>「こんにちは」</code></td><td>文字列(文字列)。<code>+</code> でつなぐ</td></tr>
+      <tr><td><code>真　偽</code></td><td>真と偽(真偽)</td></tr>
+      <tr><td><code>1 と 2 と 3</code></td><td>リスト</td></tr>
+      <tr><td><code>空</code></td><td>空のリスト</td></tr>
+      <tr><td><code>税率 とは 0.1 です</code></td><td>値に名前を付ける</td></tr>
+      <tr><td><code># …</code></td><td>注釈(<code>＃</code>・<code>※</code> も)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="functions"><span class="n">03</span>関数</h2>
+  <p>関数の名前は「する」で終わります。とは で定義し、同じ助詞で呼びます。</p>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>x を 二乗する とは x * x です</code></td><td>関数を定義する</td></tr>
+      <tr><td><code>5 を 二乗する</code></td><td>呼ぶ</td></tr>
+      <tr><td><code>a を b で 割った数にする とは a / b です</code></td><td>引数2つ。助詞で区別する</td></tr>
+      <tr><td><code>数 を 二乗する は 数 を 返す</code></td><td>型を宣言する(書かなくてもよい)</td></tr>
+      <tr><td><code>n が 偶数である とは n % 2 が 0 です</code></td><td>判定: である で終わる。<code>…でない</code> は否定</td></tr>
+      <tr><td><code>0 を 階乗する とは 1 です</code></td><td>値ごとの場合(再帰)</td></tr>
+      <tr><td><code>ただし 合計 とは a + b です</code></td><td>局所の名前。定義の次の行に書く</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="chains"><span class="n">04</span>つなぐ・関数を値に</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>3 を 二乗して 1 に 加算する</code></td><td>して で結果を次へ渡す</td></tr>
+      <tr><td><code>数列 の それぞれ を 二乗する</code></td><td>要素それぞれに</td></tr>
+      <tr><td><code>二乗すること</code></td><td>関数そのもの(値として)</td></tr>
+      <tr><td><code>（10 を 加算すること）</code></td><td>部分適用</td></tr>
+      <tr><td><code>数列 を （10 を 加算すること） で 写像する</code></td><td>写像する(map)</td></tr>
+      <tr><td><code>数列 から 偶数であること で 選別する</code></td><td>選別する(filter)</td></tr>
+      <tr><td><code>数列 を 0 から 加算すること で 畳み込みする</code></td><td>畳み込みする(fold)</td></tr>
+      <tr><td><code>（x を 受け取って x &gt; 2 を 返すこと）</code></td><td>無名関数</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="conditions"><span class="n">05</span>条件と場合分け</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>もし c ならば a そうでなければ b</code></td><td>もし … ならば … そうでなければ</td></tr>
+      <tr><td><code>かつ　または</code></td><td>かつ・または</td></tr>
+      <tr><td><code>=　≠　&lt;　&gt;　&lt;=　&gt;=</code></td><td>比べる</td></tr>
+      <tr><td><code>もし 形 が … ならば …</code></td><td>形で場合分け(下の例)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>例</span></div>
+<pre class="suru">図形 とは 半径 の 円 か 幅 と 高 の 長方形 です
+
+形 を 面積にする とは
+  もし 形 が
+    半径 の 円 ならば 3 * 半径 ^ 2 です
+    幅 と 高 の 長方形 ならば 幅 * 高 です</pre></div>
+
+  <h2 id="data"><span class="n">06</span>自分の型</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>図形 とは 半径 の 円 か 幅 と 高 の 長方形 です</code></td><td>形が2つある型</td></tr>
+      <tr><td><code>5 の 円</code></td><td>作る</td></tr>
+      <tr><td><code>人 とは 名前 は 文字列 で 年 は 数 の 組</code></td><td>組(レコード)の型</td></tr>
+      <tr><td><code>名前 は 「太郎」 で 年 は 20 の 人</code></td><td>組を作る</td></tr>
+      <tr><td><code>太郎 の 年</code></td><td>欄を読む</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="actions"><span class="n">07</span>動作(入出力)</h2>
+  <p>読み書きする手順は、以下の手順です … 以上です のまとまりに、順に書きます。</p>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>「やあ」 を 表示する</code></td><td>1行を表示する</td></tr>
+      <tr><td><code>x とは … を 入力した 結果</code></td><td>手順の中で、動作の結果に名前を付ける</td></tr>
+      <tr><td><code>… は 無 を 返す 入出力動作</code></td><td>動作の型</td></tr>
+    </tbody>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>例</span></div>
+<pre class="suru">挨拶する は 無 を 返す 入出力動作
+挨拶する とは 以下の手順です
+  名前 とは 「お名前は? 」 を 入力した 結果
+  「こんにちは、」 + 名前 + 「さん」 を 表示する
+  以上です</pre></div>
+
+  <h2 id="modules"><span class="n">08</span>ファイルとライブラリ</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>「標準」 を 読み込んで 使う</code></td><td>標準ライブラリを前置きなしで使う</td></tr>
+      <tr><td><code>「数学」 を 読み込む</code></td><td>数学.suru を読み込む。中の名前は <code>数学内の…</code></td></tr>
+      <tr><td><code>3 と 1 と 2 を 整列する</code></td><td>並べる(標準)</td></tr>
+      <tr><td><code>「a,b,c」 を 「,」 で 分割する</code></td><td>分ける(標準)</td></tr>
+      <tr><td><code>x と y は 非公開とする</code></td><td>ファイルの終わりに。名前を外から見えなくする</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="testing"><span class="n">09</span>試験</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>例えば （3 を 二乗する） は 9 です</code></td><td>定義の下の例。試験として確かめる</td></tr>
+      <tr><td><code>以下は「…」の試験です … 以上です</code></td><td>試験のまとまり(下の例)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>例</span></div>
+<pre class="suru">x を 二乗する とは x * x です
+例えば （3 を 二乗する） は 9 です
+
+以下は「二乗」の試験です
+  （4 を 二乗する） を 16 に 一致確認する
+  以上です</pre></div>
+
+  <h2 id="commands"><span class="n">10</span>コマンド</h2>
+  <div class="table-scroll"><table class="cheat">
+    <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><code>suru ファイル.suru</code></td><td>プログラムを動かす</td></tr>
+      <tr><td><code>suru --点検 ファイル.suru</code></td><td>点検: 使っていない名前、読みにくい行など</td></tr>
+      <tr><td><code>suru --試験 .</code></td><td>試験と例を全部動かす</td></tr>
+      <tr><td><code>suruc ファイル.suru -o 出力</code></td><td>ネイティブのバイナリを作る</td></tr>
+      <tr><td><code>kumu 新規 名前</code></td><td>プロジェクトを作る</td></tr>
+      <tr><td><code>kumu 実行　kumu 試験　kumu 点検</code></td><td>プロジェクトを動かす・試験する・点検する</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="more"><span class="n">11</span>もっと知る</h2>
+  <div class="next">
+    <a href="tutorial.html">入門<span>1行ずつ、順に説明します</span></a>
+    <a href="playground.html">試す<span>例をブラウザで動かす</span></a>
+    <a href="https://github.com/suru-lang/suru/blob/main/README_jp.md">言語の README<span>すべての決まりと、その理由</span></a>
+    <a href="https://suru.readthedocs.io/en/latest/">API ドキュメント<span>ライブラリの関数の一覧</span></a>
+  </div>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>する — コンパイラと道具は GPL-3.0-or-later、実行時ライブラリと標準ライブラリは MIT。あなたが書いたプログラムは、あなたのものです。</span>
+    <span><a href="./">トップ</a> · <a href="https://suru.readthedocs.io/en/latest/">ドキュメント</a> · <a href="https://github.com/suru-lang/suru">GitHub</a> · <a href="../cheatsheet.html" lang="en">English</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

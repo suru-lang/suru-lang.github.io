@@ -488,3 +488,7 @@ td:first-child { font-family: var(--font-jp); font-weight: 700; color: var(--pin
 .tp-steps { margin: 0 0 8px; padding-left: 22px; }
 .tp-steps li { margin: 6px 0; }
 .article .tp-setup-more { margin: 6px 0 8px; font-size: 14px; color: var(--muted); }
+
+/* cheat sheet */
+table.cheat td:first-child { font-family: inherit; font-weight: 400; font-size: 15px; color: inherit; width: 52%; }
+table.cheat td:first-child code { white-space: normal; color: var(--pink); }
