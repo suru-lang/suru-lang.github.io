@@ -465,3 +465,25 @@ td:first-child { font-family: var(--font-jp); font-weight: 700; color: var(--pin
 .tp-more-grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-top: 8px; }
 .article .tp-chart-extra { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
 @media (max-width: 640px) { .tp-kana td { width: 48px; } .tp-kana b { font-size: 19px; } .tp-combo td { width: 60px; } .tp-card { padding: 18px 14px; } }
+
+/* ---------- entry points to the typing practice ---------- */
+.pg-head { display: flex; align-items: center; gap: 28px; }
+.pg-head > div:first-child { flex: 1 1 auto; min-width: 0; }
+.pg-learn {
+  flex: 0 1 380px; display: flex; gap: 16px; align-items: center; margin-bottom: 24px; padding: 16px 20px; border-radius: 14px;
+  border: 1px solid rgba(255,79,154,.5); background: linear-gradient(135deg, rgba(255,79,154,.14), rgba(94,234,255,.08)); color: var(--text);
+  box-shadow: 0 0 28px rgba(255,79,154,.18); transition: transform .15s, box-shadow .15s;
+}
+.pg-learn:hover { text-decoration: none; transform: translateY(-2px); box-shadow: 0 0 36px rgba(255,79,154,.32); }
+.pg-learn-kana { flex: none; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; font-family: var(--font-jp); font-weight: 900; font-size: 34px; background: var(--pink); color: #fff; box-shadow: 0 0 20px rgba(255,79,154,.6); }
+.pg-learn-text { font-size: 15px; color: #d9def3; line-height: 1.5; }
+.pg-learn-text strong { display: block; color: var(--text); font-size: 17px; }
+.pg-learn-go { display: block; margin-top: 4px; color: var(--cyan); font-weight: 600; }
+@media (max-width: 860px) { .pg-head { flex-direction: column; align-items: stretch; gap: 0; } .pg-learn { flex-basis: auto; } }
+.hero-typing { margin: 18px 0 0; color: var(--muted); font-size: 15px; }
+.tp-setup { margin: 4px 0 18px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.tp-os { margin-bottom: 12px; flex-wrap: wrap; }
+.tp-os button[aria-selected="true"] { background: var(--cyan); color: #04121a; font-weight: 600; }
+.tp-steps { margin: 0 0 8px; padding-left: 22px; }
+.tp-steps li { margin: 6px 0; }
+.article .tp-setup-more { margin: 6px 0 8px; font-size: 14px; color: var(--muted); }
