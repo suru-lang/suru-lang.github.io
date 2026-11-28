@@ -492,3 +492,5 @@ td:first-child { font-family: var(--font-jp); font-weight: 700; color: var(--pin
 /* cheat sheet */
 table.cheat td:first-child { font-family: inherit; font-weight: 400; font-size: 15px; color: inherit; width: 52%; }
 table.cheat td:first-child code { white-space: normal; color: var(--pink); }
+table.cheat.three td:first-child, table.cheat.three td:nth-child(2) { width: 30%; }
+table.cheat.three td:nth-child(2) code { color: var(--cyan); }
