@@ -146,6 +146,9 @@
     $("tp-fill").style.width = (100 * doneCount() / total()) + "%";
     $("tp-target").textContent = it.answer;
     $("tp-meaning").textContent = it.meaning;
+    var kanaLesson = { hiragana: "hira", tricky: "hira", katakana: "kata" }[l.id];
+    $("tp-chart").hidden = !kanaLesson;
+    if (kanaLesson && $("tp-chart").dataset.lesson !== l.id) { chartKind = kanaLesson; $("tp-chart").dataset.lesson = l.id; renderChart(); }
     keys.textContent = "Keys: " + it.keys;
     keys.hidden = true;
     result.textContent = ""; result.className = "tp-result";
@@ -206,6 +209,100 @@
   $("tp-reset").addEventListener("click", function () {
     state = { lesson: 0, item: 0, done: {} }; save(); render();
   });
+
+
+  // ---------- kana chart ----------
+  var BASIC = [
+    ["あ a", "い i", "う u", "え e", "お o"],
+    ["か ka", "き ki", "く ku", "け ke", "こ ko"],
+    ["さ sa", "し shi", "す su", "せ se", "そ so"],
+    ["た ta", "ち chi", "つ tsu", "て te", "と to"],
+    ["な na", "に ni", "ぬ nu", "ね ne", "の no"],
+    ["は ha", "ひ hi", "ふ fu", "へ he", "ほ ho"],
+    ["ま ma", "み mi", "む mu", "め me", "も mo"],
+    ["や ya", "", "ゆ yu", "", "よ yo"],
+    ["ら ra", "り ri", "る ru", "れ re", "ろ ro"],
+    ["わ wa", "", "", "", "を wo"],
+    ["ん nn", "", "", "", ""]
+  ];
+  var VOICED = [
+    ["が ga", "ぎ gi", "ぐ gu", "げ ge", "ご go"],
+    ["ざ za", "じ ji", "ず zu", "ぜ ze", "ぞ zo"],
+    ["だ da", "ぢ di", "づ du", "で de", "ど do"],
+    ["ば ba", "び bi", "ぶ bu", "べ be", "ぼ bo"],
+    ["ぱ pa", "ぴ pi", "ぷ pu", "ぺ pe", "ぽ po"]
+  ];
+  var COMBO = [
+    ["きゃ kya", "きゅ kyu", "きょ kyo"], ["しゃ sha", "しゅ shu", "しょ sho"],
+    ["ちゃ cha", "ちゅ chu", "ちょ cho"], ["にゃ nya", "にゅ nyu", "にょ nyo"],
+    ["ひゃ hya", "ひゅ hyu", "ひょ hyo"], ["みゃ mya", "みゅ myu", "みょ myo"],
+    ["りゃ rya", "りゅ ryu", "りょ ryo"], ["ぎゃ gya", "ぎゅ gyu", "ぎょ gyo"],
+    ["じゃ ja", "じゅ ju", "じょ jo"], ["びゃ bya", "びゅ byu", "びょ byo"],
+    ["ぴゃ pya", "ぴゅ pyu", "ぴょ pyo"]
+  ];
+  var chartKind = "hira";
+
+  var canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function";
+  function jaVoice() {
+    var vs = canSpeak ? speechSynthesis.getVoices() : [];
+    for (var i = 0; i < vs.length; i++) if (/^ja/i.test(vs[i].lang)) return vs[i];
+    return null;
+  }
+  function say(text) {
+    if (!canSpeak) return;
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = "ja-JP"; u.rate = 0.8;
+    var v = jaVoice(); if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  }
+
+  function table(rows, cls, kata) {
+    var t = document.createElement("table");
+    t.className = "tp-kana " + cls;
+    rows.forEach(function (row) {
+      var tr = document.createElement("tr");
+      row.forEach(function (cell) {
+        var td = document.createElement("td");
+        if (cell) {
+          var parts = cell.split(" "), kana = kata ? toKatakana(parts[0]) : parts[0];
+          var el = document.createElement(canSpeak ? "button" : "span");
+          if (canSpeak) { el.type = "button"; el.title = "Listen to " + kana; el.addEventListener("click", function () { say(kana); }); }
+          el.innerHTML = '<b></b><small lang="en"></small>';
+          el.firstChild.textContent = kana; el.lastChild.textContent = parts[1];
+          td.appendChild(el);
+        }
+        tr.appendChild(td);
+      });
+      t.appendChild(tr);
+    });
+    return t;
+  }
+  function renderChart() {
+    var body = $("tp-chart-body"), kata = chartKind === "kata";
+    body.innerHTML = "";
+    body.appendChild(table(BASIC, "tp-basic", kata));
+    var more = document.createElement("details");
+    more.className = "tp-more";
+    more.innerHTML = "<summary lang=\"en\">Voiced sounds and combinations (が, きゃ …)</summary>";
+    var wrap = document.createElement("div"); wrap.className = "tp-more-grid";
+    wrap.appendChild(table(VOICED, "tp-voiced", kata));
+    wrap.appendChild(table(COMBO, "tp-combo", kata));
+    more.appendChild(wrap);
+    body.appendChild(more);
+    var extra = document.createElement("p");
+    extra.className = "tp-chart-extra"; extra.lang = "en";
+    extra.textContent = kata
+      ? "ー (long vowel): the - key. Small ッ: double the next consonant (ネット = netto). Small ァィゥェォ: x + vowel."
+      : "Small っ: double the next consonant (きって = kitte). Small ぁぃぅぇぉ: x + vowel (xa = ぁ).";
+    body.appendChild(extra);
+    $("tp-tab-hira").setAttribute("aria-selected", String(!kata));
+    $("tp-tab-kata").setAttribute("aria-selected", String(kata));
+  }
+  $("tp-tab-hira").addEventListener("click", function () { chartKind = "hira"; renderChart(); });
+  $("tp-tab-kata").addEventListener("click", function () { chartKind = "kata"; renderChart(); });
+  $("tp-say").addEventListener("click", function () { say($("tp-target").textContent); });
+  if (canSpeak) { $("tp-say").hidden = false; $("tp-sound-note").hidden = false; speechSynthesis.getVoices(); }
 
   var start = LESSONS.findIndex(function (l) { return "#" + l.id === location.hash; });
   if (start >= 0) { state.lesson = start; state.item = 0; state.finished = false; }

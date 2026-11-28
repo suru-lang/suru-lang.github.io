@@ -439,3 +439,29 @@ td:first-child { font-family: var(--font-jp); font-weight: 700; color: var(--pin
 .tp-reset { margin-top: 14px; background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 5px 10px; font: inherit; font-size: 13px; cursor: pointer; }
 .tp-reset:hover { color: var(--text); }
 .tp-card [hidden], .tp[hidden], .tp-done[hidden] { display: none !important; }
+.tp-target-row { display: flex; align-items: center; gap: 12px; }
+.tp-say { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); background: rgba(13,21,40,.8); font-size: 20px; cursor: pointer; }
+.tp-say:hover { border-color: var(--cyan); }
+.tp-chart { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+.tp-chart-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 10px; }
+.tp-tabs { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 999px; overflow: hidden; }
+.tp-tabs button { background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; padding: 6px 14px; cursor: pointer; }
+.tp-tabs button[aria-selected="true"] { background: var(--cyan); color: #04121a; font-weight: 600; }
+.article .tp-chart-note { margin: 0; color: var(--muted); font-size: 14px; }
+.tp-kana { width: auto; border-collapse: separate; border-spacing: 4px; margin: 0; }
+.tp-kana td { padding: 0; border: 0; width: 56px; }
+.tp-kana td:first-child { color: inherit; font-weight: inherit; font-size: inherit; }
+.tp-kana button, .tp-kana span {
+  display: flex; flex-direction: column; align-items: center; width: 100%; padding: 5px 0 4px; border-radius: 8px;
+  border: 1px solid var(--line); background: rgba(6,10,22,.7); color: var(--text); font: inherit;
+}
+.tp-kana button { cursor: pointer; }
+.tp-kana button:hover { border-color: var(--cyan); background: rgba(94,234,255,.08); }
+.tp-kana b { font-family: var(--font-jp); font-size: 22px; line-height: 1.2; }
+.tp-kana small { font-family: var(--font-code); font-size: 12px; color: var(--amber); }
+.tp-combo td { width: 70px; }
+.tp-more { margin-top: 10px; }
+.tp-more summary { cursor: pointer; color: var(--cyan); font-size: 14px; }
+.tp-more-grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-top: 8px; }
+.article .tp-chart-extra { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+@media (max-width: 640px) { .tp-kana td { width: 48px; } .tp-kana b { font-size: 19px; } .tp-combo td { width: 60px; } .tp-card { padding: 18px 14px; } }
